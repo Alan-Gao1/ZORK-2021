@@ -1,72 +1,102 @@
 {
   "rooms": [
     {
+      "id": "Lobby",
+      "name": "Lobby",
+      "description": "You are in the lobby of the school on the second floor.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Cafeteria"
+        },
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "Hallway"
+        }
+      ]
+    },
+    {
+      "id": "Cafeteria",
+      "name": "Cafeteria",
+      "description": "You are in a large Cafeteria",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "Lobby"
+        }
+      ]
+    },
+    {
       "id": "Hallway",
       "name": "Hallway",
-      "description": "You are in a long hallway. There are family pictures on all of the walls.",
+      "description": "You are now in a long hallway",
+      "exits": [
+        {
+          "isLocked": true,
+          "direction": "NorthWest",
+          "adjacentRoom": "Theatre",
+          "keyId": "9"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "LearningCommons"
+        },
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "Lobby"
+        },
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "Hallway2"
+        }
+      ]
+    },
+    {
+      "id": "Hallway2",
+      "name": "Hallway 2",
+      "description": "You are now in the second hallway",
       "exits": [
         {
           "isLocked": false,
           "direction": "North",
-          "adjacentRoom": "Bedroom"
-        },
-        {
-          "isLocked": true,
-          "direction": "East",
-          "adjacentRoom": "Bathroom",
-          "keyId": "1234"
-        }
-      ]
-    },
-    {
-      "id": "Bedroom",
-      "name": "Bedroom",
-      "description": "You are in a large bedroom",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "South",
           "adjacentRoom": "Hallway"
         },
         {
           "isLocked": false,
-          "direction": "SouthEast",
-          "adjacentRoom": "Bathroom"
+          "direction": "South",
+          "adjacentRoom": "Gr.11CommonArea"
         },
         {
           "isLocked": false,
           "direction": "East",
-          "adjacentRoom": "Closet"
-        }
-      ]
-    },
-    {
-      "id": "Bathroom",
-      "name": "Bathroom",
-      "description": "You are in a blue bathroom",
-      "exits": [
+          "adjacentRoom": "H2Staircase"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Room 212"
+        },
         {
           "isLocked": true,
+          "direction": "NorthEast",
+          "adjacentRoom": "Theatre",
+          "keyId": "9"
+        },
+        {
+          "isLocked": false,
           "direction": "West",
-          "adjacentRoom": "Hallway",
-          "keyId": "1234"
+          "adjacentRoom": "Hallway3"
         },
         {
           "isLocked": false,
           "direction": "NorthWest",
-          "adjacentRoom": "Bedroom"
-        }
-      ]
-    },
-    {
-      "id": "Closet",
-      "name": "Closet",
-      "description": "You are in the closet. It is dark.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "West",
-          "adjacentRoom": "Bedroom"
+          "adjacentRoom": "LearningCommons"
         }
       ]
     }
