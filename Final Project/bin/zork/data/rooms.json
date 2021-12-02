@@ -99,6 +99,86 @@
           "adjacentRoom": "LearningCommons"
         }
       ]
+    },
+    {
+      "id": "LearningCommons",
+      "name": "Learning Commons",
+      "description": "You are in the Learning Commons surrounded by books.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "Hallway2"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Hallway"
+        }
+      ]
+    },
+    {
+      "id": "Room212",
+      "name": "Room 212",
+      "description": "You are in classroom number 212.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Hallway2"
+        }
+      ]
+    },
+    {
+      "id": "Gr.11CommonArea",
+      "name": "Gr.11 Common Area",
+      "description": "You are in the Grade 11 Common Area.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "Hallway2"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Hallway3"
+        },
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "BVGshop"
+        }
+      ]
+    },
+    {
+      "id": "BVGshop",
+      "name": "BVG shop",
+      "description": "You are in the BVG shop where you can buy items.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Gr.11CommonArea"
+        }
+      ]
+    },
+    {
+      "id": "Hallway3",
+      "name": "Hallway 3",
+      "description": "You are in the third hallway of the second floor.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "Hallway2"
+        },
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "Hallway2"
+        }
+      ]
     }
   ]
 }
