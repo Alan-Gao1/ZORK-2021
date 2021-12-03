@@ -2,12 +2,13 @@
     "items": [
       {
         "id": "sword",
-        "name": "sword",
+        "name": "Sword",
         "description": "You have a sword. It does 50 damage",
         "weight": 3,
         "use": [
           {
-              "isUsed": true,
+              "canUse": true,
+              "canDamage": true,
               "damage": 50
             
       }
@@ -15,12 +16,13 @@
     },
     {
         "id": "dagger",
-        "name": "dagger",
+        "name": "Dagger",
         "description": "You have a dagger. It does 20 damage",
         "weight": 1,
         "use": [
           {
-              "isUsed": true,
+              "canUse": true,
+              "canDamage": true,
               "damage": 20
             
       }
@@ -28,12 +30,13 @@
     },
     {
         "id": "mace",
-        "name": "mace",
+        "name": "Mace",
         "description": "You have a mace. It does 25 damage",
         "weight": 2,
         "use": [
           {
-              "isUsed": true,
+              "canUse": true,
+              "canDamage": true,
               "damage": 25
             
       }
@@ -46,7 +49,8 @@
         "weight": 2,
         "use": [
           {
-              "isUsed": true,
+              "canUse": true,
+              "canDamage": false,
               "damage": 20,
               "pellets": 5           
       }
@@ -54,7 +58,7 @@
     },
     {
         "id": "locker",
-        "name": "locker121",
+        "name": "Locker 121",
         "description": "There is a locker. would you like to open",
         "open": [
           {
@@ -66,12 +70,12 @@
     },
     {
       "id": "helmet",
-      "name": "helmet",
+      "name": "Helmet",
       "description": "This is a helmet. adds 50 health",
       "weight": 2,
       "use": [
         {
-            "isUsed": true,
+            "canUse": true,
             "health": 50
                      
     }
@@ -80,12 +84,12 @@
 
   {
     "id": "chestplate",
-    "name": "chestplate",
+    "name": "Chestplate",
     "description": "This is a chesplate. adds 50 health",
     "weight": 2,
     "use": [
       {
-          "isUsed": true,
+          "canUse": true,
           "health": 50
                    
   }
@@ -93,12 +97,12 @@
 },
 {
   "id": "feet",
-  "name": "feet",
+  "name": "Feet",
   "description": "This is foot armor. adds 25 health",
   "weight": 1,
   "use": [
     {
-        "isUsed": true,
+        "canUse": true,
         "health": 25
                  
 }
@@ -106,12 +110,12 @@
 },
 {
   "id": "arm",
-  "name": "arm",
+  "name": "Arm",
   "description": "This is arm armor. adds 25 health",
   "weight": 1,
   "use": [
     {
-        "isUsed": true,
+        "canUse": true,
         "health": 25
                  
 }
