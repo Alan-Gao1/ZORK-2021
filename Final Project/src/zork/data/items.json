@@ -1,0 +1,122 @@
+{
+    "items": [
+      {
+        "id": "sword",
+        "name": "sword",
+        "description": "You have a sword. It does 50 damage",
+        "weight": 3,
+        "use": [
+          {
+              "isUsed": true,
+              "damage": 50
+            
+      }
+        ]
+    },
+    {
+        "id": "dagger",
+        "name": "dagger",
+        "description": "You have a dagger. It does 20 damage",
+        "weight": 1,
+        "use": [
+          {
+              "isUsed": true,
+              "damage": 20
+            
+      }
+        ]
+    },
+    {
+        "id": "mace",
+        "name": "mace",
+        "description": "You have a mace. It does 25 damage",
+        "weight": 2,
+        "use": [
+          {
+              "isUsed": true,
+              "damage": 25
+            
+      }
+        ]
+    },
+    {
+        "id": "slingshot",
+        "name": "Slingshot",
+        "description": "You have a Slingshot. It does 10 damage with 5 pellets",
+        "weight": 2,
+        "use": [
+          {
+              "isUsed": true,
+              "damage": 20,
+              "pellets": 5           
+      }
+        ]
+    },
+    {
+        "id": "locker",
+        "name": "locker121",
+        "description": "There is a locker. would you like to open",
+        "open": [
+          {
+              "isLocked": true,
+              "keyId": "0-13-20"
+                       
+      }
+        ]
+    },
+    {
+      "id": "helmet",
+      "name": "helmet",
+      "description": "This is a helmet. adds 50 health",
+      "weight": 2,
+      "use": [
+        {
+            "isUsed": true,
+            "health": 50
+                     
+    }
+      ]
+  },
+
+  {
+    "id": "chestplate",
+    "name": "chestplate",
+    "description": "This is a chesplate. adds 50 health",
+    "weight": 2,
+    "use": [
+      {
+          "isUsed": true,
+          "health": 50
+                   
+  }
+    ]
+},
+{
+  "id": "feet",
+  "name": "feet",
+  "description": "This is foot armor. adds 25 health",
+  "weight": 1,
+  "use": [
+    {
+        "isUsed": true,
+        "health": 25
+                 
+}
+  ]
+},
+{
+  "id": "arm",
+  "name": "arm",
+  "description": "This is arm armor. adds 25 health",
+  "weight": 1,
+  "use": [
+    {
+        "isUsed": true,
+        "health": 25
+                 
+}
+  ]
+}
+]
+}
+    
