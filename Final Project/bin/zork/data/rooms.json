@@ -290,6 +290,11 @@
           "isLocked": false,
           "direction": "SouthWest",
           "adjacentRoom": "Room104"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "MainHallway"
         }
       ]
     },
@@ -301,7 +306,39 @@
         {
           "isLocked": false,
           "direction": "NorthEast",
-          "adjacentRoom": "Hallway3"
+          "adjacentRoom": "MiniHallway"
+        }
+      ]
+    },
+    {
+      "id": "MainHallway",
+      "name": "MainHallway",
+      "description": "You are now in the MainHallway on the first floor.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "NorthWest",
+          "adjacentRoom": "MiniHallway"
+        },
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "Hallway4"
+        },
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "Room103"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "Room101"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "Room101"
         }
       ]
     }
