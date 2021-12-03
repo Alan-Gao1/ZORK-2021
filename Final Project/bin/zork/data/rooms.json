@@ -1,344 +1,72 @@
 {
   "rooms": [
     {
-      "id": "Lobby",
-      "name": "Lobby",
-      "description": "You are in the lobby of the school on the second floor.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "East",
-          "adjacentRoom": "Cafeteria"
-        },
-        {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "Hallway"
-        }
-      ]
-    },
-    {
-      "id": "Cafeteria",
-      "name": "Cafeteria",
-      "description": "You are in a large Cafeteria",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "West",
-          "adjacentRoom": "Lobby"
-        }
-      ]
-    },
-    {
       "id": "Hallway",
       "name": "Hallway",
-      "description": "You are now in a long hallway",
+      "description": "You are in a long hallway. There are family pictures on all of the walls.",
       "exits": [
-        {
-          "isLocked": true,
-          "direction": "SouthWest",
-          "adjacentRoom": "Theatre",
-          "keyId": "9"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthEast",
-          "adjacentRoom": "LearningCommons"
-        },
         {
           "isLocked": false,
           "direction": "North",
-          "adjacentRoom": "Lobby"
+          "adjacentRoom": "Bedroom"
         },
         {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "Hallway2"
+          "isLocked": true,
+          "direction": "East",
+          "adjacentRoom": "Bathroom",
+          "keyId": "1234"
         }
       ]
     },
     {
-      "id": "Theatre",
-      "name": "Theatre",
-      "description": "You are now in the theatre, it is crowded. Look for the kid.",
+      "id": "Bedroom",
+      "name": "Bedroom",
+      "description": "You are in a large bedroom",
       "exits": [
         {
           "isLocked": false,
-          "direction": "NorthEast",
+          "direction": "South",
           "adjacentRoom": "Hallway"
         },
         {
           "isLocked": false,
           "direction": "SouthEast",
-          "adjacentRoom": "Hallway2"
+          "adjacentRoom": "Bathroom"
+        },
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Closet"
         }
       ]
     },
     {
-      "id": "Hallway2",
-      "name": "Hallway 2",
-      "description": "You are now in the second hallway",
+      "id": "Bathroom",
+      "name": "Bathroom",
+      "description": "You are in a blue bathroom",
       "exits": [
-        {
-          "isLocked": false,
-          "direction": "North",
-          "adjacentRoom": "Hallway"
-        },
-        {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "Gr.11CommonArea"
-        },
-        {
-          "isLocked": false,
-          "direction": "West",
-          "adjacentRoom": "H2Staircase"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Room 212"
-        },
         {
           "isLocked": true,
-          "direction": "NorthWest",
-          "adjacentRoom": "Theatre",
-          "keyId": "9"
-        },
-        {
-          "isLocked": false,
-          "direction": "East",
-          "adjacentRoom": "Hallway3"
-        },
-        {
-          "isLocked": false,
-          "direction": "NorthEast",
-          "adjacentRoom": "LearningCommons"
-        }
-      ]
-    },
-    {
-      "id": "LearningCommons",
-      "name": "Learning Commons",
-      "description": "You are in the Learning Commons surrounded by books.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Hallway2"
+          "direction": "West",
+          "adjacentRoom": "Hallway",
+          "keyId": "1234"
         },
         {
           "isLocked": false,
           "direction": "NorthWest",
-          "adjacentRoom": "Hallway"
+          "adjacentRoom": "Bedroom"
         }
       ]
     },
     {
-      "id": "Room212",
-      "name": "Room 212",
-      "description": "You are in classroom number 212.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "NorthEast",
-          "adjacentRoom": "Hallway2"
-        }
-      ]
-    },
-    {
-      "id": "Gr.11CommonArea",
-      "name": "Gr.11 Common Area",
-      "description": "You are in the Grade 11 Common Area.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "North",
-          "adjacentRoom": "Hallway2"
-        },
-        {
-          "isLocked": false,
-          "direction": "NorthEast",
-          "adjacentRoom": "Hallway3"
-        },
-        {
-          "isLocked": false,
-          "direction": "West",
-          "adjacentRoom": "BVGshop"
-        }
-      ]
-    },
-    {
-      "id": "BVGshop",
-      "name": "BVG shop",
-      "description": "You are in the BVG shop where you can buy items.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "East",
-          "adjacentRoom": "Gr.11CommonArea"
-        }
-      ]
-    },
-    {
-      "id": "Hallway3",
-      "name": "Hallway 3",
-      "description": "You are in the third hallway of the second floor.",
+      "id": "Closet",
+      "name": "Closet",
+      "description": "You are in the closet. It is dark.",
       "exits": [
         {
           "isLocked": false,
           "direction": "West",
-          "adjacentRoom": "Hallway2"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Gr.11CommonArea"
-        },
-        {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "H3Staircase"
-        },
-        {
-          "isLocked": false,
-          "direction": "East",
-          "adjacentRoom": "Room201"
-        },
-        {
-          "isLocked": true,
-          "direction": "SouthEast",
-          "adjacentRoom": "Room203",
-          "keyId": "8"
-        }
-      ]
-    },
-    {
-      "id": "Room201",
-      "name": "Room 201",
-      "description": "You are in Room 201, check for items.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "West",
-          "adjacentRoom": "Hallway3"
-        }
-      ]
-    },
-    {
-      "id": "Room203",
-      "name": "Room 203",
-      "description": "You are in Room 203, take the kid.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "NorthWest",
-          "adjacentRoom": "Hallway3"
-        }
-      ]
-    },
-    {
-      "id": "H3Staircase",
-      "name": "Hallway 3 Staircase",
-      "description": "You are in Hallway 3 Staircase, you can either travel up or down, or exit.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "Down",
-          "adjacentRoom": "H3Staircase1"
-        },
-        {
-          "isLocked": false,
-          "direction": "Up",
-          "adjacentRoom": "H3Staircase3"
-        },
-        {
-          "isLocked": false,
-          "direction": "North",
-          "adjacentRoom": "Hallway3"
-        }
-      ]
-    },
-    {
-      "id": "H3Staircase1",
-      "name": "Hallway 3 Staircase 1st floor",
-      "description": "You are in Hallway 3 Staircase 1st floor, you can only travel up, or exit",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "Up",
-          "adjacentRoom": "H3Staircase3"
-        },
-        {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "minihallway"
-        }
-      ]
-    },
-    {
-      "id": "MiniHallway",
-      "name": "Mini-Hallway",
-      "description": "You are in a mini hallway on the first floor",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "North",
-          "adjacentRoom": "H3Staircase1"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Room104"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthEast",
-          "adjacentRoom": "MainHallway"
-        }
-      ]
-    },
-    {
-      "id": "Room104",
-      "name": "Room 104",
-      "description": "You are in Room 104, check for items.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "NorthEast",
-          "adjacentRoom": "MiniHallway"
-        }
-      ]
-    },
-    {
-      "id": "MainHallway",
-      "name": "MainHallway",
-      "description": "You are now in the MainHallway on the first floor.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "NorthWest",
-          "adjacentRoom": "MiniHallway"
-        },
-        {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "Hallway4"
-        },
-        {
-          "isLocked": false,
-          "direction": "West",
-          "adjacentRoom": "Room103"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Room101"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Room101"
+          "adjacentRoom": "Bedroom"
         }
       ]
     }

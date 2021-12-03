@@ -9,7 +9,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.util.Scanner;
+  
+
 public class Game {
+  private Scanner in;
 
   public static HashMap<String, Room> roomMap = new HashMap<String, Room>();
 
@@ -98,6 +102,7 @@ public class Game {
    * the game, true is returned, otherwise false is returned.
    */
   private boolean processCommand(Command command) {
+    in = new Scanner(System.in);
     if (command.isUnknown()) {
       System.out.println("I don't know what you mean...");
       return false;
@@ -108,7 +113,16 @@ public class Game {
       printHelp();
     else if (commandWord.equals("go"))
       goRoom(command);
-    else if (commandWord.equals("quit")) {
+    else if (commandWord.equals("take"))
+      takeItem(command);
+    else if (commandWord.equals("pickpocket"))
+      pickpocket(command);
+    else if (commandWord.equals("drop"))
+      drop(command);
+    else if (commandWord.equals("solve")){
+      solveLock(command, in);
+      //write code to solve lock combo;
+    }else if (commandWord.equals("quit")) {
       if (command.hasSecondWord())
         System.out.println("Quit what?");
       else
@@ -119,7 +133,63 @@ public class Game {
     return false;
   }
 
+  private void drop(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Drop what?");
+      return;
+    }else
+      System.out.println("You have dropped" + command.getSecondWord());
+    //remove an item from inventory (ex. remove kid or item)
+
+    //you do not have anything to drop
+  }
+
+  private void pickpocket(Command command) {
+    //take a random sum of money from a randomly generated person
+    System.out.println("You pickpocketed $10 from " + "___");
+  }
+
+  private void takeItem(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Take what?");
+      return;
+    }
+
+    String item = command.getSecondWord();
+    Item newItem = new Item(10, item, true); //** this is hardcoded but retrieve the values from the json */
+    Inventory backpack = new Inventory(10);
+    //check to see if item exists in the json file
+
+    /*if(!isMovable()  - item CANNOT be moved)
+       System.out.println("You cannot move the " + command.getSecondWord() + "!");
+    else{
+       */if(backpack.addItem(newItem)){
+       System.out.println("You took the " + command.getSecondWord() + ".");
+       }
+     //}
+
+  }
+
   // implementations of user commands:
+  private void solveLock(Command command, Scanner in) {
+    if(!command.hasSecondWord()){
+      System.out.println("Solve what?");
+      return;
+    }
+
+    if(!command.getSecondWord().equals("lock")){
+      System.out.println("You can not solve " + command.getSecondWord() + "! You can only solve locks.");
+    }else{
+      System.out.println("Input the correct lock passcode (Enter '-' inbetween numbers): ");
+      System.out.print("> "); 
+      String inputLine = in.nextLine();
+      if(inputLine.equals("0-13-20")){
+        //open locker from items.json or Item.java
+      }else{
+        System.out.println("Incorrect passcode!");
+      }
+    }
+  }
 
   /**
    * Print out some help information. Here we print some stupid, cryptic message
