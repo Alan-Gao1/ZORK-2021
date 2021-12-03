@@ -14,7 +14,6 @@ public class Item extends OpenableObject {
   public void open() {
     if (!isOpenable)
       System.out.println("The " + name + " cannot be opened.");
-
   }
 
   public int getWeight() {
