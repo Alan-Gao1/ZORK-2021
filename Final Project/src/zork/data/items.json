@@ -61,7 +61,7 @@
     {
         "id": "locker",
         "name": "Locker 121",
-        "description": "This is a locker, lockde by a lock that requires a sequence of numbers to open.",
+        "description": "This is a locker, locked by a lock that requires a sequence of numbers to open.",
         "open": [
           {
             "canUse": true,
