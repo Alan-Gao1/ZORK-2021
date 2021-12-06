@@ -29,11 +29,16 @@ public class Game {
   public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
+      initItems("src\\zork\\data\\items.json");
       currentRoom = roomMap.get("Lobby");
     } catch (Exception e) {
       e.printStackTrace();
     }
     parser = new Parser();
+  }
+
+  private void initItems(String string) throws Exception{
+    //TBD - must intialize objects
   }
 
   private void initRooms(String fileName) throws Exception {
@@ -196,11 +201,11 @@ public class Game {
     if(!command.getSecondWord().equals("lock")){
       System.out.println("You can not solve " + command.getSecondWord() + "! You can only solve locks.");
     }else{
-      System.out.println("Input the correct lock passcode (Enter '-' inbetween numbers): ");
+      System.out.println("Input the correct lock passcode (Enter '-' inbetween numbers)");
       System.out.print("> "); 
       String inputLine = in.nextLine();
       if(inputLine.equals("0-13-20")){
-        //open locker from items.json or Item.java
+        System.out.println("Passcode is correct!");
       }else{
         System.out.println("Incorrect passcode!");
       }
