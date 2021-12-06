@@ -437,6 +437,64 @@
           "isLocked": false,
           "direction": "NorthWest",
           "adjacentRoom": "Changeroom"
+        },
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "H4Staircase"
+        }
+      ]
+    },
+    {
+      "id": "IT",
+      "name": "IT room",
+      "description": "You are in the IT room",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "Hallway4"
+        }
+      ]
+    },
+    {
+      "id": "Changeroom",
+      "name": "Changeroom",
+      "description": "You are in the Changeroom, you can change into your costume",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Hallway4"
+        }
+      ]
+    },
+    {
+      "id": "Gym",
+      "name": "Gym",
+      "description": "You are in the Gym, rescue the kid from Mr.Cardone",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Hallway4"
+        }
+      ]
+    },
+    {
+      "id": "H4Staircase",
+      "name": "Hallway 4 Staircase",
+      "description": "You are in Hallway 4 Staircase 1st floor, you can only travel up, or exit",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "Up",
+          "adjacentRoom": "H2Staircase"
+        },
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Hallway4"
         }
       ]
     }
