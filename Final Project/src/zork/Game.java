@@ -19,6 +19,9 @@ public class Game {
 
   private Parser parser;
   private Room currentRoom;
+  private int peoplePickpocketed;
+  public boolean finished = false;
+  private boolean winCondition = false;
 
   /**
    * Create the game and initialise its internal map.
@@ -71,7 +74,7 @@ public class Game {
   public void play() {
     printWelcome();
 
-    boolean finished = false;
+    finished = false;
     while (!finished) {
       Command command;
       try {
@@ -82,7 +85,11 @@ public class Game {
       }
 
     }
-    System.out.println("Thank you for playing.  Good bye.");
+    if(winCondition){
+      System.out.println("Thank you for playing.  Good bye.");
+    }else{
+      System.out.println("Game over.");
+    }
   }
 
   /**
@@ -192,7 +199,16 @@ public class Game {
   private void pickpocket(Command command) {
     //check to see if there is someone to pickpocket money from
     //take a random sum of money from a randomly generated person
-    System.out.println("You pickpocketed $10 from " + "___");
+    double rand = (int)(Math.random()*11);
+    rand += 5;
+    peoplePickpocketed++;
+    double chance = peoplePickpocketed*3;
+    double counter = (int)(Math.random()*101);
+    if(counter>chance){
+      System.out.println("You pickpocketed"+rand+"from a random person");
+    }else if(counter<=chance){
+      finished = true;
+    }
   }
 
   private void takeItem(Command command) {
