@@ -336,6 +336,20 @@
     "canDamage": false
   }],
   "kidID": 5
+},
+{
+  "id": "microwave",
+  "name": "Microwave",
+  "description": "This is a microwave, you can open it or turn it on (use)",
+  "open":[{
+    "canUse": true,
+    "canUnlock": false,
+    "canDamage": false,
+    "insideID": 1
+  }],
+  "use":[{
+    "gameEnd": true
+  }]
 }
 ]
 }
