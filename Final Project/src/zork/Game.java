@@ -119,9 +119,23 @@ public class Game {
       pickpocket(command);
     else if (commandWord.equals("drop"))
       drop(command);
-    else if (commandWord.equals("solve")){
+    else if (commandWord.equals("untie"))
+      untie(command);
+    else if (commandWord.equals("read"))
+      read(command);
+    else if (commandWord.equals("listen"))
+      listen(command);
+    else if (commandWord.equals("wear"))
+      wear(command);
+    else if (commandWord.equals("play"))
+      playVideo(command);
+    else if (commandWord.equals("use"))
+      useItem(command);
+    else if (commandWord.equals("solve"))
       solveLock(command, in);
       //write code to solve lock combo;
+    else if (commandWord.equals("open")){
+      openItem(command);
     }else if (commandWord.equals("quit")) {
       if (command.hasSecondWord())
         System.out.println("Quit what?");
@@ -133,6 +147,37 @@ public class Game {
     return false;
   }
 
+  private void useItem(Command command) {
+    //use items from json file
+  }
+
+  private void playVideo(Command command) {
+    //play the video in the robotics room
+  }
+
+  private void wear(Command command) {
+    //put on the costume
+  }
+
+  private void listen(Command command) {
+    //listen to what one of the kids has to say
+    //print the dialogue/information from kids
+  }
+
+  private void read(Command command) {
+    //print the clues for the lock/locker/key
+  }
+
+  private void untie(Command command) {
+    //untie a kid 
+  }
+
+  private void openItem(Command command) {
+    //opens a different items (chest, locker, microwave, curtains, door, backpack)
+    //check if you can open the item
+  }
+
+  // implementations of user commands:
   private void drop(Command command) {
     if(!command.hasSecondWord()){
       System.out.println("Drop what?");
@@ -145,6 +190,7 @@ public class Game {
   }
 
   private void pickpocket(Command command) {
+    //check to see if there is someone to pickpocket money from
     //take a random sum of money from a randomly generated person
     System.out.println("You pickpocketed $10 from " + "___");
   }
@@ -160,7 +206,7 @@ public class Game {
     Inventory backpack = new Inventory(10);
     //check to see if item exists in the json file
 
-    /*if(!isMovable()  - item CANNOT be moved)
+    /*if(item can be moved)
        System.out.println("You cannot move the " + command.getSecondWord() + "!");
     else{
        */if(backpack.addItem(newItem)){
@@ -170,7 +216,6 @@ public class Game {
 
   }
 
-  // implementations of user commands:
   private void solveLock(Command command, Scanner in) {
     if(!command.hasSecondWord()){
       System.out.println("Solve what?");
