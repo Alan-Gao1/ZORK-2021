@@ -190,7 +190,7 @@ public class Game {
       System.out.println("Drop what?");
       return;
     }else
-      System.out.println("You have dropped" + command.getSecondWord());
+      System.out.println("You have dropped " + command.getSecondWord() + ".");
     //remove an item from inventory (ex. remove kid or item)
 
     //you do not have anything to drop
@@ -205,7 +205,7 @@ public class Game {
     double chance = peoplePickpocketed*3;
     double counter = (int)(Math.random()*101);
     if(counter>chance){
-      System.out.println("You pickpocketed"+rand+"from a random person");
+      System.out.println("You pickpocketed "+rand+" from a random person.");
     }else if(counter<=chance){
       finished = true;
     }
@@ -245,6 +245,7 @@ public class Game {
       System.out.print("> "); 
       String inputLine = in.nextLine();
       if(inputLine.equals("0-13-20")){
+        System.out.println("Correct passcode! The locker is now open. Inside, there is a key.");
         //open locker from items.json or Item.java
       }else{
         System.out.println("Incorrect passcode!");
