@@ -271,6 +271,71 @@
     "costumeTwo": true
   }
   ]
+},
+{
+  "id": "kidOne",
+  "name": "Kid #1",
+  "description": "This is a child",
+  "isChild": true,
+  "weight": 1,
+  "take":[{
+    "canUse": true,
+    "canUnlock": false,
+    "canDamage": false
+  }],
+  "kidID": 1
+},
+{
+  "id": "kidTwo",
+  "name": "Kid #2",
+  "description": "This is a child",
+  "isChild": true,
+  "weight": 1,
+  "take":[{
+    "canUse": true,
+    "canUnlock": false,
+    "canDamage": false
+  }],
+  "kidID": 2
+},
+{
+  "id": "kidThree",
+  "name": "Kid #3",
+  "description": "This is a child",
+  "isChild": true,
+  "weight": 1,
+  "take":[{
+    "canUse": true,
+    "canUnlock": false,
+    "canDamage": false
+  }],
+  "kidID": 3
+},
+{
+  "id": "kidFour",
+  "name": "Kid #4",
+  "description": "This is a child",
+  "isChild": true,
+  "weight": 1,
+  "take":[{
+    "canUse": true,
+    "canUnlock": false,
+    "canDamage": false
+  }],
+  "kidID": 4
+},
+{
+  "id": "kidFive",
+  "name": "Kid #5",
+  "description": "This is a child",
+  "isChild": true,
+  "weight": 1,
+  "take":[{
+    "canUse": true,
+    "canUnlock": false,
+    "canDamage": false
+  }],
+  "kidID": 5
 }
 ]
 }

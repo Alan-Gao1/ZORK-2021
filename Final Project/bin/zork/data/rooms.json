@@ -312,8 +312,8 @@
     },
     {
       "id": "MainHallway",
-      "name": "MainHallway",
-      "description": "You are now in the MainHallway on the first floor.",
+      "name": "Main Hallway",
+      "description": "You are now in the Main Hallway on the first floor.",
       "exits": [
         {
           "isLocked": false,
@@ -337,8 +337,164 @@
         },
         {
           "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Gr.12CommonArea"
+        }
+      ]
+    },
+    {
+      "id": "Room101",
+      "name": "Room 101",
+      "description": "You are in Room 101, check for items.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "MainHallway"
+        }
+      ]
+    },
+    {
+      "id": "Room103",
+      "name": "Room 103",
+      "description": "You are in Room 103, check for items.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "MainHallway"
+        }
+      ]
+    },
+    {
+      "id": "Gr.12CommonArea",
+      "name": "Gr.12 Common Area",
+      "description": "You are in the Grade 12 Common Area.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Room109"
+        },
+        {
+          "isLocked": true,
+          "direction": "NorthEast",
+          "adjacentRoom": "Room106",
+          "keyId": "7"
+        },
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "MainHallway"
+        }
+      ]
+    },
+    {
+      "id": "Room106",
+      "name": "Room 106",
+      "description": "You are in Room 106, Mr.DesLauriers is waiting for you.",
+      "exits": [
+        {
+          "isLocked": false,
           "direction": "SouthWest",
-          "adjacentRoom": "Room101"
+          "adjacentRoom": "Gr.12CommonArea"
+        }
+      ]
+    },
+    {
+      "id": "Room109",
+      "name": "Room 109",
+      "description": "You are in Room 109, surrounded by robotics.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "Gr.12CommonArea"
+        }
+      ]
+    },
+    {
+      "id": "Hallway4",
+      "name": "Hallway4",
+      "description": "You are in Hallway4",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "MainHallway"
+        },
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "IT"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "Gym"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthWest",
+          "adjacentRoom": "Changeroom"
+        },
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "H4Staircase"
+        }
+      ]
+    },
+    {
+      "id": "IT",
+      "name": "IT room",
+      "description": "You are in the IT room",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "Hallway4"
+        }
+      ]
+    },
+    {
+      "id": "Changeroom",
+      "name": "Changeroom",
+      "description": "You are in the Changeroom, you can change into your costume",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Hallway4"
+        }
+      ]
+    },
+    {
+      "id": "Gym",
+      "name": "Gym",
+      "description": "You are in the Gym, rescue the kid from Mr.Cardone",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Hallway4"
+        }
+      ]
+    },
+    {
+      "id": "H4Staircase",
+      "name": "Hallway 4 Staircase",
+      "description": "You are in Hallway 4 Staircase 1st floor, you can only travel up, or exit",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "Up",
+          "adjacentRoom": "H2Staircase"
+        },
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Hallway4"
         }
       ]
     }
