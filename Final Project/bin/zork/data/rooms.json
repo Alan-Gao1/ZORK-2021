@@ -187,7 +187,6 @@
       "exits": [
         {
           "isLocked": false,
-<<<<<<< HEAD
           "direction": "West",
           "adjacentRoom": "Hallway2"
         },
@@ -247,51 +246,7 @@
           "isLocked": false,
           "direction": "Down",
           "adjacentRoom": "H3Staircase1"
-=======
-          "direction": "West",
-          "adjacentRoom": "Hallway2"
         },
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Gr.11CommonArea"
-        },
-        {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "H3Staircase"
-        },
-        {
-          "isLocked": false,
-          "direction": "East",
-          "adjacentRoom": "Room201"
->>>>>>> d907e6aa460d239de0946ba17ed9dbfcd08c90f9
-        },
-        {
-          "isLocked": true,
-          "direction": "SouthEast",
-          "adjacentRoom": "Room203",
-          "keyId": "8"
-        }
-      ]
-    },
-    {
-      "id": "Room201",
-      "name": "Room 201",
-      "description": "You are in Room 201, check for items.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "West",
-          "adjacentRoom": "Hallway3"
-        }
-      ]
-    },
-    {
-      "id": "Room203",
-      "name": "Room 203",
-      "description": "You are in Room 203, take the kid.",
-      "exits": [
         {
           "isLocked": false,
           "direction": "Up",
@@ -363,7 +318,6 @@
         {
           "isLocked": false,
           "direction": "NorthWest",
-<<<<<<< HEAD
           "adjacentRoom": "MiniHallway"
         },
         {
@@ -385,14 +339,10 @@
           "isLocked": false,
           "direction": "East",
           "adjacentRoom": "Gr.12CommonArea"
-=======
-          "adjacentRoom": "Hallway3"
->>>>>>> d907e6aa460d239de0946ba17ed9dbfcd08c90f9
         }
       ]
     },
     {
-<<<<<<< HEAD
       "id": "Room101",
       "name": "Room 101",
       "description": "You are in Room 101, check for items.",
@@ -413,31 +363,10 @@
           "isLocked": false,
           "direction": "East",
           "adjacentRoom": "MainHallway"
-=======
-      "id": "H3Staircase",
-      "name": "Hallway 3 Staircase",
-      "description": "You are in Hallway 3 Staircase, you can either travel up or down, or exit.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "Down",
-          "adjacentRoom": "H3Staircase1"
-        },
-        {
-          "isLocked": false,
-          "direction": "Up",
-          "adjacentRoom": "H3Staircase3"
-        },
-        {
-          "isLocked": false,
-          "direction": "North",
-          "adjacentRoom": "Hallway3"
->>>>>>> d907e6aa460d239de0946ba17ed9dbfcd08c90f9
         }
       ]
     },
     {
-<<<<<<< HEAD
       "id": "Gr.12CommonArea",
       "name": "Gr.12 Common Area",
       "description": "You are in the Grade 12 Common Area.",
@@ -452,77 +381,10 @@
           "direction": "NorthEast",
           "adjacentRoom": "Room106",
           "keyId": "7"
-=======
-      "id": "H3Staircase1",
-      "name": "Hallway 3 Staircase 1st floor",
-      "description": "You are in Hallway 3 Staircase 1st floor, you can only travel up, or exit",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "Up",
-          "adjacentRoom": "H3Staircase3"
-        },
-        {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "minihallway"
-        }
-      ]
-    },
-    {
-      "id": "MiniHallway",
-      "name": "Mini-Hallway",
-      "description": "You are in a mini hallway on the first floor",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "North",
-          "adjacentRoom": "H3Staircase1"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Room104"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthEast",
-          "adjacentRoom": "MainHallway"
-        }
-      ]
-    },
-    {
-      "id": "Room104",
-      "name": "Room 104",
-      "description": "You are in Room 104, check for items.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "NorthEast",
-          "adjacentRoom": "MiniHallway"
-        }
-      ]
-    },
-    {
-      "id": "MainHallway",
-      "name": "MainHallway",
-      "description": "You are now in the MainHallway on the first floor.",
-      "exits": [
-        {
-          "isLocked": false,
-          "direction": "NorthWest",
-          "adjacentRoom": "MiniHallway"
-        },
-        {
-          "isLocked": false,
-          "direction": "South",
-          "adjacentRoom": "Hallway4"
->>>>>>> d907e6aa460d239de0946ba17ed9dbfcd08c90f9
         },
         {
           "isLocked": false,
           "direction": "West",
-<<<<<<< HEAD
           "adjacentRoom": "MainHallway"
         }
       ]
@@ -565,14 +427,10 @@
           "isLocked": false,
           "direction": "North",
           "adjacentRoom": "IT"
-=======
-          "adjacentRoom": "Room103"
->>>>>>> d907e6aa460d239de0946ba17ed9dbfcd08c90f9
         },
         {
           "isLocked": false,
           "direction": "SouthWest",
-<<<<<<< HEAD
           "adjacentRoom": "Gym"
         },
         {
@@ -637,14 +495,6 @@
           "isLocked": false,
           "direction": "East",
           "adjacentRoom": "Hallway4"
-=======
-          "adjacentRoom": "Room101"
-        },
-        {
-          "isLocked": false,
-          "direction": "SouthWest",
-          "adjacentRoom": "Room101"
->>>>>>> d907e6aa460d239de0946ba17ed9dbfcd08c90f9
         }
       ]
     }
