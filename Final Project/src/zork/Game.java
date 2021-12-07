@@ -165,6 +165,17 @@ public class Game {
 
   private void playVideo(Command command) {
     //play the video in the robotics room
+    if(!command.hasSecondWord()){
+      System.out.println("Play what?");
+      return;
+    }else if(!command.getSecondWord().equals("video")){
+      System.out.println("You can only play videos!");
+    }else if(command.getSecondWord().equals("video") && currentRoom.getRoomName().equals("Room109")){
+      System.out.println("The video has started playing...");
+      System.out.println("The short 10 second video shows fellow BVG students playing baseball in a gym.");
+    }else{
+      System.out.println("Invalid request.");
+    }
   }
 
   private void wear(Command command) {
