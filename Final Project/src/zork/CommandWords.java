@@ -28,6 +28,7 @@ public class CommandWords {
    * Print all valid commands to System.out.
    */
   public void showAll() {
+    System.out.println("This is all of the availible command words you can use.");
     for (String c : validCommands) {
       System.out.print(c + "  ");
     }
