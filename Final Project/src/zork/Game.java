@@ -29,7 +29,7 @@ public class Game {
   public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
-      initItems("src\\zork\\data\\items.json");
+      //initItems("src\\zork\\data\\items.json");
       currentRoom = roomMap.get("Lobby");
     } catch (Exception e) {
       e.printStackTrace();
@@ -145,7 +145,6 @@ public class Game {
       useItem(command);
     else if (commandWord.equals("solve"))
       solveLock(command, in);
-      //write code to solve lock combo;
     else if (commandWord.equals("open")){
       openItem(command);
     }else if (commandWord.equals("quit")) {
@@ -170,7 +169,7 @@ public class Game {
       return;
     }else if(!command.getSecondWord().equals("video")){
       System.out.println("You can only play videos!");
-    }else if(command.getSecondWord().equals("video") && currentRoom.getRoomName().equals("Room109")){
+    }else if(command.getSecondWord().equals("video") && currentRoom.getRoomName().equals("Room 109")){
       System.out.println("The video has started playing...");
       System.out.println("The short 10 second video shows fellow BVG students playing baseball in a gym.");
     }else{
@@ -196,6 +195,22 @@ public class Game {
   }
 
   private void openItem(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Open what?");
+      return;
+    }else if(currentRoom.getRoomName().equals("Room212")){
+      if(command.getSecondWord().equals("Chest1")){
+        System.out.println("You opened Chest1.");
+      }else if(command.getSecondWord().equals("Chest2")){
+        System.out.println("You opened Chest2.");
+      }else if(command.getSecondWord().equals("Chest3")){
+        System.out.println("You opened Chest3.");
+      }else if(command.getSecondWord().equals("Chest4")){
+        System.out.println("You opened Chest4.");
+      }else if(command.getSecondWord().equals("Chest5")){
+        System.out.println("You opened Chest5");
+      }
+    }
     //opens a different items (chest, locker, microwave, curtains, door, backpack)
     //check if you can open the item
   }
