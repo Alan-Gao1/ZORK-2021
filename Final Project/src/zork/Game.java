@@ -145,7 +145,6 @@ public class Game {
       useItem(command);
     else if (commandWord.equals("solve"))
       solveLock(command, in);
-      //write code to solve lock combo;
     else if (commandWord.equals("open")){
       openItem(command);
     }else if (commandWord.equals("quit")) {
