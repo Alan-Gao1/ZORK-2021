@@ -118,6 +118,28 @@
       ]
     },
     {
+      "id": "H2Staircase",
+      "name": "Hallway 2 Staircase",
+      "description": "You are in Hallway 2 Staircase 2nd floor, you can only travel up or down, or exit",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "Down",
+          "adjacentRoom": "H4Staircase"
+        },
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Hallway2"
+        },
+        {
+          "isLocked": false,
+          "direction": "Up",
+          "adjacentRoom": "H5Staircase"
+        }
+      ]
+    },
+    {
       "id": "LearningCommons",
       "name": "Learning Commons",
       "description": "You are in the Learning Commons surrounded by books.",
@@ -267,7 +289,7 @@
         {
           "isLocked": false,
           "direction": "Up",
-          "adjacentRoom": "H3Staircase3"
+          "adjacentRoom": "H3Staircase"
         },
         {
           "isLocked": false,
@@ -495,6 +517,113 @@
           "isLocked": false,
           "direction": "East",
           "adjacentRoom": "Hallway4"
+        }
+      ]
+    },
+    {
+      "id": "H5Staircase",
+      "name": "Hallway 5 Staircase",
+      "description": "You are in Hallway 5 Staircase 3rd floor, you can only travel down, or exit",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "Down",
+          "adjacentRoom": "H2Staircase"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Hallway5"
+        }
+      ]
+    },
+    {
+      "id": "Hallway5",
+      "name": "Hallway5",
+      "description": "You are now in hallway5 on the 3rd floor",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Room309"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Room308"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthWest",
+          "adjacentRoom": "Gr.9CommonArea"
+        },
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "Hallway6"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "H5Staircase"
+        }
+      ]
+    },
+    {
+      "id": "Room309",
+      "name": "Room 309",
+      "description": "You are in room 309, search for items",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "Hallway5"
+        }
+      ]
+    },
+    {
+      "id": "Room308",
+      "name": "Room 308",
+      "description": "You are in room 308, search for items",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "Hallway5"
+        }
+      ]
+    },
+    {
+      "id": "Gr.9CommonArea",
+      "name": "Gr.9 Common Area",
+      "description": "You are in the Grade 9 Common Area.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Hallway5"
+        },
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "Hallway6"
+        }
+      ]
+    },
+    {
+      "id": "Hallway6",
+      "name": "Gr.9 Common Area",
+      "description": "You are in the Grade 9 Common Area.",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Hallway5"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthWest",
+          "adjacentRoom": "UpperTheatre"
         }
       ]
     }
