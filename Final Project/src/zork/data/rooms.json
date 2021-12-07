@@ -71,6 +71,11 @@
           "isLocked": false,
           "direction": "SouthEast",
           "adjacentRoom": "Hallway2"
+        },
+        {
+          "isLocked": false,
+          "direction": "Up",
+          "adjacentRoom": "UpperTheatre"
         }
       ]
     },
@@ -612,18 +617,238 @@
     },
     {
       "id": "Hallway6",
-      "name": "Gr.9 Common Area",
-      "description": "You are in the Grade 9 Common Area.",
+      "name": "Hallway 6",
+      "description": "You are in Hallway 6 on the third floor",
       "exits": [
         {
           "isLocked": false,
-          "direction": "SouthEast",
+          "direction": "South",
           "adjacentRoom": "Hallway5"
         },
         {
           "isLocked": false,
           "direction": "NorthWest",
           "adjacentRoom": "UpperTheatre"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Hallway7"
+        }
+      ]
+    },
+    {
+      "id": "UpperTheatre",
+      "name": "Upper Theatre",
+      "description": "You are Projector room in the theatre",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Hallway6"
+        },
+        {
+          "isLocked": true,
+          "direction": "Down",
+          "adjacentRoom": "Theatre",
+          "keyID": "9"
+        }
+      ]
+    },
+    {
+      "id": "Hallway7",
+      "name": "Hallway 7",
+      "description": "You are in Hallway 7 on the third floor",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "Hallway8"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Hallway8"
+        },
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "FedericoOffice"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthWest",
+          "adjacentRoom": "Hallway6"
+        },
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "FatimaOffice"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "TamOffice"
+        },
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Gr.10CommonArea"
+        }
+      ]
+    },
+    {
+      "id": "FatimaOffice",
+      "name": "Ms.Fatima's Office",
+      "description": "You are in Ms.Fatima's Office",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "Hallway7"
+        }
+      ]
+    },
+    {
+      "id": "TamOffice",
+      "name": "Ms.Tam's Office",
+      "description": "You are in Ms.Tam's Office",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "Hallway7"
+        }
+      ]
+    },
+    {
+      "id": "FedericoOffice",
+      "name": "Mr.Federico's Office",
+      "description": "You are in Mr.Federico's Office",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "Hallway7"
+        }
+      ]
+    },
+    {
+      "id": "Gr.10CommonArea",
+      "name": "Gr.10 Common Area",
+      "description": "You are in the Grade 10 CommonArea",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "Hallway7"
+        }
+      ]
+    },
+    {
+      "id": "Hallway8",
+      "name": "Hallway 8",
+      "description": "You are in Hallway 8 on the third floor",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "NorthWest",
+          "adjacentRoom": "Hallway7"
+        },
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Hallway7"
+        },
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Room307"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthEast",
+          "adjacentRoom": "Room306"
+        },
+        {
+          "isLocked": false,
+          "direction": "South",
+          "adjacentRoom": "Room305"
+        },
+        {
+          "isLocked": false,
+          "direction": "SouthWest",
+          "adjacentRoom": "Room304"
+        },
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "H3Staircase3"
+        }
+      ]
+    },
+    {
+      "id": "Room307",
+      "name": "Room 307",
+      "description": "You are in Room 307, search for items",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "West",
+          "adjacentRoom": "Hallway8"
+        }
+      ]
+    },
+    {
+      "id": "Room306",
+      "name": "Room 306",
+      "description": "You are in Room 306, search for items",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "NorthWest",
+          "adjacentRoom": "Hallway8"
+        }
+      ]
+    },
+    {
+      "id": "Room305",
+      "name": "Room 305",
+      "description": "You are in Room 305, search for items",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "North",
+          "adjacentRoom": "Hallway8"
+        }
+      ]
+    },
+    {
+      "id": "Room304",
+      "name": "Room 304",
+      "description": "You are in Room 304, search for items",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "NorthEast",
+          "adjacentRoom": "Hallway8"
+        }
+      ]
+    },
+    {
+      "id": "H3Staircase3",
+      "name": "H3Staircase3",
+      "description": "You are in H3Staircase3, you can go down or exit",
+      "exits": [
+        {
+          "isLocked": false,
+          "direction": "East",
+          "adjacentRoom": "Hallway8"
+        },
+        {
+          "isLocked": false,
+          "direction": "Down",
+          "adjacentRoom": "H3Staircase"
         }
       ]
     }
