@@ -195,6 +195,22 @@ public class Game {
   }
 
   private void openItem(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Open what?");
+      return;
+    }else if(currentRoom.getRoomName().equals("Room212")){
+      if(command.getSecondWord().equals("Chest1")){
+        System.out.println("You opened Chest1.");
+      }else if(command.getSecondWord().equals("Chest2")){
+        System.out.println("You opened Chest2.");
+      }else if(command.getSecondWord().equals("Chest3")){
+        System.out.println("You opened Chest3.");
+      }else if(command.getSecondWord().equals("Chest4")){
+        System.out.println("You opened Chest4.");
+      }else if(command.getSecondWord().equals("Chest5")){
+        System.out.println("You opened Chest5");
+      }
+    }
     //opens a different items (chest, locker, microwave, curtains, door, backpack)
     //check if you can open the item
   }
