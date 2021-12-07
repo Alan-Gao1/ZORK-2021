@@ -29,7 +29,7 @@ public class Game {
   public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
-      initItems("src\\zork\\data\\items.json");
+      //initItems("src\\zork\\data\\items.json");
       currentRoom = roomMap.get("Lobby");
     } catch (Exception e) {
       e.printStackTrace();
@@ -169,7 +169,7 @@ public class Game {
       return;
     }else if(!command.getSecondWord().equals("video")){
       System.out.println("You can only play videos!");
-    }else if(command.getSecondWord().equals("video") && currentRoom.getRoomName().equals("Room109")){
+    }else if(command.getSecondWord().equals("video") && currentRoom.getRoomName().equals("Room 109")){
       System.out.println("The video has started playing...");
       System.out.println("The short 10 second video shows fellow BVG students playing baseball in a gym.");
     }else{
