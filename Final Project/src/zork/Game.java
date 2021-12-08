@@ -146,7 +146,10 @@ public class Game {
     else if (commandWord.equals("solve"))
       solveLock(command, in);
     else if (commandWord.equals("open")){
-      openItem(command);
+      if(!command.hasSecondWord())
+        System.out.println("Open what?");
+      else
+        return openItem(command);
       //might be true of false
     }else if (commandWord.equals("quit")) {
       if (command.hasSecondWord())
@@ -195,25 +198,29 @@ public class Game {
     //untie a kid 
   }
 
-  private void openItem(Command command) {
-    if(!command.hasSecondWord()){
-      System.out.println("Open what?");
-      return;
-    }else if(currentRoom.getRoomName().equals("Room212")){
+  private boolean openItem(Command command) {
+    if(currentRoom.getRoomName().equals("Room212")){
       if(command.getSecondWord().equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
       }else if(command.getSecondWord().equals("Chest2")){
         System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
       }else if(command.getSecondWord().equals("Chest3")){
         System.out.println("You opened Chest3, and a bomb exploded.");
-        //return false;
+        return true;
       }else if(command.getSecondWord().equals("Chest4")){
         System.out.println("You opened Chest4. There is $100!");
       }else if(command.getSecondWord().equals("Chest5")){
         System.out.println("You opened Chest5, and a bomb exploded.");
-        //return false;
+        return true;
       }
+    }else if(currentRoom.getRoomName().equals("Cafeteria")){
+      if(command.getSecondWord().equals("microwave")){
+        System.out.println("You opened the microwave. A kid hops out of the microwave and looks at you.");
+      }
+    }else{
+      System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
     }
+    return false;
     //opens a different items (chest, locker, microwave, curtains, door, backpack)
     //check if you can open the item
   }
