@@ -102,7 +102,7 @@
         {
           "isLocked": false,
           "direction": "SouthWest",
-          "adjacentRoom": "Room 212"
+          "adjacentRoom": "Room212"
         },
         {
           "isLocked": true,

@@ -199,7 +199,7 @@ public class Game {
   }
 
   private boolean openItem(Command command) {
-    if(currentRoom.getRoomName().equals("Room212")){
+    if(currentRoom.getRoomName().equals("Room 212")){
       if(command.getSecondWord().equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
       }else if(command.getSecondWord().equals("Chest2")){
