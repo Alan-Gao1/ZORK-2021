@@ -147,6 +147,7 @@ public class Game {
       solveLock(command, in);
     else if (commandWord.equals("open")){
       openItem(command);
+      //might be true of false
     }else if (commandWord.equals("quit")) {
       if (command.hasSecondWord())
         System.out.println("Quit what?");
@@ -200,15 +201,17 @@ public class Game {
       return;
     }else if(currentRoom.getRoomName().equals("Room212")){
       if(command.getSecondWord().equals("Chest1")){
-        System.out.println("You opened Chest1.");
+        System.out.println("You opened Chest1. There is a sword in the chest. ");
       }else if(command.getSecondWord().equals("Chest2")){
-        System.out.println("You opened Chest2.");
+        System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
       }else if(command.getSecondWord().equals("Chest3")){
-        System.out.println("You opened Chest3.");
+        System.out.println("You opened Chest3, and a bomb exploded.");
+        //return false;
       }else if(command.getSecondWord().equals("Chest4")){
-        System.out.println("You opened Chest4.");
+        System.out.println("You opened Chest4. There is $100!");
       }else if(command.getSecondWord().equals("Chest5")){
-        System.out.println("You opened Chest5");
+        System.out.println("You opened Chest5, and a bomb exploded.");
+        //return false;
       }
     }
     //opens a different items (chest, locker, microwave, curtains, door, backpack)
