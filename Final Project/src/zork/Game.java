@@ -246,7 +246,7 @@ public class Game {
     double chance = peoplePickpocketed*3;
     double counter = (int)(Math.random()*101);
     if(counter>chance){
-      System.out.println("You pickpocketed "+rand+" from a random person.");
+      System.out.println("You pickpocketed $"+rand+" from a random person.");
     }else if(counter<=chance){
       finished = true;
     }
