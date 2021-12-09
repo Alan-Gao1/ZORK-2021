@@ -78,6 +78,8 @@ public class Game {
     }
   }
 
+  
+
   /**
    * Main play routine. Loops until end of play.
    */
@@ -146,9 +148,12 @@ public class Game {
       wear(command);
     else if (commandWord.equals("play"))
       playVideo(command);
-    else if (commandWord.equals("use"))
-      useItem(command);
-    else if (commandWord.equals("solve"))
+    else if (commandWord.equals("use")){
+      if(!command.hasSecondWord())
+        System.out.println("Use what?");
+      else
+        return useItem(command);
+    }else if (commandWord.equals("solve"))
       solveLock(command, in);
     else if (commandWord.equals("open")){
       if(!command.hasSecondWord())
@@ -167,7 +172,12 @@ public class Game {
     return false;
   }
 
-  private void useItem(Command command) {
+  private boolean useItem(Command command) {
+    if(currentRoom.getRoomName().equals("Cafeteria") && command.getSecondWord().equals("microwave") /*&&microwave.isLocked*/){
+        System.out.println("You turned on the microwave and all of a sudden you feel full. You killed the kid inside the microwave, which was crucial to your mission.");
+        return true;
+    }
+    return false;
     //use items from json file
   }
 
@@ -193,6 +203,22 @@ public class Game {
   private void listen(Command command) {
     //listen to what one of the kids has to say
     //print the dialogue/information from kids
+    
+    if(command.getSecondWord().equals("kid")){
+      if(currentRoom.getRoomName().equals("Cafeteria")/*&& !microwave.isLocked*/){
+        System.out.println();
+        System.out.println("\"Hi friend. Thanks for saving me, I am Kid#1. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
+      }else if(currentRoom.getRoomName().equals("Room 203")/**&& Room203 is unlocked */){
+        System.out.println();
+        System.out.println("\"Hi friend, I'm Kid#2. I'm guessing Kid#1 sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
+      }else if(currentRoom.getRoomName().equals("Theatre") /**&& kid#3 is untied, theatre is unlocked*/){
+        System.out.println();
+        System.out.println("\"Thanks for saving me, I'm Kid#3. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
+      }else if(currentRoom.getRoomName().equals("Gym")/**&& mr.cardon has been defeated, kid#4 has been freed*/){
+        System.out.println();
+        System.out.println("\"Thanks for your help, I'm Kid#4. I believe my last friend is in Mr. Federico's office, please help him!\"");
+      }
+    }
   }
 
   private void read(Command command) {
@@ -204,7 +230,7 @@ public class Game {
   }
 
   private boolean openItem(Command command) {
-    if(currentRoom.getRoomName().equals("Room212")){
+    if(currentRoom.getRoomName().equals("Room 212")){
       if(command.getSecondWord().equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
       }else if(command.getSecondWord().equals("Chest2")){
