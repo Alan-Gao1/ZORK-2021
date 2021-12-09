@@ -29,7 +29,7 @@ public class Game {
   public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
-      //initItems("src\\zork\\data\\items.json");
+      initItems("src\\zork\\data\\items.json");
       currentRoom = roomMap.get("Lobby");
     } catch (Exception e) {
       e.printStackTrace();
@@ -37,8 +37,13 @@ public class Game {
     parser = new Parser();
   }
 
-  private void initItems(String string) throws Exception{
-    //TBD - must intialize objects
+  private void initItems(String fileName) throws Exception{
+    Path path = Path.of(fileName);
+    String jsonString = Files.readString(path);
+    JSONParser parser = new JSONParser();
+    JSONObject json = (JSONObject) parser.parse(jsonString);
+    JSONArray jsonItems = (JSONArray) json.get("items");
+    //creates a massive array of all the values of items.json
   }
 
   private void initRooms(String fileName) throws Exception {
