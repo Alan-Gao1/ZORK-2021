@@ -73,6 +73,8 @@ public class Game {
     }
   }
 
+  
+
   /**
    * Main play routine. Loops until end of play.
    */
@@ -188,6 +190,13 @@ public class Game {
   private void listen(Command command) {
     //listen to what one of the kids has to say
     //print the dialogue/information from kids
+    
+    if(command.getSecondWord().equals("kid")){
+      if(currentRoom.getRoomName().equals("Cafeteria")/*&& !microwave.isLocked*/){
+        System.out.println();
+        System.out.println("\"Hi friend. Thanks for saving me, I am Kid#1. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
+      }
+    }
   }
 
   private void read(Command command) {
