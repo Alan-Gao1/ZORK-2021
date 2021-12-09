@@ -203,6 +203,15 @@ public class Game {
       if(currentRoom.getRoomName().equals("Cafeteria")/*&& !microwave.isLocked*/){
         System.out.println();
         System.out.println("\"Hi friend. Thanks for saving me, I am Kid#1. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
+      }else if(currentRoom.getRoomName().equals("Room 203")/**&& Room203 is unlocked */){
+        System.out.println();
+        System.out.println("\"Hi friend, I'm Kid#2. I'm guessing Kid#1 sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
+      }else if(currentRoom.getRoomName().equals("Theatre") /**&& kid#3 is untied, theatre is unlocked*/){
+        System.out.println();
+        System.out.println("\"Thanks for saving me, I'm Kid#3. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
+      }else if(currentRoom.getRoomName().equals("Gym")/**&& mr.cardon has been defeated, kid#4 has been freed*/){
+        System.out.println();
+        System.out.println("\"Thanks for your help, I'm Kid#4. I believe my last friend is in Mr. Federico's office, please help him!\"");
       }
     }
   }
