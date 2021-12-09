@@ -169,7 +169,7 @@ public class Game {
 
   private boolean useItem(Command command) {
     if(currentRoom.getRoomName().equals("Cafeteria") && command.getSecondWord().equals("microwave") /*&&microwave.isLocked*/){
-        System.out.println("You turned on the microwave. You killed the kid inside the microwave, which was crucial to your mission.");
+        System.out.println("You turned on the microwave and all of a sudden you feel full. You killed the kid inside the microwave, which was crucial to your mission.");
         return true;
     }
     return false;
