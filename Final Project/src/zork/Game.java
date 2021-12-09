@@ -143,9 +143,12 @@ public class Game {
       wear(command);
     else if (commandWord.equals("play"))
       playVideo(command);
-    else if (commandWord.equals("use"))
-      useItem(command);
-    else if (commandWord.equals("solve"))
+    else if (commandWord.equals("use")){
+      if(!command.hasSecondWord())
+        System.out.println("Use what?");
+      else
+        return useItem(command);
+    }else if (commandWord.equals("solve"))
       solveLock(command, in);
     else if (commandWord.equals("open")){
       if(!command.hasSecondWord())
@@ -164,7 +167,12 @@ public class Game {
     return false;
   }
 
-  private void useItem(Command command) {
+  private boolean useItem(Command command) {
+    if(currentRoom.getRoomName().equals("Cafeteria") && command.getSecondWord().equals("microwave") /*&&microwave.isLocked*/){
+        System.out.println("You turned on the microwave. You killed the kid inside the microwave, which was crucial to your mission.");
+        return true;
+    }
+    return false;
     //use items from json file
   }
 
