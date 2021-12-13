@@ -4,76 +4,88 @@
         "id": "sword",
         "name": "Sword",
         "description": "This is a sword. It does 50 damage",
-        "weight": 5,
+        "weight": "5",
+        "isOpenable": false,
         "use": [{"canUse": true, "canDamage": true, "damage": 50}]
     },
     {
         "id": "dagger",
         "name": "Dagger",
         "description": "This is a dagger. It does 20 damage",
-        "weight": 1,
+        "weight": "1",
+        "isOpenable": false,
         "use": [{"canUse": true, "canDamage": true, "damage": 20}]
     },
     {
         "id": "mace",
         "name": "Mace",
         "description": "You have a mace. It does 25 damage",
-        "weight": 5,
+        "weight": "5",
+        "isOpenable": false,
         "use": [{"canUse": true, "canDamage": true, "damage": 25}]
     },
     {
         "id": "slingshot",
         "name": "Slingshot",
         "description": "This is a slingshot. It does 10 damage per pellet. You cannot be attacked while using the slingshot",
-        "weight": 2,
+        "weight": "2",
+        "isOpenable": false,
         "use": [{"canUse": true, "canDamage": true, "damage": 20, "maxAmmo": 5}]
     },
     {
         "id": "locker",
         "name": "Locker 121",
         "description": "This is a locker, locked by a lock that requires a sequence of numbers to open.",
-        "open": [{"canUse": true, "isOpenable": true, "isLocked": true, "keyId": "0-13-20"}]
+        "weight": "0",
+        "isOpenable": true, "isLocked": true, "keyId": "0-13-20",
+        "use": [{"canUse": true}]
     },
     {
       "id": "helmet",
       "name": "Helmet Armour",
       "description": "This is a helmet. It adds 50 health",
-      "weight": 0,
+      "weight": "0",
+      "isOpenable": false,
       "use": [{"canUse": true, "canDamage": false, "health": 50}]
   },
   {
     "id": "chestplate",
     "name": "Chestplate Armour",
     "description": "This is a chesplate. It adds 50 health",
-    "weight": 0,
+    "weight": "0",
+    "isOpenable": false,
     "use": [{"canUse": true, "canDamage": false, "health": 50}]
 },
 {
   "id": "feet",
   "name": "Feet Armour",
   "description": "This is foot armor. It adds 25 health",
-  "weight": 0,
+  "weight": "0",
+  "isOpenable": false,
   "use": [{"canUse": true, "canDamage": false, "health": 25}]
 },
 {
   "id": "arm",
   "name": "Arm Armour",
   "description": "This is arm armor. It adds 25 health",
-  "weight": 0,
+  "weight": "0",
+  "isOpenable": false,
   "use": [{"canUse": true, "canDamage": false, "health": 25}]
 },
 {
   "id": "healthJar",
   "name": "Jar of Health",
   "description": "This is a jar of health, it heals 75 health",
-  "weight": 2,
+  "weight": "2",
+  "isOpenable": false,
   "use": [{"canUse": true, "canDamage": false, "health": 75}]
 },
 {
   "id": "pellet",
   "name": "Slingshot pellet",
   "description": "This is a slingshot pellet. It can only be used one time and deals 10 damage",
-  "weight": 0,
+  "weight": "0",
+  "isOpenable": false,
   "use":[{"canUse": true, "canDamage": true, "damage": 10}]
 },
 {
@@ -81,60 +93,32 @@
   "name": "Key",
   "description": "This is a key that can be used to unlock a door",
   "weight": "1",
+  "isOpenable": false,
   "use":[{"canUse": true, "canUnlock": true, "canDamage": false}]
-},
-{
-  "id": "chestOne",
-  "name": "Chest 1",
-  "description": "This is Chest 1. You may open it.",
-  "weight": "0",
-  "open":[{"canUse": true, "isOpenable": true, "isLocked": false, "contents": "You have found a sword!", "object": "sword"}]
-},
-{
-  "id": "chestTwo",
-  "name": "Chest 2",
-  "description": "This is Chest 2. You may open it.",
-  "weight": "0",
-  "open":[{"canUse": true, "isOpenable": true, "isLocked": false, "contents": "You have found a part of a costume. The tag on the back reads \"From the BVG shop\".", "object": "costumeOne"}]
-},
-{
-  "id": "chestThree",
-  "name": "Chest 3",
-  "description": "This is Chest 3. You may open it.",
-  "weight": "0",
-  "open":[{"canUse": true, "isOpenable": true, "isLocked": false, "contents": "You have been killed by a bomb placed in this chest.", "object": "bomb"}]
-},
-{
-  "id": "chestFive",
-  "name": "Chest 5",
-  "description": "This is Chest 5. You may open it.",
-  "weight": "0",
-  "open":[{"canUse": true, "isOpenable": true, "isLocked": false, "contents": "You have been killed by a bomb placed in this chest.", "object": "bomb"}]
-},
-{
-  "id": "chestFour",
-  "name": "Chest 3",
-  "description": "This is Chest 4. You may open it.",
-  "weight": "0",
-  "open":[{"canUse": true, "isOpenable": true, "isLocked": false, "contents": "You have found $100 in this chest! Congratulations!", "object": "money"}]
 },
 {
     "id": "bomb",
     "name": "Bomb",
-    "gameEnd": true
+    "description": "Game-ending bomb",
+    "weight": "0",
+    "isOpenable": false,
+    "gameEnd": true,
+    "use": [{"canUse": true}]
 },
 {
   "id": "costumeOne",
   "name": "Upper Costume piece",
   "description": "This is the upper part of the costume.",
-  "weight": 0,
+  "weight": "0",
+  "isOpenable": false,
   "use":[{"canUse": true}]
 },
 {
   "id": "costumeTwo",
   "name": "Lower Costume piece",
   "description": "This is the lower part of the costume.",
-  "weight": 0,
+  "weight": "0",
+  "isOpenable": false,
   "use":[{"canUse": true}]
 },
 {
@@ -142,55 +126,93 @@
   "name": "Kid #1",
   "description": "This is a child",
   "isChild": true,
-  "weight": 1,
-  "take":[{"canUse": true}],
-  "kidID": 1
+  "weight": "1",
+  "isOpenable": false,
+  "use":[{"canUse": true}]
 },
 {
     "id": "kidTwo",
     "name": "Kid #2",
     "description": "This is a child",
     "isChild": true,
-    "weight": 1,
-    "take":[{"canUse": true}],
-    "kidID": 2
+    "weight": "1",
+    "isOpenable": false,
+    "use":[{"canUse": true}]
 },
 {
     "id": "kidThree",
     "name": "Kid #3",
     "description": "This is a child",
     "isChild": true,
-    "weight": 1,
-    "take":[{"canUse": true}],
-    "kidID": 3
+    "weight": "1",
+    "isOpenable": false,
+    "use":[{"canUse": true}]
 },
 {
     "id": "kidFour",
     "name": "Kid #1",
     "description": "This is a child",
     "isChild": true,
-    "weight": 1,
-    "take":[{"canUse": true}],
-    "kidID": 4
+    "weight": "1",
+    "isOpenable": false,
+    "use":[{"canUse": true}]
 },
 {
     "id": "kidFive",
     "name": "Kid #1",
     "description": "This is a child",
     "isChild": true,
-    "weight": 1,
-    "take":[{"canUse": true}],
-    "kidID": 5
+    "weight": "1",
+    "isOpenable": false,
+    "use":[{"canUse": true}]
 },
 {
   "id": "microwave",
   "name": "Microwave",
   "description": "This is a microwave, you can open it or turn it on (use)",
-  "open":[{
-    "canUse": true, "isOpenable": true, "isLocked": false}],
-  "use":[{
-    "gameEnd": true
-  }]
+  "weight": "0",
+  "isOpenable": true, "isLocked": false,
+  "use": [{"canUse": true}]
+},
+{
+  "id": "chestOne",
+  "name": "Chest 1",
+  "description": "This is Chest 1. You may open it.",
+  "weight": "0",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 1, "contents": "You have found a sword!", "object": "sword",
+  "use":[{"canUse": true}]
+},
+{
+  "id": "chestTwo",
+  "name": "Chest 2",
+  "description": "This is Chest 2. You may open it.",
+  "weight": "0",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 2, "contents": "You have found a part of a costume. The tag on the back reads \"From the BVG shop\".", "object": "costumeOne",
+  "use":[{"canUse": true}]
+},
+{
+  "id": "chestThree",
+  "name": "Chest 3",
+  "description": "This is Chest 3. You may open it.",
+  "weight": "0",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 3, "contents": "You have been killed by a bomb placed in this chest.", "object": "bomb",
+  "use":[{"canUse": true}]
+},
+{
+  "id": "chestFive",
+  "name": "Chest 5",
+  "description": "This is Chest 5. You may open it.",
+  "weight": "0",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 5, "contents": "You have been killed by a bomb placed in this chest.", "object": "bomb",
+  "use":[{"canUse": true}]
+},
+{
+  "id": "chestFour",
+  "name": "Chest 4",
+  "description": "This is Chest 4. You may open it.",
+  "weight": "0",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 4, "contents": "You have found $100 in this chest! Congratulations!", "object": "money",
+  "use":[{"canUse": true}]
 }
 ]
 }

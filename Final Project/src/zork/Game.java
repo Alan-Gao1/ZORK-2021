@@ -16,9 +16,10 @@ public class Game {
   private Scanner in;
 
   public static HashMap<String, Room> roomMap = new HashMap<String, Room>();
+  public static ArrayList<Item> itemList = new ArrayList<>();
 
   private Parser parser;
-  private Room currentRoom;
+  private Room currentRoom;;
   private int peoplePickpocketed;
   public boolean finished = false;
   private boolean winCondition = false;
@@ -30,6 +31,7 @@ public class Game {
     try {
       initRooms("src\\zork\\data\\rooms.json");
       initItems("src\\zork\\data\\items.json");
+      System.out.println(itemList);
       currentRoom = roomMap.get("Lobby");
     } catch (Exception e) {
       e.printStackTrace();
@@ -43,7 +45,72 @@ public class Game {
     JSONParser parser = new JSONParser();
     JSONObject json = (JSONObject) parser.parse(jsonString);
     JSONArray jsonItems = (JSONArray) json.get("items");
-    //creates a massive array of all the values of items.json
+
+    for(Object itemObj : jsonItems){
+      String itemName = (String) ((JSONObject) itemObj).get("name");
+      String itemId = (String) ((JSONObject) itemObj).get("id");
+      boolean isChest = false;
+      int chestNum = 0 ;
+      String object = "";
+      String contentDesc = "";
+      if(itemId.equals("chestOne")||itemId.equals("chestTwo")||itemId.equals("chestThree")||itemId.equals("chestFour")||itemId.equals("chestFive")){
+        isChest = (Boolean) ((JSONObject) itemObj).get("isChest");
+        String chestNum1 = Long.toString((long) ((JSONObject) itemObj).get("chestNum"));
+        chestNum = Integer.parseInt(chestNum1);
+        object = (String) ((JSONObject) itemObj).get("object");
+        contentDesc = (String) ((JSONObject) itemObj).get("contents");
+      }
+      String itemDescription = (String) ((JSONObject) itemObj).get("description");
+      String itemWeight = (String) ((JSONObject) itemObj).get("weight");
+      int iWeight = Integer.parseInt(itemWeight);
+      Boolean itemIsOpenable = (Boolean) ((JSONObject) itemObj).get("isOpenable");
+      Boolean isLocked = false;
+      if(itemIsOpenable&&!isChest){
+        OpenableObject openableObject = new OpenableObject();
+        isLocked = (Boolean) ((JSONObject) itemObj).get("isLocked");
+        openableObject.setLocked(isLocked);
+        openableObject.setOpenable(true);
+        if(openableObject.isLocked()){
+          String itemKey = (String) ((JSONObject) itemObj).get("keyId");
+          openableObject.setKeyId(itemKey);
+        }
+        openableObject.setName(itemName);
+        openableObject.setWeight(iWeight);
+        openableObject.setId(itemId);
+        openableObject.setDescription(itemDescription);
+        itemList.add(openableObject);
+      }else if(isChest){
+        Chest chest = new Chest();
+        chest.setLocked(isLocked);
+        chest.setOpenable(true);
+        chest.setName(itemName);
+        chest.setWeight(iWeight);
+        chest.setId(itemId);
+        chest.setDescription(itemDescription);
+        chest.setChestNum(chestNum);
+        chest.addContentsChest(findContents(object));
+        chest.setContents(contentDesc);
+        itemList.add(chest);
+        //once added, the item stored in chest isnt there anymore
+      }else{
+        Item item = new Item();
+        item.setName(itemName);
+        item.setWeight(iWeight);
+        item.setOpenable(itemIsOpenable);
+        item.setId(itemId);
+        item.setDescription(itemDescription);
+        itemList.add(item);
+      }
+    }
+  }
+
+  private Item findContents(String object) {
+    for (Item item : itemList) {
+      if(item.getId().equals(object)){
+        return item;
+      }
+    }
+    return null;
   }
 
   private void initRooms(String fileName) throws Exception {
