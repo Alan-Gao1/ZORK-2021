@@ -107,7 +107,9 @@ public class Game {
   private Item findContents(String object) {
     for (Item item : itemList) {
       if(item.getId().equals(object)){
-        return item;
+        Item returnItem = new Item();
+        returnItem = item;
+        return returnItem;
       }
     }
     return null;

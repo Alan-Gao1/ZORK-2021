@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Chest extends OpenableObject{
 
-    private ArrayList<Item> contents = new ArrayList<>();
+    // private ArrayList<Item> contents = new ArrayList<>();
+    private Item contents = new Item();
     private int chestNum;
     private String contentDescription;
 
@@ -18,7 +19,7 @@ public class Chest extends OpenableObject{
     }
 
     public void addContentsChest(Item item){
-        this.contents.add(item);
+        this.contents = item;
     }
 
     public void setContents(String desc){
