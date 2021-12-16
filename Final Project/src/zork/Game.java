@@ -242,7 +242,7 @@ public class Game {
   }
 
   private boolean useItem(Command command) {
-    if(currentRoom.getRoomName().equals("Cafeteria") && command.getSecondWord().equals("microwave") /*&&microwave.isLocked*/){
+    if(currentRoom.getRoomName().equals("Cafeteria") && command.getSecondWord().equals("microwave") /*&& microwave.isLocked()*/){
         System.out.println("You turned on the microwave and all of a sudden you feel full. You killed the kid inside the microwave, which was crucial to your mission.");
         return true;
     }
@@ -302,6 +302,7 @@ public class Game {
     if(currentRoom.getRoomName().equals("Room 212")){
       if(command.getSecondWord().equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
+        
       }else if(command.getSecondWord().equals("Chest2")){
         System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
       }else if(command.getSecondWord().equals("Chest3")){
@@ -316,6 +317,7 @@ public class Game {
     }else if(currentRoom.getRoomName().equals("Cafeteria")){
       if(command.getSecondWord().equals("microwave")){
         System.out.println("You opened the microwave. A kid hops out of the microwave and looks at you.");
+
       }
     }else{
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
