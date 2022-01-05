@@ -171,7 +171,7 @@
   "name": "Microwave",
   "description": "This is a microwave, you can open it or turn it on (use)",
   "weight": "0",
-  "isOpenable": true, "isLocked": false,
+  "isOpenable": true, "isLocked": true,
   "use": [{"canUse": true}]
 },
 {

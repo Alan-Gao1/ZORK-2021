@@ -299,25 +299,27 @@ public class Game {
   }
 
   private boolean openItem(Command command) {
+    String item = command.getSecondWord();
     if(currentRoom.getRoomName().equals("Room 212")){
-      if(command.getSecondWord().equals("Chest1")){
+      if(item.equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
         
-      }else if(command.getSecondWord().equals("Chest2")){
+      }else if(item.equals("Chest2")){
         System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
-      }else if(command.getSecondWord().equals("Chest3")){
+      }else if(item.equals("Chest3")){
         System.out.println("You opened Chest3, and a bomb exploded.");
         return true;
-      }else if(command.getSecondWord().equals("Chest4")){
+      }else if(item.equals("Chest4")){
         System.out.println("You opened Chest4. There is $100!");
-      }else if(command.getSecondWord().equals("Chest5")){
+      }else if(item.equals("Chest5")){
         System.out.println("You opened Chest5, and a bomb exploded.");
         return true;
       }
     }else if(currentRoom.getRoomName().equals("Cafeteria")){
-      if(command.getSecondWord().equals("microwave")){
+      if(item.equals("microwave")){
         System.out.println("You opened the microwave. A kid hops out of the microwave and looks at you.");
-
+          //if(itemList.get(itemList.indexOf("microwave")).isOpenable()) //index 20
+            //itemList.get(itemList.indexOf("microwave")).isOpenable();
       }
     }else{
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
