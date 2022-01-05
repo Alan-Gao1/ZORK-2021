@@ -1,25 +1,35 @@
 package zork;
 
-public class OpenableObject {
+public class OpenableObject extends Item{
   private Boolean isLocked;
   private String keyId;
   private Boolean isOpen;
 
   public OpenableObject() {
+    super();
     this.isLocked = false;
     this.keyId = null;
     this.isOpen = false;
   }
 
   public OpenableObject(boolean isLocked, String keyId, Boolean isOpen) {
+    super();
     this.isLocked = isLocked;
     this.keyId = keyId;
     this.isOpen = isOpen;
   }
 
   public OpenableObject(boolean isLocked, String keyId) {
+    super();
     this.isLocked = isLocked;
     this.keyId = keyId;
+    this.isOpen = false;
+  }
+
+  public OpenableObject(boolean isLocked){
+    super();
+    this.isLocked = isLocked;
+    this.keyId = null;
     this.isOpen = false;
   }
 
@@ -33,6 +43,10 @@ public class OpenableObject {
 
   public String getKeyId() {
     return keyId;
+  }
+
+  public void setKeyId(String id){
+    this.keyId = id;
   }
 
   public boolean isOpen() {

@@ -20,7 +20,7 @@
     {
       "id": "Cafeteria",
       "name": "Cafeteria",
-      "description": "You are in a large Cafeteria",
+      "description": "You are in a large Cafeteria. There is a microwave in the far corner of the room.",
       "exits": [
         {
           "isLocked": false,
@@ -102,7 +102,7 @@
         {
           "isLocked": false,
           "direction": "SouthWest",
-          "adjacentRoom": "Room 212"
+          "adjacentRoom": "Room212"
         },
         {
           "isLocked": true,
@@ -164,7 +164,7 @@
     {
       "id": "Room212",
       "name": "Room 212",
-      "description": "You are in classroom number 212.",
+      "description": "You are in classroom number 212. There are 5 chests, be careful if you chose to open them.",
       "exits": [
         {
           "isLocked": false,
