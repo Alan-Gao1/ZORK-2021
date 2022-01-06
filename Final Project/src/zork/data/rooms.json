@@ -255,7 +255,7 @@
     {
       "id": "Room204",
       "name": "Room 204",
-      "description": "You are in Room 204, check for items.",
+      "description": "You are in Room 204, there is a mace in the corner of the room.",
       "exits": [
         {
           "isLocked": false,
