@@ -30,4 +30,13 @@ public class Inventory {
     }
   }
 
+  public void pickUp(Item item){
+    if(addItem(item))
+      items.add(item);
+  }
+
+  public void remove(Item item){
+    items.remove(item);
+  }
+
 }
