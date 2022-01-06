@@ -346,8 +346,33 @@ public class Game {
     if(!command.hasSecondWord()){
       System.out.println("Drop what?");
       return;
-    }else
-      System.out.println("You have dropped " + command.getSecondWord() + ".");
+    }
+
+    String item = "";
+    if(command.getSecondWord().equals("kid")){
+      if(currentRoom.getRoomName().equals("Cafeteria")){
+        item = "kidOne";
+      }else if(currentRoom.getRoomName().equals("Room203")){
+        item = "kidTwo";
+      }else if(currentRoom.getRoomName().equals("UpperTheatre")){
+        item = "kidThree";
+      }else if(currentRoom.getRoomName().equals("Gym")){
+        item = "kidFour";
+      }else if(currentRoom.getRoomName().equals("Room106")){
+        item = "kidFive";
+      }
+    }else{
+      item = command.getSecondWord();
+    }
+
+    Item newItem = itemMap.get(item);
+
+    if(itemMap.get(item)!=null){
+      backpack.remove(newItem);
+      System.out.println("You took the " + command.getSecondWord() + ".");
+    }else{
+      System.out.println("You cannot take " + command.getSecondWord());
+    }
     //remove an item from inventory (ex. remove kid or item)
 
     //you do not have anything to drop
