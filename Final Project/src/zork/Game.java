@@ -403,7 +403,7 @@ public class Game {
     if(command.getSecondWord().equals("kid")){
       if(currentRoom.getRoomName().equals("Cafeteria")){
         item = "kidOne";
-      }else if(currentRoom.getRoomName().equals("Room203")){
+      }else if(currentRoom.getRoomName().equals("Room 203")){
         item = "kidTwo";
       }else if(currentRoom.getRoomName().equals("UpperTheatre")){
         item = "kidThree";
