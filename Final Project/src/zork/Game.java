@@ -100,7 +100,7 @@ public class Game {
         item.setId(itemId);
         item.setDescription(itemDescription);
         itemList.add(item);
-      }
+      }   
     }
   }
 
@@ -295,7 +295,12 @@ public class Game {
   }
 
   private void untie(Command command) {
-    //untie a kid 
+    String item = command.getSecondWord();
+    if(item.equals("kid")||item.equals("Kid")){
+      System.out.println("You untied the kid.");
+      //itemMap.get("kidOne")
+      //release kid 
+    }
   }
 
   private boolean openItem(Command command) {
@@ -318,8 +323,8 @@ public class Game {
     }else if(currentRoom.getRoomName().equals("Cafeteria")){
       if(item.equals("microwave")){
         System.out.println("You opened the microwave. A kid hops out of the microwave and looks at you.");
-          //if(itemList.get(itemList.indexOf("microwave")).isOpenable()) //index 20
-            //itemList.get(itemList.indexOf("microwave")).isOpenable();
+          //if(itemMap.get("microwave").isOpenable()) //index 20
+            //itemMap.get("microwave").isOpenable();//open the microwave (set it to an opened state)
       }
     }else{
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
@@ -374,7 +379,9 @@ public class Game {
        System.out.println("You took the " + command.getSecondWord() + ".");
        }
      //}
-
+     
+     //public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
+     //itemMap.put(itemId, item);
   }
 
   private void solveLock(Command command, Scanner in) {
