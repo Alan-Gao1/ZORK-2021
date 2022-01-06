@@ -6,6 +6,7 @@ public class Item{
   private String id;
   private boolean isOpenable;
   private String description;
+  private String startingRoom;
 
   public Item(){
     this.weight = 0;
@@ -62,6 +63,10 @@ public class Item{
 
   public void setDescription(String description){
     this.description = description;
+  }
+
+  public void setStartingRoom(String startingRoom){
+    this.startingRoom = startingRoom;
   }
 
 }

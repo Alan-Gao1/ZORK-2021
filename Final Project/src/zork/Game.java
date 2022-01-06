@@ -61,6 +61,7 @@ public class Game {
         contentDesc = (String) ((JSONObject) itemObj).get("contents");
       }
       String itemDescription = (String) ((JSONObject) itemObj).get("description");
+      String itemStartingRoom = (String) ((JSONObject) itemObj).get("startingRoom");
       String itemWeight = (String) ((JSONObject) itemObj).get("weight");
       int iWeight = Integer.parseInt(itemWeight);
       Boolean itemIsOpenable = (Boolean) ((JSONObject) itemObj).get("isOpenable");
@@ -99,6 +100,7 @@ public class Game {
         item.setOpenable(itemIsOpenable);
         item.setId(itemId);
         item.setDescription(itemDescription);
+        item.setStartingRoom(itemStartingRoom);
         itemList.add(item);
       }   
     }

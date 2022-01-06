@@ -230,20 +230,20 @@
         {
           "isLocked": false,
           "direction": "East",
-          "adjacentRoom": "Room201"
+          "adjacentRoom": "Room203"
         },
         {
           "isLocked": true,
           "direction": "SouthEast",
-          "adjacentRoom": "Room203",
+          "adjacentRoom": "Room204",
           "keyId": "8"
         }
       ]
     },
     {
-      "id": "Room201",
-      "name": "Room 201",
-      "description": "You are in Room 201, check for items.",
+      "id": "Room203",
+      "name": "Room 203",
+      "description": "You are in Room 201, take the kid.",
       "exits": [
         {
           "isLocked": false,
@@ -253,9 +253,9 @@
       ]
     },
     {
-      "id": "Room203",
-      "name": "Room 203",
-      "description": "You are in Room 203, take the kid.",
+      "id": "Room204",
+      "name": "Room 204",
+      "description": "You are in Room 204, check for items.",
       "exits": [
         {
           "isLocked": false,
