@@ -17,12 +17,14 @@ public class Game {
 
   public static HashMap<String, Room> roomMap = new HashMap<String, Room>();
   public static ArrayList<Item> itemList = new ArrayList<>();
+  public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
 
   private Parser parser;
   private Room currentRoom;;
   private int peoplePickpocketed;
   public boolean finished = false;
   private boolean winCondition = false;
+  private Inventory backpack = new Inventory(10);
 
   /**
    * Create the game and initialise its internal map.
@@ -80,6 +82,7 @@ public class Game {
         openableObject.setId(itemId);
         openableObject.setDescription(itemDescription);
         itemList.add(openableObject);
+        itemMap.put(itemId, openableObject);
       }else if(isChest){
         Chest chest = new Chest();
         chest.setLocked(isLocked);
@@ -93,6 +96,7 @@ public class Game {
         chest.setContents(contentDesc);
         itemList.add(chest);
         //once added, the item stored in chest isnt there anymore
+        itemMap.put(itemId, chest);
       }else{
         Item item = new Item();
         item.setName(itemName);
@@ -102,6 +106,7 @@ public class Game {
         item.setDescription(itemDescription);
         item.setStartingRoom(itemStartingRoom);
         itemList.add(item);
+        itemMap.put(itemId, item);
       }   
     }
   }
@@ -369,17 +374,37 @@ public class Game {
       return;
     }
 
-    String item = command.getSecondWord();
-    Item newItem = new Item(10, item, true); //** this is hardcoded but retrieve the values from the json */
-    Inventory backpack = new Inventory(10);
+    String item = "";
+    if(command.getSecondWord().equals("kid")){
+      if(currentRoom.getRoomName().equals("Cafeteria")){
+        item = "kidOne";
+      }else if(currentRoom.getRoomName().equals("Room203")){
+        item = "kidTwo";
+      }else if(currentRoom.getRoomName().equals("UpperTheatre")){
+        item = "kidThree";
+      }else if(currentRoom.getRoomName().equals("Gym")){
+        item = "kidFour";
+      }else if(currentRoom.getRoomName().equals("Room106")){
+        item = "kidFive";
+      }
+    }else{
+      item = command.getSecondWord();
+    }
+
+    Item newItem = itemMap.get(item);
+    //Item newItem = new Item(10, item, true); //** this is hardcoded but retrieve the values from the json */
     //check to see if item exists in the json file
 
-    /*if(item can be moved)
-       System.out.println("You cannot move the " + command.getSecondWord() + "!");
-    else{
-       */if(backpack.addItem(newItem)){
-       System.out.println("You took the " + command.getSecondWord() + ".");
-       }
+    //if(item can be moved)
+      // System.out.println("You cannot move the " + command.getSecondWord() + "!");
+    //else{
+    if(itemMap.get(item)!=null){
+      if(backpack.addItem(newItem)){
+        System.out.println("You took the " + command.getSecondWord() + ".");
+      }
+    }else{
+      System.out.println("You cannot take " + command.getSecondWord());
+    }
      //}
      
      //public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
