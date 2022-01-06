@@ -243,7 +243,7 @@
     {
       "id": "Room203",
       "name": "Room 203",
-      "description": "You are in Room 201, take the kid.",
+      "description": "You are in Room 203, take the kid.",
       "exits": [
         {
           "isLocked": false,
