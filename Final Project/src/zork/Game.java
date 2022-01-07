@@ -24,7 +24,7 @@ public class Game {
   private int peoplePickpocketed;
   public boolean finished = false;
   private boolean winCondition = false;
-  private Inventory backpack = new Inventory(10);
+  private Inventory backpack = new Inventory(15);
 
   /**
    * Create the game and initialise its internal map.
@@ -348,35 +348,36 @@ public class Game {
       return;
     }
 
+    Room roomDropped = currentRoom;
+
+    //keep track of the currentRoom where the object is dropped
+    String x = command.getSecondWord();
     String item = "";
-    if(command.getSecondWord().equals("kid")){
-      if(currentRoom.getRoomName().equals("Cafeteria")){
+    if(x.equals("Kid#1")||x.equals("kid#1")){
         item = "kidOne";
-      }else if(currentRoom.getRoomName().equals("Room203")){
+    }else if(x.equals("Kid#2")||x.equals("kid#2")){
         item = "kidTwo";
-      }else if(currentRoom.getRoomName().equals("UpperTheatre")){
+    }else if(x.equals("Kid#3")||x.equals("kid#3")){
         item = "kidThree";
-      }else if(currentRoom.getRoomName().equals("Gym")){
+    }else if(x.equals("Kid#4")||x.equals("kid#4")){
         item = "kidFour";
-      }else if(currentRoom.getRoomName().equals("Room106")){
+    }else if(x.equals("Kid#5")||x.equals("kid#5")){
         item = "kidFive";
-      }
     }else{
       item = command.getSecondWord();
     }
 
     Item newItem = itemMap.get(item);
 
-    //if(backpack.getCurrentWeight()<=0)
-    if(itemMap.get(item)!=null){
+    if(backpack.getCurrentWeight()<=0){
+      System.out.println("You have nothing to drop!");
+    }else if(itemMap.get(item)!=null){
       backpack.remove(newItem);
-      System.out.println("You took the " + command.getSecondWord() + ".");
+      backpack.currentWeight -= newItem.getWeight();
+      System.out.println("You dropped the " + command.getSecondWord() + ".");
     }else{
-      System.out.println("You cannot take " + command.getSecondWord());
+      System.out.println("You cannot drop " + command.getSecondWord());
     }
-    //remove an item from inventory (ex. remove kid or item)
-
-    //you do not have anything to drop
   }
 
   private void pickpocket(Command command) {
@@ -400,24 +401,24 @@ public class Game {
       return;
     }
 
+    String x = command.getSecondWord();
     String item = "";
-    if(command.getSecondWord().equals("kid")){
-      if(currentRoom.getRoomName().equals("Cafeteria")){
+    if(x.equals("Kid#1")||x.equals("kid#1")){
         item = "kidOne";
-      }else if(currentRoom.getRoomName().equals("Room 203")){
+    }else if(x.equals("Kid#2")||x.equals("kid#2")){
         item = "kidTwo";
-      }else if(currentRoom.getRoomName().equals("UpperTheatre")){
+    }else if(x.equals("Kid#3")||x.equals("kid#3")){
         item = "kidThree";
-      }else if(currentRoom.getRoomName().equals("Gym")){
+    }else if(x.equals("Kid#4")||x.equals("kid#4")){
         item = "kidFour";
-      }else if(currentRoom.getRoomName().equals("Room106")){
+    }else if(x.equals("Kid#5")||x.equals("kid#5")){
         item = "kidFive";
-      }
     }else{
       item = command.getSecondWord();
     }
 
     Item newItem = itemMap.get(item);
+    backpack.currentWeight += newItem.getWeight();
 
     if(itemMap.get(item) instanceof OpenableObject)
       System.out.println("You cannot move the " + command.getSecondWord() + "!");
