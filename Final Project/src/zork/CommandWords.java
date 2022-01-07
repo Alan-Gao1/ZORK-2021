@@ -33,5 +33,6 @@ public class CommandWords {
       System.out.print(c + "  ");
     }
     System.out.println();
+    System.out.println("Type 'listen kid' to listen to the hints and clues the kids have.");
   }
 }
