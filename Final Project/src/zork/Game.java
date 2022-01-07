@@ -17,12 +17,14 @@ public class Game {
 
   public static HashMap<String, Room> roomMap = new HashMap<String, Room>();
   public static ArrayList<Item> itemList = new ArrayList<>();
+  public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
 
   private Parser parser;
   private Room currentRoom;;
   private int peoplePickpocketed;
   public boolean finished = false;
   private boolean winCondition = false;
+  private Inventory backpack = new Inventory(10);
 
   /**
    * Create the game and initialise its internal map.
@@ -77,10 +79,12 @@ public class Game {
           openableObject = new OpenableObject(iWeight, itemName, true, itemId, itemDescription, itemStartingRoom, isLocked, false);
         }
         itemList.add(openableObject);
+        itemMap.put(itemId, openableObject);
       }else if(isChest){
         Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, chestNum, contentDesc);
         chest.addContentsChest(findContents(object));
         itemList.add(chest);
+        itemMap.put(itemId, chest);
       }else{
         Item item = new Item(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom);
         if(itemIsWeapon){
@@ -91,7 +95,8 @@ public class Game {
           }
         }
         itemList.add(item);
-      }
+        itemMap.put(itemId, item);
+      }   
     }
   }
 
@@ -286,29 +291,36 @@ public class Game {
   }
 
   private void untie(Command command) {
-    //untie a kid 
+    String item = command.getSecondWord();
+    if(item.equals("kid")||item.equals("Kid")){
+      System.out.println("You untied the kid.");
+      //itemMap.get("kidOne")
+      //release kid 
+    }
   }
 
   private boolean openItem(Command command) {
+    String item = command.getSecondWord();
     if(currentRoom.getRoomName().equals("Room 212")){
-      if(command.getSecondWord().equals("Chest1")){
+      if(item.equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
         
-      }else if(command.getSecondWord().equals("Chest2")){
+      }else if(item.equals("Chest2")){
         System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
-      }else if(command.getSecondWord().equals("Chest3")){
+      }else if(item.equals("Chest3")){
         System.out.println("You opened Chest3, and a bomb exploded.");
         return true;
-      }else if(command.getSecondWord().equals("Chest4")){
+      }else if(item.equals("Chest4")){
         System.out.println("You opened Chest4. There is $100!");
-      }else if(command.getSecondWord().equals("Chest5")){
+      }else if(item.equals("Chest5")){
         System.out.println("You opened Chest5, and a bomb exploded.");
         return true;
       }
     }else if(currentRoom.getRoomName().equals("Cafeteria")){
-      if(command.getSecondWord().equals("microwave")){
+      if(item.equals("microwave")){
         System.out.println("You opened the microwave. A kid hops out of the microwave and looks at you.");
-
+          //if(itemMap.get("microwave").isOpenable()) //index 20
+            //itemMap.get("microwave").isOpenable();//open the microwave (set it to an opened state)
       }
     }else{
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
@@ -323,8 +335,34 @@ public class Game {
     if(!command.hasSecondWord()){
       System.out.println("Drop what?");
       return;
-    }else
-      System.out.println("You have dropped " + command.getSecondWord() + ".");
+    }
+
+    String item = "";
+    if(command.getSecondWord().equals("kid")){
+      if(currentRoom.getRoomName().equals("Cafeteria")){
+        item = "kidOne";
+      }else if(currentRoom.getRoomName().equals("Room203")){
+        item = "kidTwo";
+      }else if(currentRoom.getRoomName().equals("UpperTheatre")){
+        item = "kidThree";
+      }else if(currentRoom.getRoomName().equals("Gym")){
+        item = "kidFour";
+      }else if(currentRoom.getRoomName().equals("Room106")){
+        item = "kidFive";
+      }
+    }else{
+      item = command.getSecondWord();
+    }
+
+    Item newItem = itemMap.get(item);
+
+    //if(backpack.getCurrentWeight()<=0)
+    if(itemMap.get(item)!=null){
+      backpack.remove(newItem);
+      System.out.println("You took the " + command.getSecondWord() + ".");
+    }else{
+      System.out.println("You cannot take " + command.getSecondWord());
+    }
     //remove an item from inventory (ex. remove kid or item)
 
     //you do not have anything to drop
@@ -351,18 +389,34 @@ public class Game {
       return;
     }
 
-    String item = command.getSecondWord();
-    Item newItem = new Item(10, item, true); //** this is hardcoded but retrieve the values from the json */
-    Inventory backpack = new Inventory(10);
-    //check to see if item exists in the json file
+    String item = "";
+    if(command.getSecondWord().equals("kid")){
+      if(currentRoom.getRoomName().equals("Cafeteria")){
+        item = "kidOne";
+      }else if(currentRoom.getRoomName().equals("Room 203")){
+        item = "kidTwo";
+      }else if(currentRoom.getRoomName().equals("UpperTheatre")){
+        item = "kidThree";
+      }else if(currentRoom.getRoomName().equals("Gym")){
+        item = "kidFour";
+      }else if(currentRoom.getRoomName().equals("Room106")){
+        item = "kidFive";
+      }
+    }else{
+      item = command.getSecondWord();
+    }
 
-    /*if(item can be moved)
-       System.out.println("You cannot move the " + command.getSecondWord() + "!");
-    else{
-       */if(backpack.addItem(newItem)){
-       System.out.println("You took the " + command.getSecondWord() + ".");
-       }
-     //}
+    Item newItem = itemMap.get(item);
+
+    if(itemMap.get(item) instanceof OpenableObject)
+      System.out.println("You cannot move the " + command.getSecondWord() + "!");
+    else if(itemMap.get(item)!=null){
+      if(backpack.addItem(newItem)){
+        System.out.println("You took the " + command.getSecondWord() + ".");
+      }
+    }else{
+      System.out.println("You cannot take " + command.getSecondWord());
+    }
 
   }
 

@@ -30,4 +30,8 @@ public class Inventory {
     }
   }
 
+  public void remove(Item item){
+    items.remove(item);
+  }
+
 }
