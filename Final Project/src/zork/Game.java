@@ -68,43 +68,32 @@ public class Game {
       int iWeight = Integer.parseInt(itemWeight);
       Boolean itemIsOpenable = (Boolean) ((JSONObject) itemObj).get("isOpenable");
       Boolean isLocked = false;
+      Boolean itemIsWeapon = (Boolean) ((JSONObject) itemObj).get("isWeapon");
       if(itemIsOpenable&&!isChest){
-        OpenableObject openableObject = new OpenableObject();
         isLocked = (Boolean) ((JSONObject) itemObj).get("isLocked");
-        openableObject.setLocked(isLocked);
-        openableObject.setOpenable(true);
-        if(openableObject.isLocked()){
+        OpenableObject openableObject;
+        if(isLocked){
           String itemKey = (String) ((JSONObject) itemObj).get("keyId");
-          openableObject.setKeyId(itemKey);
+          openableObject = new OpenableObject(iWeight, itemName, true, itemId, itemDescription, itemStartingRoom, isLocked, itemKey, false);
+        }else{
+          openableObject = new OpenableObject(iWeight, itemName, true, itemId, itemDescription, itemStartingRoom, isLocked, false);
         }
-        openableObject.setName(itemName);
-        openableObject.setWeight(iWeight);
-        openableObject.setId(itemId);
-        openableObject.setDescription(itemDescription);
         itemList.add(openableObject);
         itemMap.put(itemId, openableObject);
       }else if(isChest){
-        Chest chest = new Chest();
-        chest.setLocked(isLocked);
-        chest.setOpenable(true);
-        chest.setName(itemName);
-        chest.setWeight(iWeight);
-        chest.setId(itemId);
-        chest.setDescription(itemDescription);
-        chest.setChestNum(chestNum);
+        Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, chestNum, contentDesc);
         chest.addContentsChest(findContents(object));
-        chest.setContents(contentDesc);
         itemList.add(chest);
-        //once added, the item stored in chest isnt there anymore
         itemMap.put(itemId, chest);
       }else{
-        Item item = new Item();
-        item.setName(itemName);
-        item.setWeight(iWeight);
-        item.setOpenable(itemIsOpenable);
-        item.setId(itemId);
-        item.setDescription(itemDescription);
-        item.setStartingRoom(itemStartingRoom);
+        Item item = new Item(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom);
+        if(itemIsWeapon){
+          item = new Weapon(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, 0, 0);
+          item.setDamage(itemId);
+          if(itemId.equals("slingshot")){
+            item.setAmmo(5);
+          }
+        }
         itemList.add(item);
         itemMap.put(itemId, item);
       }   
