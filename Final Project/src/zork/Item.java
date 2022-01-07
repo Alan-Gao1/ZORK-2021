@@ -77,6 +77,10 @@ public void open() {
     this.startingRoom = startingRoom;
   }
 
+  public String getStartingRoom(){
+    return startingRoom;
+  }
+
   public void setDamage(String id){
   }
 
