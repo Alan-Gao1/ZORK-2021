@@ -5,25 +5,31 @@ public class OpenableObject extends Item{
   private String keyId;
   private Boolean isOpen;
 
-  public OpenableObject() {
+  public OpenableObject(){
     super();
-    this.isLocked = false;
-    this.keyId = null;
+    this.isLocked = true;
+    this.keyId = "DEFAULT_ID";
     this.isOpen = false;
   }
-
-  public OpenableObject(boolean isLocked, String keyId, Boolean isOpen) {
-    super();
+  
+  public OpenableObject(int weight, String name, boolean isOpenable, String id, String description, String startingRoom, Boolean isLocked, String keyId, Boolean isOpen){
+    super(weight, name, isOpenable, id, description, startingRoom);
     this.isLocked = isLocked;
     this.keyId = keyId;
     this.isOpen = isOpen;
   }
 
-  public OpenableObject(boolean isLocked, String keyId) {
-    super();
+  public OpenableObject(int weight, String name, boolean isOpenable, String id, String description, String startingRoom, Boolean isLocked, Boolean isOpen){
+    super(weight, name, isOpenable, id, description, startingRoom);
     this.isLocked = isLocked;
+    this.keyId = "";
+    this.isOpen = isOpen;
+  }
+
+  public OpenableObject(boolean isLocked, String keyId){
+    super();
     this.keyId = keyId;
-    this.isOpen = false;
+    this.isLocked = isLocked;
   }
 
   public OpenableObject(boolean isLocked){
@@ -32,8 +38,15 @@ public class OpenableObject extends Item{
     this.keyId = null;
     this.isOpen = false;
   }
+  
+  public OpenableObject(boolean isLocked, String keyId, Boolean isOpen) {
+    super();
+    this.isLocked = isLocked;
+    this.keyId = keyId;
+    this.isOpen = isOpen;
+  }
 
-  public boolean isLocked() {
+public boolean isLocked() {
     return isLocked;
   }
 
