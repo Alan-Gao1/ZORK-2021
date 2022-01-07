@@ -367,6 +367,7 @@ public class Game {
 
     Item newItem = itemMap.get(item);
 
+    //if(backpack.getCurrentWeight()<=0)
     if(itemMap.get(item)!=null){
       backpack.remove(newItem);
       System.out.println("You took the " + command.getSecondWord() + ".");
@@ -417,23 +418,17 @@ public class Game {
     }
 
     Item newItem = itemMap.get(item);
-    //Item newItem = new Item(10, item, true); //** this is hardcoded but retrieve the values from the json */
-    //check to see if item exists in the json file
 
-    //if(item can be moved)
-      // System.out.println("You cannot move the " + command.getSecondWord() + "!");
-    //else{
-    if(itemMap.get(item)!=null){
+    if(itemMap.get(item) instanceof OpenableObject)
+      System.out.println("You cannot move the " + command.getSecondWord() + "!");
+    else if(itemMap.get(item)!=null){
       if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
       }
     }else{
       System.out.println("You cannot take " + command.getSecondWord());
     }
-     //}
-     
-     //public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
-     //itemMap.put(itemId, item);
+
   }
 
   private void solveLock(Command command, Scanner in) {
