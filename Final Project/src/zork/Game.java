@@ -301,10 +301,10 @@ public class Game {
 
   private boolean openItem(Command command) {
     String item = command.getSecondWord();
+    Item newItem = itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
-        
       }else if(item.equals("Chest2")){
         System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
       }else if(item.equals("Chest3")){
@@ -337,9 +337,8 @@ public class Game {
       return;
     }
 
-    Room roomDropped = currentRoom;
+    String roomDropped = currentRoom.getRoomName();
 
-    //keep track of the currentRoom where the object is dropped
     String x = command.getSecondWord();
     String item = "";
     if(x.equals("Kid#1")||x.equals("kid#1")){
@@ -357,6 +356,8 @@ public class Game {
     }
 
     Item newItem = itemMap.get(item);
+
+    newItem.setStartingRoom(roomDropped);
 
     if(backpack.getCurrentWeight()<=0){
       System.out.println("You have nothing to drop!");
@@ -390,6 +391,8 @@ public class Game {
       return;
     }
 
+    //if the item is inside of an openable object, you must open the object inorder to access the item inside
+
     String x = command.getSecondWord();
     String item = "";
     if(x.equals("Kid#1")||x.equals("kid#1")){
@@ -407,11 +410,11 @@ public class Game {
     }
 
     Item newItem = itemMap.get(item);
-    backpack.currentWeight += newItem.getWeight();
 
     if(itemMap.get(item) instanceof OpenableObject)
       System.out.println("You cannot move the " + command.getSecondWord() + "!");
-    else if(itemMap.get(item)!=null){
+    else if(itemMap.get(item)!=null&&(currentRoom.getRoomName().equals(newItem.getStartingRoom()))){
+      backpack.currentWeight += newItem.getWeight();
       if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
       }
