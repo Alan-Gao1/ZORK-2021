@@ -443,7 +443,7 @@ public class Game {
       else if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
        }else{
-         currentRoom.addItem(item);
+         currentRoom.addItem(newItem);
         System.out.println("You cannot take " + command.getSecondWord());
       }
   }

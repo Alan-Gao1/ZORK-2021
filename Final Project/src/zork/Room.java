@@ -13,8 +13,12 @@ public class Room {
     return exits;
   }
 
-  public void addItem(Item item){
-    this.items.addItem(item);
+  public boolean addItem(Item item){
+     return items.addItem(item);
+  }
+
+  public Item removeItem(String itemName){
+    return items.removeItem(itemName);
   }
 
   public void setExits(ArrayList<Exit> exits) {
