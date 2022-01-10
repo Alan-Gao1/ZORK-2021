@@ -20,7 +20,7 @@ public class Game {
   public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
 
   private Parser parser;
-  private Room currentRoom;;
+  private Room currentRoom;
   private int peoplePickpocketed;
   public boolean finished = false;
   private boolean winCondition = false;
