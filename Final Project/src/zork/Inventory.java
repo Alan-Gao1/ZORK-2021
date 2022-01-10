@@ -30,7 +30,7 @@ public class Inventory {
     }
   }
 
-  public void remove(Item item){
+  public void removeItem(Item item){
     items.remove(item);
   }
 
