@@ -86,5 +86,4 @@ public void open() {
 
   public void setAmmo(int id){
   }
-  
 }

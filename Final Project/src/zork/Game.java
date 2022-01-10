@@ -20,7 +20,7 @@ public class Game {
   public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
 
   private Parser parser;
-  private Room currentRoom;;
+  private Room currentRoom;
   private int peoplePickpocketed;
   public boolean finished = false;
   private boolean winCondition = false;
@@ -34,11 +34,15 @@ public class Game {
       initRooms("src\\zork\\data\\rooms.json");
       currentRoom = roomMap.get("Lobby");
       initItems("src\\zork\\data\\items.json");
+      addItemsToRooms(itemList);
       System.out.println(itemList);
     } catch (Exception e) {
       e.printStackTrace();
     }
     parser = new Parser();
+  }
+
+  private void addItemsToRooms(ArrayList<Item> itemList) {
   }
 
   private void initItems(String fileName) throws Exception{
@@ -80,11 +84,13 @@ public class Game {
         }
         itemList.add(openableObject);
         itemMap.put(itemId, openableObject);
+        putIteminRoom(itemStartingRoom, itemId);
       }else if(isChest){
         Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, chestNum, contentDesc);
         chest.addItem(findContents(object));
         itemList.add(chest);
         itemMap.put(itemId, chest);
+        putIteminRoom(itemStartingRoom, itemId);
       }else{
         Item item = new Item(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom);
         if(itemIsWeapon){
@@ -96,6 +102,7 @@ public class Game {
         }
         itemList.add(item);
         itemMap.put(itemId, item);
+        putIteminRoom(itemStartingRoom, itemId);
       }   
     }
   }
@@ -109,6 +116,13 @@ public class Game {
       }
     }
     return null;
+  }
+
+  private static void putIteminRoom(String insideName, String itemId){
+    int ind = 0;
+    if(!insideName.equals("item")){
+      roomMap.get(insideName).addItem(itemMap.get(itemId));
+    }
   }
 
   private void initRooms(String fileName) throws Exception {
