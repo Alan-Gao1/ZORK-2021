@@ -32,9 +32,9 @@ public class Game {
    public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
+      currentRoom = roomMap.get("Lobby");
       initItems("src\\zork\\data\\items.json");
       System.out.println(itemList);
-      currentRoom = roomMap.get("Lobby");
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -365,7 +365,7 @@ public class Game {
       }else if(itemMap.get(item)==null){
         System.out.println("Drop what?");
       }else{
-        backpack.currentWeight -= newItem.getWeight();
+        //backpack.currentWeight -= newItem.getWeight();
         currentRoom.addItem(newItem);
         System.out.println("You dropped the " + item);
       }

@@ -22,7 +22,7 @@ public class Inventory {
   }
 
   public boolean addItem(Item item) {
-    if (item.getWeight() + currentWeight <= maxWeight)
+    if ((item.getWeight() + currentWeight) <= maxWeight)
       return items.add(item);
     else {
       System.out.println("There is no room to add the item.");
