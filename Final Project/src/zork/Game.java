@@ -401,19 +401,40 @@ public class Game {
 
     String x = command.getSecondWord();
     String item = "";
-    if(x.equals("Kid#1")||x.equals("kid#1")){
+    x = x.toLowerCase();
+    switch(x){
+      case "kid#1": 
         item = "kidOne";
-    }else if(x.equals("Kid#2")||x.equals("kid#2")){
+        break;
+      case "kid#2":
         item = "kidTwo";
-    }else if(x.equals("Kid#3")||x.equals("kid#3")){
+        break;
+      case "kid#3":
         item = "kidThree";
-    }else if(x.equals("Kid#4")||x.equals("kid#4")){
+        break;
+      case "kid#4":
         item = "kidFour";
-    }else if(x.equals("Kid#5")||x.equals("kid#5")){
+        break;
+      case "kid#5":
         item = "kidFive";
-    }else{
-      item = command.getSecondWord();
+        break;
+      default:
+        item = command.getSecondWord();
+        break;
     }
+    // if(x.equals("kid#1")){
+    //     item = "kidOne";
+    // }else if(x.equals("kid#2")){
+    //     item = "kidTwo";
+    // }else if(x.equals("kid#3")){
+    //     item = "kidThree";
+    // }else if(x.equals("kid#4")){
+    //     item = "kidFour";
+    // }else if(x.equals("kid#5")){
+    //     item = "kidFive";
+    // }else{
+    //   item = command.getSecondWord();
+    // }
 
     Item newItem = itemMap.get(item);
 
