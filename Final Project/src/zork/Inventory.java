@@ -30,8 +30,18 @@ public class Inventory {
     }
   }
 
-  public void remove(Item item){
-    items.remove(item);
+  public Item remove(String itemName){
+    int ind = -1;
+    for(int i = 0; i < items.size(); i++){
+      if(itemName.equals(items.get(i).getName())){
+        ind = i;
+      }
+    }
+    // serach for the ite name AND DELETE A THAT INDEX AND RETURN THE ITEM
+    if(ind<0){
+      return null;
+    }
+    return items.remove(ind);
   }
 
 }

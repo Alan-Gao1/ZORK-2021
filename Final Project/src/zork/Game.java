@@ -28,8 +28,8 @@ public class Game {
 
   /**
    * Create the game and initialise its internal map.
-   */
-  public Game() {
+   */ 
+   public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
       initItems("src\\zork\\data\\items.json");
@@ -82,7 +82,7 @@ public class Game {
         itemMap.put(itemId, openableObject);
       }else if(isChest){
         Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, chestNum, contentDesc);
-        chest.addContentsChest(findContents(object));
+        chest.addItem(findContents(object));
         itemList.add(chest);
         itemMap.put(itemId, chest);
       }else{
