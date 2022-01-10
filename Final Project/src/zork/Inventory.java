@@ -30,7 +30,7 @@ public class Inventory {
     }
   }
 
-  public Item remove(String itemName){
+  public Item removeItem(String itemName){
     int ind = -1;
     for(int i = 0; i < items.size(); i++){
       if(itemName.equals(items.get(i).getName())){

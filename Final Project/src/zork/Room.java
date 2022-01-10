@@ -13,6 +13,10 @@ public class Room {
     return exits;
   }
 
+  public void addItem(Item item){
+    this.items.addItem(item);
+  }
+
   public void setExits(ArrayList<Exit> exits) {
     this.exits = exits;
   }

@@ -302,6 +302,7 @@ public class Game {
   private boolean openItem(Command command) {
     String item = command.getSecondWord();
     Item newItem = itemMap.get(item);
+    //OpenableObject newItem2 = itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
@@ -337,7 +338,7 @@ public class Game {
       return;
     }
 
-    String roomDropped = currentRoom.getRoomName();
+    //String roomDropped = currentRoom.getRoomName();
 
     String x = command.getSecondWord();
     String item = "";
@@ -355,19 +356,20 @@ public class Game {
       item = command.getSecondWord();
     }
 
-    Item newItem = itemMap.get(item);
-
-    newItem.setStartingRoom(roomDropped);
-
-    if(backpack.getCurrentWeight()<=0){
-      System.out.println("You have nothing to drop!");
-    }else if(itemMap.get(item)!=null){
-      backpack.remove(newItem);
-      backpack.currentWeight -= newItem.getWeight();
-      System.out.println("You dropped the " + command.getSecondWord() + ".");
-    }else{
-      System.out.println("You cannot drop " + command.getSecondWord());
-    }
+    if(item == null)
+      System.out.println("Drop what?");
+    else{
+      Item newItem = backpack.removeItem(item);
+      if(backpack.getCurrentWeight()<=0){
+        System.out.println("You have nothing to drop!");
+      }else if(itemMap.get(item)==null){
+        System.out.println("Drop what?");
+      }else{
+        backpack.currentWeight -= newItem.getWeight();
+        currentRoom.addItem(newItem);
+        System.out.println("You dropped the " + item);
+      }
+  }
   }
 
   private void pickpocket(Command command) {

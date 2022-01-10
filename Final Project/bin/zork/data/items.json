@@ -7,7 +7,7 @@
         "weight": "5",
         "isOpenable": false,
         "use": [{"canUse": true, "damage": 50}],
-        "startingRoom": "item",
+        "startingRoom": "Room 212",
         "isWeapon": true
     },
     {
@@ -17,7 +17,7 @@
         "weight": "1",
         "isOpenable": false,
         "use": [{"canUse": true, "damage": 20}],
-        "startingRoom": "BVGshop",
+        "startingRoom": "BVG shop",
         "isWeapon": true
     },
     {
@@ -27,7 +27,7 @@
         "weight": "5",
         "isOpenable": false,
         "use": [{"canUse": true, "damage": 25}],
-        "startingRoom": "Room204",
+        "startingRoom": "Room 204",
         "isWeapon": true
     },
     {
@@ -37,7 +37,7 @@
         "weight": "2",
         "isOpenable": false,
         "use": [{"canUse": true, "damage": 20, "maxAmmo": 5}],
-        "startingRoom": "BVGshop",
+        "startingRoom": "BVG shop",
         "isWeapon": true
     },
     {
@@ -47,7 +47,7 @@
         "weight": "0",
         "isOpenable": true, "isLocked": true, "keyId": "0-13-20",
         "use": [{"canUse": true}],
-        "startingRoom": "Hallway3",
+        "startingRoom": "Hallway 3",
         "isWeapon": false
     },
     {
@@ -57,7 +57,7 @@
       "weight": "0",
       "isOpenable": false,
       "use": [{"canUse": true, "health": 50}],
-      "startingRoom": "Gr.9CommonArea",
+      "startingRoom": "Gr.9 Common Area",
       "isWeapon": false
   },
   {
@@ -67,7 +67,7 @@
     "weight": "0",
     "isOpenable": false,
     "use": [{"canUse": true, "health": 50}],
-    "startingRoom": "Grade.10CommonArea",
+    "startingRoom": "Gr.10 Common Area",
     "isWeapon": false
 },
 {
@@ -77,7 +77,7 @@
   "weight": "0",
   "isOpenable": false,
   "use": [{"canUse": true, "health": 25}],
-  "startingRoom": "Grade.11CommonArea",
+  "startingRoom": "Gr.11 Common Area",
   "isWeapon": false
 },
 {
@@ -87,7 +87,7 @@
   "weight": "0",
   "isOpenable": false,
   "use": [{"canUse": true, "health": 25}],
-  "startingRoom": "Grade.12CommonArea",
+  "startingRoom": "Gr.12 Common Area",
   "isWeapon": false
 },
 {
@@ -97,7 +97,7 @@
   "weight": "2",
   "isOpenable": false,
   "use": [{"canUse": true, "health": 75}],
-  "startingRoom": "BVGshop",
+  "startingRoom": "BVG shop",
   "isWeapon": false
 },
 {
@@ -107,7 +107,7 @@
   "weight": "0",
   "isOpenable": false,
   "use":[{"canUse": true, "damage": 10}],
-  "startingRoom": "BVGshop",
+  "startingRoom": "BVG shop",
   "isWeapon": true
 },
 {
@@ -148,7 +148,7 @@
   "weight": "0",
   "isOpenable": false,
   "use":[{"canUse": true}],
-  "startingRoom": "BVGshop",
+  "startingRoom": "BVG shop",
   "isWeapon": false
 },
 {
@@ -170,7 +170,7 @@
     "weight": "1",
     "isOpenable": false,
     "use":[{"canUse": true}],
-    "startingRoom": "Room203",
+    "startingRoom": "Room 203",
     "isWeapon": false
 },
 {
@@ -203,7 +203,7 @@
     "weight": "1",
     "isOpenable": false,
     "use":[{"canUse": true}],
-    "startingRoom": "Room106",
+    "startingRoom": "Room 106",
     "isWeapon": false
 },
 {
@@ -223,7 +223,7 @@
   "weight": "0",
   "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 1, "contents": "You have found a sword!", "object": "sword",
   "use":[{"canUse": true}],
-  "startingRoom": "Room212",
+  "startingRoom": "Room 212",
   "isWeapon": false
 },
 {
@@ -233,7 +233,7 @@
   "weight": "0",
   "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 2, "contents": "You have found a part of a costume. The tag on the back reads \"From the BVG shop\".", "object": "costumeOne",
   "use":[{"canUse": true}],
-  "startingRoom": "Room212",
+  "startingRoom": "Room 212",
   "isWeapon": false
 },
 {
@@ -243,7 +243,7 @@
   "weight": "0",
   "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 3, "contents": "You have been killed by a bomb placed in this chest.", "object": "bomb",
   "use":[{"canUse": true}],
-  "startingRoom": "Room212",
+  "startingRoom": "Room 212",
   "isWeapon": false
 },
 {
@@ -253,7 +253,7 @@
   "weight": "0",
   "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 5, "contents": "You have been killed by a bomb placed in this chest.", "object": "bomb",
   "use":[{"canUse": true}],
-  "startingRoom": "Room212",
+  "startingRoom": "Room 212",
   "isWeapon": false
 },
 {
@@ -263,7 +263,7 @@
   "weight": "0",
   "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 4, "contents": "You have found $100 in this chest! Congratulations!", "object": "money",
   "use":[{"canUse": true}],
-  "startingRoom": "Room212",
+  "startingRoom": "Room 212",
   "isWeapon": false
 }
 ]
