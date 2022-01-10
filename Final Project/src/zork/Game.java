@@ -28,8 +28,8 @@ public class Game {
 
   /**
    * Create the game and initialise its internal map.
-   */
-  public Game() {
+   */ 
+   public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
       initItems("src\\zork\\data\\items.json");
@@ -82,7 +82,7 @@ public class Game {
         itemMap.put(itemId, openableObject);
       }else if(isChest){
         Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, chestNum, contentDesc);
-        chest.addContentsChest(findContents(object));
+        chest.addItem(findContents(object));
         itemList.add(chest);
         itemMap.put(itemId, chest);
       }else{
@@ -365,13 +365,9 @@ public class Game {
       }else if(itemMap.get(item)==null){
         System.out.println("Drop what?");
       }else{
-        if(currentRoom.addItem(newItem)){
-          backpack.currentWeight -= newItem.getWeight();
-          System.out.println("You dropped the " + item);
-        }else{
-          backpack.addItem(newItem);
-          System.out.println("You cannot drop " + item);
-        }
+        backpack.currentWeight -= newItem.getWeight();
+        currentRoom.addItem(newItem);
+        System.out.println("You dropped the " + item);
       }
   }
   }
