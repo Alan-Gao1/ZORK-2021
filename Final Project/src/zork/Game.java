@@ -436,18 +436,21 @@ public class Game {
     //   item = command.getSecondWord();
     // }
 
-    Item newItem = itemMap.get(item);
-
-    if(itemMap.get(item) instanceof OpenableObject)
-      System.out.println("You cannot move the " + command.getSecondWord() + "!");
-    else if(itemMap.get(item)!=null&&(currentRoom.getRoomName().equals(newItem.getStartingRoom()))){
-      backpack.currentWeight += newItem.getWeight();
-      if(backpack.addItem(newItem)){
-        System.out.println("You took the " + command.getSecondWord() + ".");
-      }
+    if(item==null){
+      System.out.println("Take what?");
     }else{
-      System.out.println("You cannot take " + command.getSecondWord());
-    }
+      Item newItem = currentRoom.removeItem(item);
+      if(itemMap.get(item) instanceof OpenableObject)
+        System.out.println("You cannot move the " + command.getSecondWord() + "!");
+      else if(newItem == null)
+        System.out.println("There is no " + item);
+      else if(backpack.addItem(newItem)){
+        System.out.println("You took the " + command.getSecondWord() + ".");
+       }else{
+         currentRoom.addItem(item);
+        System.out.println("You cannot take " + command.getSecondWord());
+      }
+  }
 
   }
 
