@@ -7,7 +7,7 @@
         "weight": "5",
         "isOpenable": false,
         "use": [{"canUse": true, "damage": 50}],
-        "startingRoom": "Room212",
+        "startingRoom": "item",
         "isWeapon": true
     },
     {

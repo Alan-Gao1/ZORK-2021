@@ -2,17 +2,17 @@
     "items": [
       {
         "id": "sword",
-        "name": "Sword",
+        "name": "sword",
         "description": "This is a sword. It does 50 damage",
         "weight": "5",
         "isOpenable": false,
         "use": [{"canUse": true, "damage": 50}],
-        "startingRoom": "Room212",
+        "startingRoom": "item",
         "isWeapon": true
     },
     {
         "id": "dagger",
-        "name": "Dagger",
+        "name": "dagger",
         "description": "This is a dagger. It does 20 damage",
         "weight": "1",
         "isOpenable": false,
@@ -22,7 +22,7 @@
     },
     {
         "id": "mace",
-        "name": "Mace",
+        "name": "mace",
         "description": "You have a mace. It does 25 damage",
         "weight": "5",
         "isOpenable": false,
@@ -32,7 +32,7 @@
     },
     {
         "id": "slingshot",
-        "name": "Slingshot",
+        "name": "slingshot",
         "description": "This is a slingshot. It does 10 damage per pellet. You cannot be attacked while using the slingshot",
         "weight": "2",
         "isOpenable": false,
@@ -42,7 +42,7 @@
     },
     {
         "id": "locker",
-        "name": "Locker 121",
+        "name": "locker 121",
         "description": "This is a locker, locked by a lock that requires a sequence of numbers to open.",
         "weight": "0",
         "isOpenable": true, "isLocked": true, "keyId": "0-13-20",
@@ -52,7 +52,7 @@
     },
     {
       "id": "helmet",
-      "name": "Helmet Armour",
+      "name": "helmet armour",
       "description": "This is a helmet. It adds 50 health",
       "weight": "0",
       "isOpenable": false,
@@ -62,7 +62,7 @@
   },
   {
     "id": "chestplate",
-    "name": "Chestplate Armour",
+    "name": "chestplate armour",
     "description": "This is a chesplate. It adds 50 health",
     "weight": "0",
     "isOpenable": false,
@@ -72,7 +72,7 @@
 },
 {
   "id": "feet",
-  "name": "Feet Armour",
+  "name": "feet armour",
   "description": "This is foot armor. It adds 25 health",
   "weight": "0",
   "isOpenable": false,
@@ -82,7 +82,7 @@
 },
 {
   "id": "arm",
-  "name": "Arm Armour",
+  "name": "arm armour",
   "description": "This is arm armor. It adds 25 health",
   "weight": "0",
   "isOpenable": false,
@@ -92,7 +92,7 @@
 },
 {
   "id": "healthJar",
-  "name": "Jar of Health",
+  "name": "jar of health",
   "description": "This is a jar of health, it heals 75 health",
   "weight": "2",
   "isOpenable": false,
@@ -102,7 +102,7 @@
 },
 {
   "id": "pellet",
-  "name": "Slingshot pellet",
+  "name": "slingshot pellet",
   "description": "This is a slingshot pellet. It can only be used one time and deals 10 damage",
   "weight": "0",
   "isOpenable": false,
@@ -112,7 +112,7 @@
 },
 {
   "id": "203key",
-  "name": "Key",
+  "name": "key",
   "description": "This is a key that can be used to unlock a door",
   "weight": "1",
   "isOpenable": false,
@@ -186,7 +186,7 @@
 },
 {
     "id": "kidFour",
-    "name": "Kid #1",
+    "name": "Kid #4",
     "description": "This is a child",
     "isChild": true,
     "weight": "1",
@@ -197,7 +197,7 @@
 },
 {
     "id": "kidFive",
-    "name": "Kid #1",
+    "name": "Kid #5",
     "description": "This is a child",
     "isChild": true,
     "weight": "1",
@@ -208,7 +208,7 @@
 },
 {
   "id": "microwave",
-  "name": "Microwave",
+  "name": "microwave",
   "description": "This is a microwave, you can open it or turn it on (use)",
   "weight": "0",
   "isOpenable": true, "isLocked": false,

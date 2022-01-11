@@ -13,6 +13,15 @@ public class Inventory {
     this.currentWeight = 0;
   }
 
+  public void printContents(){
+    for (Item item : items) {
+      System.out.println("Item Name: "+item.getName());
+      System.out.println("Item ID: "+item.getId());
+      System.out.println("Item Description: "+item.getDesc());
+      System.out.println("Item Weight: "+item.getWeight());
+    }
+  }
+
   public int getMaxWeight() {
     return maxWeight;
   }
