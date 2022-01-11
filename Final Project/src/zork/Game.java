@@ -33,16 +33,12 @@ public class Game {
     try {
       initRooms("src\\zork\\data\\rooms.json");
       initItems("src\\zork\\data\\items.json");
-      addItemsToRooms(itemList);
       System.out.println(itemList);
       currentRoom = roomMap.get("Lobby");
     } catch (Exception e) {
       e.printStackTrace();
     }
     parser = new Parser();
-  }
-
-  private void addItemsToRooms(ArrayList<Item> itemList) {
   }
 
   private void initItems(String fileName) throws Exception{
