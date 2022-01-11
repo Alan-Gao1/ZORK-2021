@@ -25,6 +25,7 @@ public class Game {
   public boolean finished = false;
   private boolean winCondition = false;
   private Inventory backpack = new Inventory(15);
+  private double wallet;
 
   /**
    * Create the game and initialise its internal map.
@@ -39,6 +40,12 @@ public class Game {
       e.printStackTrace();
     }
     parser = new Parser();
+  }
+
+  private void displayInfo(){
+    System.out.println("Money: $"+wallet);
+    System.out.println();
+    backpack.printContents();
   }
 
   private void initItems(String fileName) throws Exception{
@@ -83,7 +90,9 @@ public class Game {
         putIteminRoom(itemStartingRoom, itemId);
       }else if(isChest){
         Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, chestNum, contentDesc);
-        chest.addItem(findContents(object));
+        if(!object.equals("money")){
+          chest.addItem(findContents(object));
+        }
         itemList.add(chest);
         itemMap.put(itemId, chest);
         putIteminRoom(itemStartingRoom, itemId);
@@ -106,7 +115,7 @@ public class Game {
   private Item findContents(String object) {
     for (Item item : itemList) {
       if(item.getId().equals(object)){
-        Item returnItem = new Item();
+        Item returnItem;
         returnItem = item;
         return returnItem;
       }
@@ -173,7 +182,7 @@ public class Game {
 
     }
     if(winCondition){
-      System.out.println("Thank you for playing.  Good bye.");
+      System.out.println("Thank you for playing. Good bye.");
     }else{
       System.out.println("Game over.");
     }
@@ -209,9 +218,12 @@ public class Game {
       goRoom(command);
     else if (commandWord.equals("take"))
       takeItem(command);
-    else if (commandWord.equals("pickpocket"))
-      pickpocket(command);
-    else if (commandWord.equals("drop"))
+    else if (commandWord.equals("pickpocket")){
+      if(pickpocket(command)){
+        System.out.println("You got caught pickpocketing. Get good.");
+        return true;
+      }
+    }else if (commandWord.equals("drop"))
       drop(command);
     else if (commandWord.equals("untie"))
       untie(command);
@@ -223,13 +235,15 @@ public class Game {
       wear(command);
     else if (commandWord.equals("play"))
       playVideo(command);
+    else if(commandWord.equals("info"))
+      displayInfo();
     else if (commandWord.equals("use")){
       if(!command.hasSecondWord())
         System.out.println("Use what?");
       else
         return useItem(command);
     }else if (commandWord.equals("solve"))
-      solveLock(command, in);
+      solveLock(command, in, (OpenableObject) itemMap.get("locker"));
     else if (commandWord.equals("open")){
       if(!command.hasSecondWord())
         System.out.println("Open what?");
@@ -249,7 +263,7 @@ public class Game {
 
   private boolean useItem(Command command) {
     if(currentRoom.getRoomName().equals("Cafeteria") && command.getSecondWord().equals("microwave") /*&& microwave.isLocked()*/){
-        System.out.println("You turned on the microwave and all of a sudden you feel full. You killed the kid inside the microwave, which was crucial to your mission.");
+        System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
         return true;
     }
     return false;
@@ -293,16 +307,20 @@ public class Game {
         System.out.println();
         System.out.println("\"Thanks for your help, I'm Kid#4. I believe my last friend is in Mr. Federico's office, please help him!\"");
       }
+    }else{
+      System.out.println("What do you want to listen to? the floor?");
     }
   }
 
   private void read(Command command) {
-    //print the clues for the lock/locker/key
+    
   }
 
   private void untie(Command command) {
     String item = command.getSecondWord();
-    if(item.equals("kid")||item.equals("Kid")){
+    item = item.toLowerCase();
+    //using kid is too vague
+    if(item.equals("kid")){
       System.out.println("You untied the kid.");
       //itemMap.get("kidOne")
       //release kid 
@@ -312,26 +330,45 @@ public class Game {
   private boolean openItem(Command command) {
     String item = command.getSecondWord();
     Item newItem = itemMap.get(item);
-    //OpenableObject newItem2 = itemMap.get(item);
+    OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
-      if(item.equals("Chest1")){
+      if(item.equals("chestOne")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
-      }else if(item.equals("Chest2")){
+        currentRoom.addItem(itemMap.get("sword"));
+        newItem2.setOpen(true);
+      }else if(item.equals("chestTwo")){
         System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
-      }else if(item.equals("Chest3")){
+        currentRoom.addItem(itemMap.get("costumeOne"));
+        newItem2.setOpen(true);
+      }else if(item.equals("chestThree")){
         System.out.println("You opened Chest3, and a bomb exploded.");
+        currentRoom.addItem(itemMap.get("bomb"));
+        newItem2.setOpen(true);
         return true;
-      }else if(item.equals("Chest4")){
+      }else if(item.equals("chestFour")){
         System.out.println("You opened Chest4. There is $100!");
-      }else if(item.equals("Chest5")){
+        wallet+=100;
+        newItem2.setOpen(true);
+      }else if(item.equals("chestFive")){
         System.out.println("You opened Chest5, and a bomb exploded.");
+        newItem2.setOpen(true);
         return true;
       }
     }else if(currentRoom.getRoomName().equals("Cafeteria")){
       if(item.equals("microwave")){
-        System.out.println("You opened the microwave. A kid hops out of the microwave and looks at you.");
+        System.out.println("You opened the microwave. Alex hops out of the microwave and looks at you.");
+        currentRoom.addItem(itemMap.get("kidOne"));
           //if(itemMap.get("microwave").isOpenable()) //index 20
             //itemMap.get("microwave").isOpenable();//open the microwave (set it to an opened state)
+      }
+    //write this open thing for locker
+    }else if(currentRoom.getRoomName().equals("Hallway 3")){
+      if(item.equals("locker")){
+        if(newItem2.isOpen){
+          newItem2.setOpen(true);
+          System.out.println("You opened the locker.");
+          read(command);
+        }
       }
     }else{
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
@@ -382,19 +419,26 @@ public class Game {
   }
   }
 
-  private void pickpocket(Command command) {
+  private boolean pickpocket(Command command) {
     //check to see if there is someone to pickpocket money from
     //take a random sum of money from a randomly generated person
-    double rand = (int)(Math.random()*11);
-    rand += 5;
+    double rand = (Math.random()*11);
+    rand += 5.0;
+    rand*=100;
+    rand = (int)rand;
+    rand = (Double)rand;
+    rand/=100;
     peoplePickpocketed++;
     double chance = peoplePickpocketed*3;
     double counter = (int)(Math.random()*101);
     if(counter>chance){
       System.out.println("You pickpocketed $"+rand+" from a random person.");
+      wallet+=rand;
+      return false;
     }else if(counter<=chance){
-      finished = true;
+      return true;
     }
+    return false;
   }
 
   private void takeItem(Command command) {
@@ -409,25 +453,25 @@ public class Game {
     String item = "";
     x = x.toLowerCase();
     switch(x){
-      case "kid#1": 
+      case "alex": 
         item = "Kid #1";
         break;
-      case "kid#2":
+      case "maya":
         item = "Kid #2";
         break;
-      case "kid#3":
+      case "justin":
         item = "Kid #3";
         break;
-      case "kid#4":
+      case "trevor":
         item = "Kid #4";
         break;
-      case "kid#5":
+      case "aaron":
         item = "Kid #5";
         break;
-      case "costume1":
+      case "upper-costume":
         item = "Upper Costume piece";
         break;
-      case "costume2":
+      case "lower-costume":
         item = "Lower Costume piece";
         break;
       default:
@@ -466,7 +510,7 @@ public class Game {
 
   }
 
-  private void solveLock(Command command, Scanner in) {
+  private void solveLock(Command command, Scanner in, OpenableObject openableObject) {
     if(!command.hasSecondWord()){
       System.out.println("Solve what?");
       return;
@@ -480,8 +524,10 @@ public class Game {
       String inputLine = in.nextLine();
       if(inputLine.equals("0-13-20")){
         System.out.println("Passcode is correct!");
+        openableObject.setOpen(true);
       }else{
         System.out.println("Incorrect passcode!");
+        openableObject.setOpen(false);
       }
     }
   }

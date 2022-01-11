@@ -3,7 +3,7 @@ package zork;
 public class OpenableObject extends Item{
   private Boolean isLocked;
   private String keyId;
-  private Boolean isOpen;
+  public Boolean isOpen;
 
   public OpenableObject(){
     super();

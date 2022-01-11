@@ -32,7 +32,7 @@ public class Item{
     this.isOpenable = isOpenable;
   }
 
-public void open() {
+  public void open() {
     if (!isOpenable)
       System.out.println("The " + name + " cannot be opened.");
   }
@@ -51,6 +51,10 @@ public void open() {
 
   public String getId(){
     return id;
+  }
+
+  public String getDesc(){
+    return description;
   }
 
   public void setName(String name) {
