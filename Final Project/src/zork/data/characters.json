@@ -1,0 +1,28 @@
+{
+    "items": [
+      {
+        "id": "Mr.DesLauriers",
+        "name": "Mr. DesLauriers",
+        "hp": "500",
+        "isFightable": true,
+        "use": [{"canDamage": true, "damage": 75}],
+        "room": "Room???"
+    },
+    {
+        "id": "Mr.Federico",
+        "name": "Mr.Federico",
+        "hp": "250",
+        "isFightable": true,
+        "use": [{"canDamage": true, "damage": 15}],
+        "startingRoom": "Office?"
+    },
+    { 
+    "id": "Mr.Cardone",
+        "name": "Mr. Cardone",
+        "hp": "100",
+        "isFightable": true,
+        "use": [{"canDamage": true, "damage": 10}],
+        "room": "Room???"
+}
+]
+}
