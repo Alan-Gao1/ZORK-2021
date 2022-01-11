@@ -27,6 +27,8 @@ public class Game {
   private Inventory backpack = new Inventory(15);
   private double wallet;
 
+  private ArrayList<Exit> exits;
+
   /**
    * Create the game and initialise its internal map.
    */ 
@@ -147,7 +149,7 @@ public class Game {
       room.setRoomName(roomName);
 
       JSONArray jsonExits = (JSONArray) ((JSONObject) roomObj).get("exits");
-      ArrayList<Exit> exits = new ArrayList<Exit>();
+      /*ArrayList<Exit>*/ exits = new ArrayList<Exit>();
       for (Object exitObj : jsonExits) {
         String direction = (String) ((JSONObject) exitObj).get("direction");
         String adjacentRoom = (String) ((JSONObject) exitObj).get("adjacentRoom");
@@ -266,6 +268,7 @@ public class Game {
         System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
         return true;
     }
+    //use key
     return false;
     //use items from json file
   }
@@ -580,6 +583,20 @@ public class Game {
 
     // Try to leave current room.
     Room nextRoom = currentRoom.nextRoom(direction);
+
+    if(nextRoom.getRoomName().equals("Room 203")){
+      Exit exit = null;
+      for(Exit exit1:currentRoom.getExits()){
+        if(exit1.getAdjacentRoom().equals("Room203"))
+          exit = exit1;
+      }
+      if(exit==null){
+        return;
+      }else if(exit.isLocked()){
+        System.out.println("Room 203 is locked! There is a slip of paper that reads \"Someone has been abducting children. The key to this door can be found in locker #121, in the third hallway.\"");
+        return;
+      }
+    }
 
     if (nextRoom == null)
       System.out.println("There is no door!");
