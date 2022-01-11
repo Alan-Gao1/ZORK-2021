@@ -290,23 +290,30 @@ public class Game {
   }
 
   private void listen(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Listen to what?");
+      return;
+    }
+
+    String x = command.getSecondWord();
+    x = x.toLowerCase();
+    OpenableObject microwave = (OpenableObject) itemMap.get("microwave");
+    
     //listen to what one of the kids has to say
     //print the dialogue/information from kids
-    
-    if(command.getSecondWord().equals("kid")){
-      if(currentRoom.getRoomName().equals("Cafeteria")/*&& !microwave.isLocked*/){
+      
+    if(x.equals("alex")&& microwave.isOpen()){
         System.out.println();
-        System.out.println("\"Hi friend. Thanks for saving me, I am Kid#1. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
-      }else if(currentRoom.getRoomName().equals("Room 203")/**&& Room203 is unlocked */){
+        System.out.println("\"Hi friend. Thanks for saving me, I am Alex. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
+    }else if(x.equals("maya")/**&& Room203 is unlocked */){
         System.out.println();
-        System.out.println("\"Hi friend, I'm Kid#2. I'm guessing Kid#1 sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
-      }else if(currentRoom.getRoomName().equals("Theatre") /**&& kid#3 is untied, theatre is unlocked*/){
+        System.out.println("\"Hi friend, I'm Maya. I'm guessing Kid#1 sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
+    }else if(x.equals("justin") /**&& kid#3 is untied, theatre is unlocked*/){
         System.out.println();
-        System.out.println("\"Thanks for saving me, I'm Kid#3. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
-      }else if(currentRoom.getRoomName().equals("Gym")/**&& mr.cardon has been defeated, kid#4 has been freed*/){
+        System.out.println("\"Thanks for saving me, I'm Justin. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
+    }else if(x.equals("trevor")/**&& mr.cardon has been defeated, kid#4 has been freed*/){
         System.out.println();
-        System.out.println("\"Thanks for your help, I'm Kid#4. I believe my last friend is in Mr. Federico's office, please help him!\"");
-      }
+        System.out.println("\"Thanks for your help, I'm Trevor. I believe my last friend is in Mr. Federico's office, please help him!\"");
     }else{
       System.out.println("What do you want to listen to? the floor?");
     }
@@ -329,7 +336,7 @@ public class Game {
 
   private boolean openItem(Command command) {
     String item = command.getSecondWord();
-    Item newItem = itemMap.get(item);
+    //Item newItem = itemMap.get(item);
     OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("chestOne")){
@@ -358,6 +365,7 @@ public class Game {
       if(item.equals("microwave")){
         System.out.println("You opened the microwave. Alex hops out of the microwave and looks at you.");
         currentRoom.addItem(itemMap.get("kidOne"));
+        newItem2.setOpen(true);
           //if(itemMap.get("microwave").isOpenable()) //index 20
             //itemMap.get("microwave").isOpenable();//open the microwave (set it to an opened state)
       }
@@ -385,22 +393,34 @@ public class Game {
       return;
     }
 
-    //String roomDropped = currentRoom.getRoomName();
-
     String x = command.getSecondWord();
     String item = "";
-    if(x.equals("Kid#1")||x.equals("kid#1")){
-        item = "kidOne";
-    }else if(x.equals("Kid#2")||x.equals("kid#2")){
-        item = "kidTwo";
-    }else if(x.equals("Kid#3")||x.equals("kid#3")){
-        item = "kidThree";
-    }else if(x.equals("Kid#4")||x.equals("kid#4")){
-        item = "kidFour";
-    }else if(x.equals("Kid#5")||x.equals("kid#5")){
-        item = "kidFive";
-    }else{
-      item = command.getSecondWord();
+    x = x.toLowerCase();
+    switch(x){
+      case "alex": 
+        item = "Kid #1";
+        break;
+      case "maya":
+        item = "Kid #2";
+        break;
+      case "justin":
+        item = "Kid #3";
+        break;
+      case "trevor":
+        item = "Kid #4";
+        break;
+      case "aaron":
+        item = "Kid #5";
+        break;
+      case "upper-costume":
+        item = "Upper Costume piece";
+        break;
+      case "lower-costume":
+        item = "Lower Costume piece";
+        break;
+      default:
+        item = command.getSecondWord();
+        break;
     }
 
     if(item == null)
@@ -409,12 +429,12 @@ public class Game {
       Item newItem = backpack.removeItem(item);
       if(backpack.getCurrentWeight()<=0){
         System.out.println("You have nothing to drop!");
-      }else if(itemMap.get(item)==null){
+      }else if(newItem == null){
         System.out.println("Drop what?");
       }else{
-        //backpack.currentWeight -= newItem.getWeight();
+        backpack.currentWeight -= newItem.getWeight();
         currentRoom.addItem(newItem);
-        System.out.println("You dropped the " + item);
+        System.out.println("You dropped the " + command.getSecondWord());
       }
   }
   }
@@ -502,6 +522,7 @@ public class Game {
         System.out.println("There is no " + item);
       else if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
+        backpack.currentWeight += newItem.getWeight();
        }else{
          currentRoom.addItem(newItem);
         System.out.println("You cannot take " + command.getSecondWord());
