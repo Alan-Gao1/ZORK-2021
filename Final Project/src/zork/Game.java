@@ -17,26 +17,32 @@ public class Game {
 
   public static HashMap<String, Room> roomMap = new HashMap<String, Room>();
   public static ArrayList<Item> itemList = new ArrayList<>();
+  public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
 
   private Parser parser;
-  private Room currentRoom;;
+  private Room currentRoom;
   private int peoplePickpocketed;
   public boolean finished = false;
   private boolean winCondition = false;
+  private Inventory backpack = new Inventory(15);
 
   /**
    * Create the game and initialise its internal map.
-   */
-  public Game() {
+   */ 
+   public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
-      initItems("src\\zork\\data\\items.json");
-      System.out.println(itemList);
       currentRoom = roomMap.get("Lobby");
+      initItems("src\\zork\\data\\items.json");
+      addItemsToRooms(itemList);
+      System.out.println(itemList);
     } catch (Exception e) {
       e.printStackTrace();
     }
     parser = new Parser();
+  }
+
+  private void addItemsToRooms(ArrayList<Item> itemList) {
   }
 
   private void initItems(String fileName) throws Exception{
@@ -61,46 +67,43 @@ public class Game {
         contentDesc = (String) ((JSONObject) itemObj).get("contents");
       }
       String itemDescription = (String) ((JSONObject) itemObj).get("description");
+      String itemStartingRoom = (String) ((JSONObject) itemObj).get("startingRoom");
       String itemWeight = (String) ((JSONObject) itemObj).get("weight");
       int iWeight = Integer.parseInt(itemWeight);
       Boolean itemIsOpenable = (Boolean) ((JSONObject) itemObj).get("isOpenable");
       Boolean isLocked = false;
+      Boolean itemIsWeapon = (Boolean) ((JSONObject) itemObj).get("isWeapon");
       if(itemIsOpenable&&!isChest){
-        OpenableObject openableObject = new OpenableObject();
         isLocked = (Boolean) ((JSONObject) itemObj).get("isLocked");
-        openableObject.setLocked(isLocked);
-        openableObject.setOpenable(true);
-        if(openableObject.isLocked()){
+        OpenableObject openableObject;
+        if(isLocked){
           String itemKey = (String) ((JSONObject) itemObj).get("keyId");
-          openableObject.setKeyId(itemKey);
+          openableObject = new OpenableObject(iWeight, itemName, true, itemId, itemDescription, itemStartingRoom, isLocked, itemKey, false);
+        }else{
+          openableObject = new OpenableObject(iWeight, itemName, true, itemId, itemDescription, itemStartingRoom, isLocked, false);
         }
-        openableObject.setName(itemName);
-        openableObject.setWeight(iWeight);
-        openableObject.setId(itemId);
-        openableObject.setDescription(itemDescription);
         itemList.add(openableObject);
+        itemMap.put(itemId, openableObject);
+        putIteminRoom(itemStartingRoom, itemId);
       }else if(isChest){
-        Chest chest = new Chest();
-        chest.setLocked(isLocked);
-        chest.setOpenable(true);
-        chest.setName(itemName);
-        chest.setWeight(iWeight);
-        chest.setId(itemId);
-        chest.setDescription(itemDescription);
-        chest.setChestNum(chestNum);
-        chest.addContentsChest(findContents(object));
-        chest.setContents(contentDesc);
+        Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, chestNum, contentDesc);
+        chest.addItem(findContents(object));
         itemList.add(chest);
-        //once added, the item stored in chest isnt there anymore
+        itemMap.put(itemId, chest);
+        putIteminRoom(itemStartingRoom, itemId);
       }else{
-        Item item = new Item();
-        item.setName(itemName);
-        item.setWeight(iWeight);
-        item.setOpenable(itemIsOpenable);
-        item.setId(itemId);
-        item.setDescription(itemDescription);
+        Item item = new Item(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom);
+        if(itemIsWeapon){
+          item = new Weapon(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, 0, 0);
+          item.setDamage(itemId);
+          if(itemId.equals("slingshot")){
+            item.setAmmo(5);
+          }
+        }
         itemList.add(item);
-      }
+        itemMap.put(itemId, item);
+        putIteminRoom(itemStartingRoom, itemId);
+      }   
     }
   }
 
@@ -113,6 +116,13 @@ public class Game {
       }
     }
     return null;
+  }
+
+  private static void putIteminRoom(String insideName, String itemId){
+    int ind = 0;
+    if(!insideName.equals("item")){
+      roomMap.get(insideName).addItem(itemMap.get(itemId));
+    }
   }
 
   private void initRooms(String fileName) throws Exception {
@@ -295,29 +305,37 @@ public class Game {
   }
 
   private void untie(Command command) {
-    //untie a kid 
+    String item = command.getSecondWord();
+    if(item.equals("kid")||item.equals("Kid")){
+      System.out.println("You untied the kid.");
+      //itemMap.get("kidOne")
+      //release kid 
+    }
   }
 
   private boolean openItem(Command command) {
+    String item = command.getSecondWord();
+    Item newItem = itemMap.get(item);
+    //OpenableObject newItem2 = itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
-      if(command.getSecondWord().equals("Chest1")){
+      if(item.equals("Chest1")){
         System.out.println("You opened Chest1. There is a sword in the chest. ");
-        
-      }else if(command.getSecondWord().equals("Chest2")){
+      }else if(item.equals("Chest2")){
         System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
-      }else if(command.getSecondWord().equals("Chest3")){
+      }else if(item.equals("Chest3")){
         System.out.println("You opened Chest3, and a bomb exploded.");
         return true;
-      }else if(command.getSecondWord().equals("Chest4")){
+      }else if(item.equals("Chest4")){
         System.out.println("You opened Chest4. There is $100!");
-      }else if(command.getSecondWord().equals("Chest5")){
+      }else if(item.equals("Chest5")){
         System.out.println("You opened Chest5, and a bomb exploded.");
         return true;
       }
     }else if(currentRoom.getRoomName().equals("Cafeteria")){
-      if(command.getSecondWord().equals("microwave")){
+      if(item.equals("microwave")){
         System.out.println("You opened the microwave. A kid hops out of the microwave and looks at you.");
-
+          //if(itemMap.get("microwave").isOpenable()) //index 20
+            //itemMap.get("microwave").isOpenable();//open the microwave (set it to an opened state)
       }
     }else{
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
@@ -332,11 +350,40 @@ public class Game {
     if(!command.hasSecondWord()){
       System.out.println("Drop what?");
       return;
-    }else
-      System.out.println("You have dropped " + command.getSecondWord() + ".");
-    //remove an item from inventory (ex. remove kid or item)
+    }
 
-    //you do not have anything to drop
+    //String roomDropped = currentRoom.getRoomName();
+
+    String x = command.getSecondWord();
+    String item = "";
+    if(x.equals("Kid#1")||x.equals("kid#1")){
+        item = "kidOne";
+    }else if(x.equals("Kid#2")||x.equals("kid#2")){
+        item = "kidTwo";
+    }else if(x.equals("Kid#3")||x.equals("kid#3")){
+        item = "kidThree";
+    }else if(x.equals("Kid#4")||x.equals("kid#4")){
+        item = "kidFour";
+    }else if(x.equals("Kid#5")||x.equals("kid#5")){
+        item = "kidFive";
+    }else{
+      item = command.getSecondWord();
+    }
+
+    if(item == null)
+      System.out.println("Drop what?");
+    else{
+      Item newItem = backpack.removeItem(item);
+      if(backpack.getCurrentWeight()<=0){
+        System.out.println("You have nothing to drop!");
+      }else if(itemMap.get(item)==null){
+        System.out.println("Drop what?");
+      }else{
+        //backpack.currentWeight -= newItem.getWeight();
+        currentRoom.addItem(newItem);
+        System.out.println("You dropped the " + item);
+      }
+  }
   }
 
   private void pickpocket(Command command) {
@@ -360,18 +407,66 @@ public class Game {
       return;
     }
 
-    String item = command.getSecondWord();
-    Item newItem = new Item(10, item, true); //** this is hardcoded but retrieve the values from the json */
-    Inventory backpack = new Inventory(10);
-    //check to see if item exists in the json file
+    //if the item is inside of an openable object, you must open the object inorder to access the item inside
 
-    /*if(item can be moved)
-       System.out.println("You cannot move the " + command.getSecondWord() + "!");
-    else{
-       */if(backpack.addItem(newItem)){
-       System.out.println("You took the " + command.getSecondWord() + ".");
-       }
-     //}
+    String x = command.getSecondWord();
+    String item = "";
+    x = x.toLowerCase();
+    switch(x){
+      case "kid#1": 
+        item = "Kid #1";
+        break;
+      case "kid#2":
+        item = "Kid #2";
+        break;
+      case "kid#3":
+        item = "Kid #3";
+        break;
+      case "kid#4":
+        item = "Kid #4";
+        break;
+      case "kid#5":
+        item = "Kid #5";
+        break;
+      case "costume1":
+        item = "Upper Costume piece";
+        break;
+      case "costume2":
+        item = "Lower Costume piece";
+        break;
+      default:
+        item = command.getSecondWord();
+        break;
+    }
+    // if(x.equals("kid#1")){
+    //     item = "kidOne";
+    // }else if(x.equals("kid#2")){
+    //     item = "kidTwo";
+    // }else if(x.equals("kid#3")){
+    //     item = "kidThree";
+    // }else if(x.equals("kid#4")){
+    //     item = "kidFour";
+    // }else if(x.equals("kid#5")){
+    //     item = "kidFive";
+    // }else{
+    //   item = command.getSecondWord();
+    // }
+
+    if(item==null){
+      System.out.println("Take what?");
+    }else{
+      Item newItem = currentRoom.removeItem(item);
+      if(itemMap.get(item) instanceof OpenableObject)
+        System.out.println("You cannot move the " + command.getSecondWord() + "!");
+      else if(newItem == null)
+        System.out.println("There is no " + item);
+      else if(backpack.addItem(newItem)){
+        System.out.println("You took the " + command.getSecondWord() + ".");
+       }else{
+         currentRoom.addItem(newItem);
+        System.out.println("You cannot take " + command.getSecondWord());
+      }
+  }
 
   }
 

@@ -6,6 +6,7 @@ public class Item{
   private String id;
   private boolean isOpenable;
   private String description;
+  private String startingRoom;
 
   public Item(){
     this.weight = 0;
@@ -13,17 +14,25 @@ public class Item{
     this.isOpenable = false;
     this.id = "";
     this.description = "";
+    this.startingRoom = "DEFAULT_STARTING_ROOM";
   }
   
-  public Item(int weight, String name, boolean isOpenable) {
+  public Item(int weight, String name, boolean isOpenable, String id, String description, String startingRoom) {
     this.weight = weight;
     this.name = name;
     this.isOpenable = isOpenable;
-    this.id = "";
-    this.description = "";
+    this.id = id;
+    this.description = description;
+    this.startingRoom = startingRoom;
   }
 
-  public void open() {
+  public Item(int weight, String keyName, boolean isOpenable){
+    this.weight = weight;
+    this.name = keyName;
+    this.isOpenable = isOpenable;
+  }
+
+public void open() {
     if (!isOpenable)
       System.out.println("The " + name + " cannot be opened.");
   }
@@ -64,4 +73,17 @@ public class Item{
     this.description = description;
   }
 
+  public void setStartingRoom(String startingRoom){
+    this.startingRoom = startingRoom;
+  }
+
+  public String getStartingRoom(){
+    return startingRoom;
+  }
+
+  public void setDamage(String id){
+  }
+
+  public void setAmmo(int id){
+  }
 }
