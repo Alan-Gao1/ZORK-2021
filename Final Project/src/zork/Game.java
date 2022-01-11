@@ -32,9 +32,9 @@ public class Game {
    public Game() {
     try {
       initRooms("src\\zork\\data\\rooms.json");
+      currentRoom = roomMap.get("Lobby");
       initItems("src\\zork\\data\\items.json");
       System.out.println(itemList);
-      currentRoom = roomMap.get("Lobby");
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -375,7 +375,7 @@ public class Game {
       }else if(itemMap.get(item)==null){
         System.out.println("Drop what?");
       }else{
-        backpack.currentWeight -= newItem.getWeight();
+        //backpack.currentWeight -= newItem.getWeight();
         currentRoom.addItem(newItem);
         System.out.println("You dropped the " + item);
       }
@@ -410,19 +410,25 @@ public class Game {
     x = x.toLowerCase();
     switch(x){
       case "kid#1": 
-        item = "kidOne";
+        item = "Kid #1";
         break;
       case "kid#2":
-        item = "kidTwo";
+        item = "Kid #2";
         break;
       case "kid#3":
-        item = "kidThree";
+        item = "Kid #3";
         break;
       case "kid#4":
-        item = "kidFour";
+        item = "Kid #4";
         break;
       case "kid#5":
-        item = "kidFive";
+        item = "Kid #5";
+        break;
+      case "costume1":
+        item = "Upper Costume piece";
+        break;
+      case "costume2":
+        item = "Lower Costume piece";
         break;
       default:
         item = command.getSecondWord();
