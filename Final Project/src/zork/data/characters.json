@@ -6,7 +6,7 @@
         "hp": "500",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": 75}],
-        "room": "Room???"
+        "room": "Room106"
     },
     {
         "id": "Mr.Federico",
@@ -14,7 +14,7 @@
         "hp": "250",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": 15}],
-        "startingRoom": "Office?"
+        "startingRoom": "FedericoOffice"
     },
     { 
     "id": "Mr.Cardone",
@@ -22,7 +22,7 @@
         "hp": "100",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": 10}],
-        "room": "Room???"
+        "room": "Gym"
 }
 ]
 }
