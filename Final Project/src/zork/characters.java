@@ -24,9 +24,9 @@ public class characters {
     this.room = room;
   }
 
-  public characters(int hp, String keyName, boolean isFightable){
+  public characters(int hp, String name, boolean isFightable){
     this.hp = hp;
-    this.name = keyName;
+    this.name = name;
     this.isFightable = isFightable;
   }
 
