@@ -329,7 +329,6 @@ public class Game {
 
   private boolean openItem(Command command) {
     String item = command.getSecondWord();
-    Item newItem = itemMap.get(item);
     OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("chestOne")){
@@ -368,6 +367,9 @@ public class Game {
           newItem2.setOpen(true);
           System.out.println("You opened the locker.");
           read(command);
+        }else{
+          newItem2.setOpen(false);
+          System.out.println("This locker is locked");
         }
       }
     }else{
@@ -559,12 +561,28 @@ public class Game {
 
     // Try to leave current room.
     Room nextRoom = currentRoom.nextRoom(direction);
+    int ind = -1;
+    for(int i = 0; i<currentRoom.getExits().size(); i++){
+      if(direction.equals(currentRoom.getExits().get(i).getDirection().toLowerCase())){
+        ind = i;
+      }
+    }
 
     if (nextRoom == null)
       System.out.println("There is no door!");
     else {
-      currentRoom = nextRoom;
-      System.out.println(currentRoom.longDescription());
+      if(currentRoom.getExits().get(ind).getLocked()){
+        if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(!backpack.checkItem("Upper Costume piece")||!backpack.checkItem("Lower Costume piece"))){
+          System.out.println("You do not have a full costume, the theatre is only for members of the play");
+        }else if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(backpack.checkItem("Upper Costume piece")&&backpack.checkItem("Lower Costume piece"))){
+          System.out.println("Welcome member of the play!");
+          currentRoom = nextRoom;
+          System.out.println(currentRoom.longDescription());
+        }
+      }else{
+        currentRoom = nextRoom;
+        System.out.println(currentRoom.longDescription());
+      }
     }
   }
 }

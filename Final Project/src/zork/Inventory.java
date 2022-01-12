@@ -53,4 +53,14 @@ public class Inventory {
     return items.remove(ind);
   }
 
+  public boolean checkItem(String itemName){
+    boolean there = false;
+    for(int i = 0; i < items.size(); i++){
+      if(itemName.equals(items.get(i).getName())){
+        there = true;
+      }
+    }
+    return there;
+  }
+
 }
