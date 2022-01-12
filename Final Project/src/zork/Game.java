@@ -10,6 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.util.Scanner;
+
+import javax.sound.sampled.BooleanControl;
   
 
 public class Game {
@@ -18,6 +20,8 @@ public class Game {
   public static HashMap<String, Room> roomMap = new HashMap<String, Room>();
   public static ArrayList<Item> itemList = new ArrayList<>();
   public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
+  public static ArrayList<characters> characterList = new ArrayList<>();
+  public static HashMap<String, characters> characterMap = new HashMap<String, characters>();
 
   private Parser parser;
   private Room currentRoom;
@@ -37,11 +41,38 @@ public class Game {
       initRooms("src\\zork\\data\\rooms.json");
       currentRoom = roomMap.get("Lobby");
       initItems("src\\zork\\data\\items.json");
+      initCharacters("src\\zork\\data\\characters.json");
       System.out.println(itemList);
     } catch (Exception e) {
       e.printStackTrace();
     }
     parser = new Parser();
+  }
+
+  private void initCharacters(String fileName) throws Exception{
+    Path path = Path.of(fileName);
+    String jsonString = Files.readString(path);
+    JSONParser parser = new JSONParser();
+    JSONObject json = (JSONObject) parser.parse(jsonString);
+    JSONArray jsonCharacters = (JSONArray) json.get("items");
+    for(Object itemObj : jsonCharacters){
+      String characterId = (String) ((JSONObject) itemObj).get("id");
+      String characterName = (String) ((JSONObject) itemObj).get("name");
+      String characterHPS = (String) ((JSONObject) itemObj).get("hp");
+      int characterHP = Integer.parseInt(characterHPS);
+      Boolean characterIsFightable = (Boolean) ((JSONObject) itemObj).get("isFightable");
+      String characterStartingRoom = (String) ((JSONObject) itemObj).get("room");
+      JSONArray jsonUse = (JSONArray) ((JSONObject) itemObj).get("use");
+      int damage = 0;
+      for (Object itemUse : jsonUse) {
+        String sdamage = (String) ((JSONObject) itemUse).get("damage");
+        damage = Integer.parseInt(sdamage);
+      }
+      characters character = new characters(characterHP, characterName, characterIsFightable, characterId, characterStartingRoom);
+      character.setDamage(damage);
+      characterList.add(character);
+      characterMap.put(characterId, character);
+    }
   }
 
   private void displayInfo(){
@@ -326,7 +357,7 @@ public class Game {
 
   private void Fight(Command command) {
     if(command.getSecondWord().equals("sword")){
-      
+
     }
   }
 
