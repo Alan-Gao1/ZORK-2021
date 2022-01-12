@@ -85,7 +85,6 @@ public class Room {
   public Room nextRoom(String direction) {
     try {
       for (Exit exit : exits) {
-
         if (exit.getDirection().equalsIgnoreCase(direction)) {
           String adjacentRoom = exit.getAdjacentRoom();
 

@@ -2,7 +2,7 @@ package zork;
 
 public class CommandWords {
   // a constant array that holds all valid command words
-  private static final String validCommands[] = { "go", "help", "solve", "take", "drop", "open", "untie", "read", "listen", "wear", "play", "pickpocket", "use", "info"};
+  private static final String validCommands[] = { "go", "help", "solve", "take", "drop", "Fight","open", "untie", "read", "listen", "wear", "play", "pickpocket", "use"};
 
   /**
    * Constructor - initialise the command words.
