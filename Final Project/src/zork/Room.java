@@ -7,6 +7,8 @@ public class Room {
   private String roomName;
   private String description;
   private ArrayList<Exit> exits;
+  private boolean isLocked;
+  //make this locked/not locked
   private Inventory items;
 
   public ArrayList<Exit> getExits() {

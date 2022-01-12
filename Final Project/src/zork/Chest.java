@@ -34,4 +34,8 @@ public class Chest extends OpenableObject{
     public void addItem(Item item){
         chestInv.addItem(item);
     }
+
+    public void setOpen(boolean bool){
+        this.isOpen = bool;
+    }
 }
