@@ -228,15 +228,15 @@
           "adjacentRoom": "H3Staircase"
         },
         {
-          "isLocked": false,
+          "isLocked": true,
           "direction": "East",
-          "adjacentRoom": "Room203"
+          "adjacentRoom": "Room203",
+          "keyId": "8"
         },
         {
-          "isLocked": true,
+          "isLocked": false,
           "direction": "SouthEast",
-          "adjacentRoom": "Room204",
-          "keyId": "8"
+          "adjacentRoom": "Room204"
         }
       ]
     },
@@ -246,7 +246,7 @@
       "description": "You are in Room 203, take the kid.",
       "exits": [
         {
-          "isLocked": false,
+          "isLocked": true,
           "direction": "West",
           "adjacentRoom": "Hallway3"
         }
