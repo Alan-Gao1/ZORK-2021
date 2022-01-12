@@ -26,6 +26,7 @@ public class Game {
   private boolean winCondition = false;
   private Inventory backpack = new Inventory(15);
   private double wallet;
+  private Character enemy;
 
   private ArrayList<Exit> exits;
 
@@ -101,7 +102,7 @@ public class Game {
       }else{
         Item item = new Item(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom);
         if(itemIsWeapon){
-          item = new Weapon(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, 0, 0);
+          item = new Weapon(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, 0, 0, itemIsWeapon);
           item.setDamage(itemId);
           if(itemId.equals("slingshot")){
             item.setAmmo(5);
@@ -266,9 +267,22 @@ public class Game {
   }
 
   private boolean useItem(Command command) {
-    if(currentRoom.getRoomName().equals("Cafeteria") && command.getSecondWord().equals("microwave") /*&& microwave.isLocked()*/){
+    if(!command.hasSecondWord()){
+      System.out.println("Use what?");
+      return false;
+    }
+    String itemName = command.getSecondWord();
+    Item item = itemMap.get(itemName);
+    Weapon weapon = (Weapon) item;
+    if(currentRoom.getRoomName().equals("Cafeteria") && item.getName().equals("microwave") /*&& microwave.isLocked()*/){
         System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
         return true;
+    }else if(enemy != null && weapon.isWeapon()){
+        //enemy.getHp() -= weapon.getDamage();
+        /*if(enemy.getHp()<=0){
+          System.out.println("You have defeated " + enemy.getName());
+        }*/
+          return false;
     }
     //use key
     return false;
