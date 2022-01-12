@@ -235,6 +235,8 @@ public class Game {
       listen(command);
     else if (commandWord.equals("wear"))
       wear(command);
+    else if (commandWord.equals("Fight"))
+      Fight(command);
     else if (commandWord.equals("play"))
       playVideo(command);
     else if(commandWord.equals("info"))
@@ -320,6 +322,11 @@ public class Game {
     }else{
       System.out.println("What do you want to listen to? the floor?");
     }
+  }
+
+  private void Fight(Command command) {
+    if(command.getSecondWord().equals("sword")){
+      
   }
 
   private void read(Command command) {
