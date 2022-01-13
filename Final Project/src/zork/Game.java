@@ -10,6 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.util.Scanner;
+
+import javax.sound.sampled.BooleanControl;
   
 
 public class Game {
@@ -18,6 +20,8 @@ public class Game {
   public static HashMap<String, Room> roomMap = new HashMap<String, Room>();
   public static ArrayList<Item> itemList = new ArrayList<>();
   public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
+  public static ArrayList<characters> characterList = new ArrayList<>();
+  public static HashMap<String, characters> characterMap = new HashMap<String, characters>();
 
   private Parser parser;
   private Room currentRoom;
@@ -27,6 +31,8 @@ public class Game {
   private Inventory backpack = new Inventory(15);
   private double wallet;
 
+  private ArrayList<Exit> exits;
+
   /**
    * Create the game and initialise its internal map.
    */ 
@@ -35,11 +41,38 @@ public class Game {
       initRooms("src\\zork\\data\\rooms.json");
       currentRoom = roomMap.get("Lobby");
       initItems("src\\zork\\data\\items.json");
+      initCharacters("src\\zork\\data\\characters.json");
       System.out.println(itemList);
     } catch (Exception e) {
       e.printStackTrace();
     }
     parser = new Parser();
+  }
+
+  private void initCharacters(String fileName) throws Exception{
+    Path path = Path.of(fileName);
+    String jsonString = Files.readString(path);
+    JSONParser parser = new JSONParser();
+    JSONObject json = (JSONObject) parser.parse(jsonString);
+    JSONArray jsonCharacters = (JSONArray) json.get("items");
+    for(Object itemObj : jsonCharacters){
+      String characterId = (String) ((JSONObject) itemObj).get("id");
+      String characterName = (String) ((JSONObject) itemObj).get("name");
+      String characterHPS = (String) ((JSONObject) itemObj).get("hp");
+      int characterHP = Integer.parseInt(characterHPS);
+      Boolean characterIsFightable = (Boolean) ((JSONObject) itemObj).get("isFightable");
+      String characterStartingRoom = (String) ((JSONObject) itemObj).get("room");
+      JSONArray jsonUse = (JSONArray) ((JSONObject) itemObj).get("use");
+      int damage = 0;
+      for (Object itemUse : jsonUse) {
+        String sdamage = (String) ((JSONObject) itemUse).get("damage");
+        damage = Integer.parseInt(sdamage);
+      }
+      characters character = new characters(characterHP, characterName, characterIsFightable, characterId, characterStartingRoom);
+      character.setDamage(damage);
+      characterList.add(character);
+      characterMap.put(characterId, character);
+    }
   }
 
   private void displayInfo(){
@@ -147,7 +180,7 @@ public class Game {
       room.setRoomName(roomName);
 
       JSONArray jsonExits = (JSONArray) ((JSONObject) roomObj).get("exits");
-      ArrayList<Exit> exits = new ArrayList<Exit>();
+      /*ArrayList<Exit>*/ exits = new ArrayList<Exit>();
       for (Object exitObj : jsonExits) {
         String direction = (String) ((JSONObject) exitObj).get("direction");
         String adjacentRoom = (String) ((JSONObject) exitObj).get("adjacentRoom");
@@ -233,6 +266,8 @@ public class Game {
       listen(command);
     else if (commandWord.equals("wear"))
       wear(command);
+    else if (commandWord.equals("Fight"))
+      Fight(command);
     else if (commandWord.equals("play"))
       playVideo(command);
     else if(commandWord.equals("info"))
@@ -266,6 +301,7 @@ public class Game {
         System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
         return true;
     }
+    //use key
     return false;
     //use items from json file
   }
@@ -290,25 +326,38 @@ public class Game {
   }
 
   private void listen(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Listen to what?");
+      return;
+    }
+
+    String x = command.getSecondWord();
+    x = x.toLowerCase();
+    OpenableObject microwave = (OpenableObject) itemMap.get("microwave");
+    
     //listen to what one of the kids has to say
     //print the dialogue/information from kids
-    
-    if(command.getSecondWord().equals("kid")){
-      if(currentRoom.getRoomName().equals("Cafeteria")/*&& !microwave.isLocked*/){
+      
+    if(x.equals("alex")&& microwave.isOpen()){
         System.out.println();
-        System.out.println("\"Hi friend. Thanks for saving me, I am Kid#1. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
-      }else if(currentRoom.getRoomName().equals("Room 203")/**&& Room203 is unlocked */){
+        System.out.println("\"Hi friend. Thanks for saving me, I am Alex. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
+    }else if(x.equals("maya")/**&& Room203 is unlocked */){
         System.out.println();
-        System.out.println("\"Hi friend, I'm Kid#2. I'm guessing Kid#1 sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
-      }else if(currentRoom.getRoomName().equals("Theatre") /**&& kid#3 is untied, theatre is unlocked*/){
+        System.out.println("\"Hi friend, I'm Maya. I'm guessing Kid#1 sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
+    }else if(x.equals("justin") /**&& kid#3 is untied, theatre is unlocked*/){
         System.out.println();
-        System.out.println("\"Thanks for saving me, I'm Kid#3. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
-      }else if(currentRoom.getRoomName().equals("Gym")/**&& mr.cardon has been defeated, kid#4 has been freed*/){
+        System.out.println("\"Thanks for saving me, I'm Justin. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
+    }else if(x.equals("trevor")/**&& mr.cardon has been defeated, kid#4 has been freed*/){
         System.out.println();
-        System.out.println("\"Thanks for your help, I'm Kid#4. I believe my last friend is in Mr. Federico's office, please help him!\"");
-      }
+        System.out.println("\"Thanks for your help, I'm Trevor. I believe my last friend is in Mr. Federico's office, please help him!\"");
     }else{
       System.out.println("What do you want to listen to? the floor?");
+    }
+  }
+
+  private void Fight(Command command) {
+    if(command.getSecondWord().equals("sword")){
+
     }
   }
 
@@ -329,7 +378,6 @@ public class Game {
 
   private boolean openItem(Command command) {
     String item = command.getSecondWord();
-    Item newItem = itemMap.get(item);
     OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("chestOne")){
@@ -358,6 +406,7 @@ public class Game {
       if(item.equals("microwave")){
         System.out.println("You opened the microwave. Alex hops out of the microwave and looks at you.");
         currentRoom.addItem(itemMap.get("kidOne"));
+        newItem2.setOpen(true);
           //if(itemMap.get("microwave").isOpenable()) //index 20
             //itemMap.get("microwave").isOpenable();//open the microwave (set it to an opened state)
       }
@@ -368,6 +417,9 @@ public class Game {
           newItem2.setOpen(true);
           System.out.println("You opened the locker.");
           read(command);
+        }else{
+          newItem2.setOpen(false);
+          System.out.println("This locker is locked");
         }
       }
     }else{
@@ -385,22 +437,34 @@ public class Game {
       return;
     }
 
-    //String roomDropped = currentRoom.getRoomName();
-
     String x = command.getSecondWord();
     String item = "";
-    if(x.equals("Kid#1")||x.equals("kid#1")){
-        item = "kidOne";
-    }else if(x.equals("Kid#2")||x.equals("kid#2")){
-        item = "kidTwo";
-    }else if(x.equals("Kid#3")||x.equals("kid#3")){
-        item = "kidThree";
-    }else if(x.equals("Kid#4")||x.equals("kid#4")){
-        item = "kidFour";
-    }else if(x.equals("Kid#5")||x.equals("kid#5")){
-        item = "kidFive";
-    }else{
-      item = command.getSecondWord();
+    x = x.toLowerCase();
+    switch(x){
+      case "alex": 
+        item = "Kid #1";
+        break;
+      case "maya":
+        item = "Kid #2";
+        break;
+      case "justin":
+        item = "Kid #3";
+        break;
+      case "trevor":
+        item = "Kid #4";
+        break;
+      case "aaron":
+        item = "Kid #5";
+        break;
+      case "upper-costume":
+        item = "Upper Costume piece";
+        break;
+      case "lower-costume":
+        item = "Lower Costume piece";
+        break;
+      default:
+        item = command.getSecondWord();
+        break;
     }
 
     if(item == null)
@@ -409,12 +473,12 @@ public class Game {
       Item newItem = backpack.removeItem(item);
       if(backpack.getCurrentWeight()<=0){
         System.out.println("You have nothing to drop!");
-      }else if(itemMap.get(item)==null){
+      }else if(newItem == null){
         System.out.println("Drop what?");
       }else{
-        //backpack.currentWeight -= newItem.getWeight();
+        backpack.currentWeight -= newItem.getWeight();
         currentRoom.addItem(newItem);
-        System.out.println("You dropped the " + item);
+        System.out.println("You dropped the " + command.getSecondWord());
       }
   }
   }
@@ -502,6 +566,7 @@ public class Game {
         System.out.println("There is no " + item);
       else if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
+        backpack.currentWeight += newItem.getWeight();
        }else{
          currentRoom.addItem(newItem);
         System.out.println("You cannot take " + command.getSecondWord());
@@ -559,12 +624,42 @@ public class Game {
 
     // Try to leave current room.
     Room nextRoom = currentRoom.nextRoom(direction);
+    int ind = -1;
+    for(int i = 0; i<currentRoom.getExits().size(); i++){
+      if(direction.equals(currentRoom.getExits().get(i).getDirection().toLowerCase())){
+        ind = i;
+      }
+    }
+
+    if(nextRoom.getRoomName().equals("Room 203")){
+      Exit exit = null;
+      for(Exit exit1:currentRoom.getExits()){
+        if(exit1.getAdjacentRoom().equals("Room203"))
+          exit = exit1;
+      }
+      if(exit==null){
+        return;
+      }else if(exit.isLocked()){
+        System.out.println("Room 203 is locked! There is a slip of paper that reads \"Someone has been abducting children. The key to this door can be found in locker #121, in the third hallway.\"");
+        return;
+      }
+    }
 
     if (nextRoom == null)
       System.out.println("There is no door!");
     else {
-      currentRoom = nextRoom;
-      System.out.println(currentRoom.longDescription());
+      if(currentRoom.getExits().get(ind).getLocked()){
+        if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(!backpack.checkItem("Upper Costume piece")||!backpack.checkItem("Lower Costume piece"))){
+          System.out.println("You do not have a full costume, the theatre is only for members of the play");
+        }else if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(backpack.checkItem("Upper Costume piece")&&backpack.checkItem("Lower Costume piece"))){
+          System.out.println("Welcome member of the play!");
+          currentRoom = nextRoom;
+          System.out.println(currentRoom.longDescription());
+        }
+      }else{
+        currentRoom = nextRoom;
+        System.out.println(currentRoom.longDescription());
+      }
     }
   }
 }

@@ -13,7 +13,7 @@ public class Weapon extends Item{
           this.damage = 20;
         }else if(id.equals("mace")){
           this.damage = 25;
-        }else if(id.equals("slignshot")){
+        }else if(id.equals("slingshot")){
           this.damage = 20;
         }
       }

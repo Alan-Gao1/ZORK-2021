@@ -117,7 +117,7 @@
   "weight": "1",
   "isOpenable": false,
   "use":[{"canUse": true, "canUnlock": true}],
-  "startingRoom": "item",
+  "startingRoom": "Hallway3",
   "isWeapon": false
 },
 {

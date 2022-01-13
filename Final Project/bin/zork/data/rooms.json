@@ -228,15 +228,15 @@
           "adjacentRoom": "H3Staircase"
         },
         {
-          "isLocked": false,
+          "isLocked": true,
           "direction": "East",
-          "adjacentRoom": "Room203"
+          "adjacentRoom": "Room203",
+          "keyId": "8"
         },
         {
-          "isLocked": true,
+          "isLocked": false,
           "direction": "SouthEast",
-          "adjacentRoom": "Room204",
-          "keyId": "8"
+          "adjacentRoom": "Room204"
         }
       ]
     },
@@ -246,7 +246,7 @@
       "description": "You are in Room 203, take the kid.",
       "exits": [
         {
-          "isLocked": false,
+          "isLocked": true,
           "direction": "West",
           "adjacentRoom": "Hallway3"
         }
@@ -626,7 +626,7 @@
           "adjacentRoom": "Hallway5"
         },
         {
-          "isLocked": false,
+          "isLocked": true,
           "direction": "NorthWest",
           "adjacentRoom": "UpperTheatre"
         },
@@ -640,7 +640,7 @@
     {
       "id": "UpperTheatre",
       "name": "Upper Theatre",
-      "description": "You are Projector room in the theatre",
+      "description": "You are in the Projector room in the theatre",
       "exits": [
         {
           "isLocked": false,
@@ -648,7 +648,7 @@
           "adjacentRoom": "Hallway6"
         },
         {
-          "isLocked": true,
+          "isLocked": false,
           "direction": "Down",
           "adjacentRoom": "Theatre",
           "keyID": "9"

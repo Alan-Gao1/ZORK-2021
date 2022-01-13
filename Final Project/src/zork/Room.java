@@ -85,7 +85,6 @@ public class Room {
   public Room nextRoom(String direction) {
     try {
       for (Exit exit : exits) {
-
         if (exit.getDirection().equalsIgnoreCase(direction)) {
           String adjacentRoom = exit.getAdjacentRoom();
 
@@ -123,5 +122,9 @@ public class Room {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public boolean getLocked(){
+    return isLocked;
   }
 }
