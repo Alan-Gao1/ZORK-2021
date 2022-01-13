@@ -303,9 +303,14 @@ public class Game {
     }
     String itemName = command.getSecondWord();
     Item item = itemMap.get(itemName);
-    if(currentRoom.getRoomName().equals("Cafeteria") && item.getName().equals("microwave") /*&& microwave.isLocked()*/){
+    if(item == null){
+      System.out.println("You cannot use that item!");
+    }else if(currentRoom.getRoomName().equals("Cafeteria") && item.getName().equals("microwave") /*&& microwave.isLocked()*/){
       System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
       return true;
+    }else if(currentRoom.getRoomName().equals("Hallway 3") && backpack.checkItem(itemName) && item.getName().equals("key")){
+      System.out.println("Room 203 is now open!");
+      return false;
     }
     //use key
     return false;
@@ -407,7 +412,7 @@ public class Game {
         System.out.println("\"Hi friend. Thanks for saving me, I am Alan. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
     }else if(x.equals("elly")/**&& Room203 is unlocked */){
         System.out.println();
-        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
+        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2. Hopefully you'll find shohei.\"");
     }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
         System.out.println();
         System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
@@ -444,7 +449,7 @@ public class Game {
         currentRoom.addItem(itemMap.get("sword"));
         newItem2.setOpen(true);
       }else if(item.equals("chestTwo")){
-        System.out.println("You opened Chest 2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
+        System.out.println("You opened Chest 2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop\".");
         currentRoom.addItem(itemMap.get("costumeOne"));
         newItem2.setOpen(true);
       }else if(item.equals("chestThree")){
@@ -463,15 +468,14 @@ public class Game {
       }
     }else if(currentRoom.getRoomName().equals("Cafeteria")){
       if(item.equals("microwave")){
-        System.out.println("You opened the microwave. Alex hops out of the microwave and looks at you.");
+        System.out.println("You opened the microwave. Alan hops out of the microwave and looks at you.");
         currentRoom.addItem(itemMap.get("kidOne"));
         newItem2.setOpen(true);
           //if(itemMap.get("microwave").isOpenable()) //index 20
             //itemMap.get("microwave").isOpenable();//open the microwave (set it to an opened state)
       }
     //write this open thing for locker
-    }else if(currentRoom.getRoomName().equals("Hallway 3")){
-      if(item.equals("locker")){
+    }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("locker")){
         if(newItem2.isOpen){
           newItem2.setOpen(true);
           System.out.println("You opened the locker. There is a key inside. ID: 'key'");
@@ -479,7 +483,6 @@ public class Game {
           newItem2.setOpen(false);
           System.out.println("This locker is locked");
         }
-      }
     }else{
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
     }
@@ -656,7 +659,7 @@ public class Game {
         System.out.print("> ");
         String inputLine = in.nextLine();
         if(inputLine.equals("0-13-20")){
-          System.out.println("Passcode is correct!");
+          System.out.println("Passcode is correct! Open the locker see what's inside!");
           solved = true;
           openableObject.setOpen(true);
         }else{
@@ -701,7 +704,7 @@ public class Game {
       }
     }
 
-    if(nextRoom.getRoomName().equals("Room 203")){
+    /**if(nextRoom.getRoomName().equals("Room 203")){
       Exit exit = null;
       for(Exit exit1:currentRoom.getExits()){
         if(exit1.getAdjacentRoom().equals("Room203"))
@@ -713,7 +716,7 @@ public class Game {
         System.out.println("Room 203 is locked! There is a slip of paper that reads \"Someone has been abducting children. The key to this door can be found in locker #121, in the third hallway.\"");
         return;
       }
-    }
+    }*/
 
     if (nextRoom == null)
       System.out.println("There is no door!");
@@ -723,6 +726,15 @@ public class Game {
           System.out.println("You do not have a full costume, the theatre is only for members of the play");
         }else if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(backpack.checkItem("Upper Costume piece")&&backpack.checkItem("Lower Costume piece"))){
           System.out.println("Welcome member of the play!");
+          currentRoom = nextRoom;
+          System.out.println(currentRoom.longDescription());
+        }else if(nextRoom.getRoomName().equals("Room 203") && !backpack.checkItem("key")){
+          System.out.println("Room 203 is locked! There is a slip of paper that reads \"Someone has been abducting children. The key to this door can be found in locker #121, in the third hallway.\" You must solve the lock.");
+        }else if(nextRoom.getRoomName().equals("Room 203") && backpack.checkItem("key")){
+          System.out.println("Room 203 is unlocked!");
+          currentRoom = nextRoom;
+          System.out.println(currentRoom.longDescription());
+        }else{
           currentRoom = nextRoom;
           System.out.println(currentRoom.longDescription());
         }
