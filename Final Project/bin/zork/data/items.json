@@ -221,7 +221,7 @@
   "name": "Chest 1",
   "description": "This is Chest 1. You may open it.",
   "weight": "0",
-  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 1, "contents": "You have found a sword!", "object": "sword",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 1, "contents": "You have found a sword! ID: 'sword'", "object": "sword",
   "use":[{"canUse": true}],
   "startingRoom": "Room212",
   "isWeapon": false
@@ -231,7 +231,7 @@
   "name": "Chest 2",
   "description": "This is Chest 2. You may open it.",
   "weight": "0",
-  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 2, "contents": "You have found a part of a costume. The tag on the back reads \"From the BVG shop\".", "object": "costumeOne",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 2, "contents": "You have found a part of a costume. The tag on the back reads \"From the BVG shop\". ID: 'upper-costume'", "object": "costumeOne",
   "use":[{"canUse": true}],
   "startingRoom": "Room212",
   "isWeapon": false
@@ -261,7 +261,7 @@
   "name": "Chest 4",
   "description": "This is Chest 4. You may open it.",
   "weight": "0",
-  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 4, "contents": "You have found $100 in this chest! Congratulations!", "object": "money",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 4, "contents": "You have found $100 in this chest! Congratulations! It has automatically been added to your wallet.", "object": "money",
   "use":[{"canUse": true}],
   "startingRoom": "Room212",
   "isWeapon": false

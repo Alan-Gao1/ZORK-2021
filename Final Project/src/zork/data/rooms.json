@@ -164,7 +164,7 @@
     {
       "id": "Room212",
       "name": "Room 212",
-      "description": "You are in classroom number 212. There are 5 chests, be careful if you chose to open them.",
+      "description": "You are in classroom number 212. There are 5 chests, be careful if you chose to open them. ID: 'chestOne', 'chestTwo', 'chestThree', 'chestFour', 'chestFive'",
       "exits": [
         {
           "isLocked": false,
@@ -210,7 +210,7 @@
     {
       "id": "Hallway3",
       "name": "Hallway 3",
-      "description": "You are in the third hallway of the second floor.",
+      "description": "You are in the third hallway of the second floor. There is a locker with a lock in the corner.",
       "exits": [
         {
           "isLocked": false,

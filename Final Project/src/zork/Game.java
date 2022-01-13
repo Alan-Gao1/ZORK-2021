@@ -260,8 +260,6 @@ public class Game {
       drop(command);
     else if (commandWord.equals("untie"))
       untie(command);
-    else if (commandWord.equals("read"))
-      read(command);
     else if (commandWord.equals("listen"))
       listen(command);
     else if (commandWord.equals("wear"))
@@ -338,15 +336,15 @@ public class Game {
     //listen to what one of the kids has to say
     //print the dialogue/information from kids
       
-    if(x.equals("alex")&& microwave.isOpen()){
+    if(x.equals("alan")&& microwave.isOpen()){
         System.out.println();
-        System.out.println("\"Hi friend. Thanks for saving me, I am Alex. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
-    }else if(x.equals("maya")/**&& Room203 is unlocked */){
+        System.out.println("\"Hi friend. Thanks for saving me, I am Alan. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
+    }else if(x.equals("elly")/**&& Room203 is unlocked */){
         System.out.println();
-        System.out.println("\"Hi friend, I'm Maya. I'm guessing Kid#1 sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
-    }else if(x.equals("justin") /**&& kid#3 is untied, theatre is unlocked*/){
+        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2.\"");
+    }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
         System.out.println();
-        System.out.println("\"Thanks for saving me, I'm Justin. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
+        System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
     }else if(x.equals("trevor")/**&& mr.cardon has been defeated, kid#4 has been freed*/){
         System.out.println();
         System.out.println("\"Thanks for your help, I'm Trevor. I believe my last friend is in Mr. Federico's office, please help him!\"");
@@ -361,18 +359,13 @@ public class Game {
     }
   }
 
-  private void read(Command command) {
-    
-  }
-
   private void untie(Command command) {
     String item = command.getSecondWord();
     item = item.toLowerCase();
-    //using kid is too vague
     if(item.equals("kid")){
       System.out.println("You untied the kid.");
-      //itemMap.get("kidOne")
-      //release kid 
+      Item kid = itemMap.get("kidThree");
+      kid.setDescription("This is a kid. This kid has been untied.");
     }
   }
 
@@ -381,24 +374,24 @@ public class Game {
     OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("chestOne")){
-        System.out.println("You opened Chest1. There is a sword in the chest. ");
+        System.out.println("You opened Chest 1. There is a sword in the chest. ");
         currentRoom.addItem(itemMap.get("sword"));
         newItem2.setOpen(true);
       }else if(item.equals("chestTwo")){
-        System.out.println("You opened Chest2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
+        System.out.println("You opened Chest 2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop \".");
         currentRoom.addItem(itemMap.get("costumeOne"));
         newItem2.setOpen(true);
       }else if(item.equals("chestThree")){
-        System.out.println("You opened Chest3, and a bomb exploded.");
+        System.out.println("You opened Chest 3, and a bomb exploded.");
         currentRoom.addItem(itemMap.get("bomb"));
         newItem2.setOpen(true);
         return true;
       }else if(item.equals("chestFour")){
-        System.out.println("You opened Chest4. There is $100!");
+        System.out.println("You opened Chest 4. There is $100!");
         wallet+=100;
         newItem2.setOpen(true);
       }else if(item.equals("chestFive")){
-        System.out.println("You opened Chest5, and a bomb exploded.");
+        System.out.println("You opened Chest 5, and a bomb exploded.");
         newItem2.setOpen(true);
         return true;
       }
@@ -415,8 +408,7 @@ public class Game {
       if(item.equals("locker")){
         if(newItem2.isOpen){
           newItem2.setOpen(true);
-          System.out.println("You opened the locker.");
-          read(command);
+          System.out.println("You opened the locker. There is a key inside. ID: 'key'");
         }else{
           newItem2.setOpen(false);
           System.out.println("This locker is locked");
@@ -441,19 +433,19 @@ public class Game {
     String item = "";
     x = x.toLowerCase();
     switch(x){
-      case "alex": 
+      case "alan": 
         item = "Kid #1";
         break;
-      case "maya":
+      case "elly":
         item = "Kid #2";
         break;
-      case "justin":
+      case "shohei":
         item = "Kid #3";
         break;
       case "trevor":
         item = "Kid #4";
         break;
-      case "aaron":
+      case "lucas":
         item = "Kid #5";
         break;
       case "upper-costume":
@@ -517,23 +509,26 @@ public class Game {
     String item = "";
     x = x.toLowerCase();
     switch(x){
-      case "alex": 
+      case "alan": 
         item = "Kid #1";
         break;
-      case "maya":
+      case "elly":
         item = "Kid #2";
         break;
-      case "justin":
+      case "shohei":
         item = "Kid #3";
         break;
       case "trevor":
         item = "Kid #4";
         break;
-      case "aaron":
+      case "lucas":
         item = "Kid #5";
         break;
       case "upper-costume":
         item = "Upper Costume piece";
+        break;
+      case "key":
+        item = "key";
         break;
       case "lower-costume":
         item = "Lower Costume piece";
@@ -584,15 +579,24 @@ public class Game {
     if(!command.getSecondWord().equals("lock")){
       System.out.println("You can not solve " + command.getSecondWord() + "! You can only solve locks.");
     }else{
-      System.out.println("Input the correct lock passcode (Enter '-' inbetween numbers)");
-      System.out.print("> "); 
-      String inputLine = in.nextLine();
-      if(inputLine.equals("0-13-20")){
-        System.out.println("Passcode is correct!");
-        openableObject.setOpen(true);
-      }else{
-        System.out.println("Incorrect passcode!");
-        openableObject.setOpen(false);
+      System.out.println("The passcode has 3 numbers from 0-99. Do not enter in 0s before single digit numbers");
+      System.out.println("Passcode Hint: ");
+      System.out.println("The first number is neither positive nor negative");
+      System.out.println("The second number is commonly recognized as unlucky");
+      System.out.println("The third numbers is the start of online school");
+      System.out.println("Input the correct lock passcode (Enter '-' inbetween numbers)"); 
+      boolean solved = false;
+      while(!solved){
+        System.out.print("> ");
+        String inputLine = in.nextLine();
+        if(inputLine.equals("0-13-20")){
+          System.out.println("Passcode is correct!");
+          solved = true;
+          openableObject.setOpen(true);
+        }else{
+          System.out.println("Incorrect passcode!");
+          openableObject.setOpen(false);
+        }
       }
     }
   }
