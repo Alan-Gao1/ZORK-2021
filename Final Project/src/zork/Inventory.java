@@ -32,6 +32,20 @@ public class Inventory {
     }
   }
 
+  public boolean checkWeapons(){
+    int counter = 0;
+    for (Item item : items) {
+      if(item.isWeapon()){
+        counter++;
+      }
+    }
+
+    if(counter>0)
+      return true;
+    else
+      return false;
+  }
+
   public int getMaxWeight() {
     return maxWeight;
   }

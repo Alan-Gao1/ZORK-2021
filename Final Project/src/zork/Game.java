@@ -329,10 +329,6 @@ public class Game {
     }
   }
 
-  public void checkBackpack(){
-    //iterate through backpack
-  }
-
   private void fight(Command command) {
     String enemyName = command.getSecondWord();
     enemy = characterMap.get(enemyName);
@@ -340,6 +336,8 @@ public class Game {
       System.out.println("You cannot fight " + enemyName);
     }else if(!(enemy.getRoom().equals(currentRoom.getRoomName()))){
       System.out.println(enemyName + " is nowhere in sight.");
+    }else if(!backpack.checkWeapons()){
+      System.out.println("You do not have any weapons in your inventory! Go find weapons before fighting.");
     }else{
       while(playerHP>=0 && enemy.gethp()>=0){
         System.out.println("What weapon do you want to use? (If you want to see your weapons, type \"check backpack\"");
@@ -369,8 +367,14 @@ public class Game {
                 System.out.println("Enemy Attacks, player -25 health");
                 playerHP -= 25;
             }
-            System.out.println("Enemy health remaining: " + enemy.gethp());
-            System.out.println("Player health remaining: " + playerHP);
+            if(enemy.gethp()>=0)
+              System.out.println("Enemy health remaining: " + enemy.gethp());
+            else
+              System.out.println("Enemy health remaining: 0");
+            if(playerHP>=0)
+              System.out.println("Player health remaining: " + playerHP);
+            else
+              System.out.println("Player health remaining: 0");
             System.out.println();
           }
         }

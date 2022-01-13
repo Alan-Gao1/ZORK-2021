@@ -3,7 +3,7 @@
       {
         "id": "MrDesLauriers",
         "name": "Mr. DesLauriers",
-        "hp": "250",
+        "hp": "500",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": "75"}],
         "room": "Room106"
@@ -11,7 +11,7 @@
     {
         "id": "MrFederico",
         "name": "Mr.Federico",
-        "hp": "150",
+        "hp": "200",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": "15"}],
         "startingRoom": "FedericoOffice"
@@ -19,7 +19,7 @@
     { 
     "id": "MrCardone",
         "name": "Mr. Cardone",
-        "hp": "75",
+        "hp": "105",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": "10"}],
         "room": "Gym"
