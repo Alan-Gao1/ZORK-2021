@@ -72,7 +72,7 @@ public class characters {
     this.room = room;
   }
 
-  public String getroom(){
+  public String getRoom(){
     return room;
   }
 

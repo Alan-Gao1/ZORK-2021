@@ -22,6 +22,16 @@ public class Inventory {
     }
   }
 
+  public void checkBackpack(){
+    for (Item item : items) {
+      if(item.isWeapon()){
+        Weapon weapon = (Weapon) item;
+        System.out.print("Weapon Name: "+ weapon.getName());
+        System.out.println("   Damage: "+ weapon.getDamage());
+      }
+    }
+  }
+
   public int getMaxWeight() {
     return maxWeight;
   }

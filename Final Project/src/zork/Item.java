@@ -7,6 +7,7 @@ public class Item{
   private boolean isOpenable;
   private String description;
   private String startingRoom;
+  private boolean isWeapon;
 
   public Item(){
     this.weight = 0;
@@ -26,6 +27,16 @@ public class Item{
     this.startingRoom = startingRoom;
   }
 
+  public Item(int weight, String name, boolean isOpenable, String id, String description, String startingRoom, boolean itemIsWeapon) {
+    this.weight = weight;
+    this.name = name;
+    this.isOpenable = isOpenable;
+    this.id = id;
+    this.description = description;
+    this.startingRoom = startingRoom;
+    this.isWeapon = itemIsWeapon;
+  }
+
   public Item(int weight, String keyName, boolean isOpenable){
     this.weight = weight;
     this.name = keyName;
@@ -35,6 +46,10 @@ public class Item{
   public void open() {
     if (!isOpenable)
       System.out.println("The " + name + " cannot be opened.");
+  }
+
+  public boolean isWeapon(){
+    return isWeapon;
   }
 
   public int getWeight() {

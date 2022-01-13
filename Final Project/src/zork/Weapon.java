@@ -27,7 +27,7 @@ public class Weapon extends Item{
     }
 
     public Weapon(int weight, String name, boolean isOpenable, String id, String description, String startingRoom, int damage, int ammo, boolean isWeapon){
-        super(weight, name, isOpenable, id, description, startingRoom);
+        super(weight, name, isOpenable, id, description, startingRoom, isWeapon);
         this.damage = damage;
         this.ammo = ammo;
         this.isWeapon = isWeapon;
