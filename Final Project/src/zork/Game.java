@@ -459,38 +459,6 @@ if(currentRoom.getRoomName().equals("Room106")){
 
     }*/
     
-    String enemyName = command.getSecondWord();
-    enemy = characterMap.get(enemyName);
-    if(enemy == null){
-      System.out.println("You cannot fight " + enemyName);
-    }else{
-      while(playerHP>=0 && enemy.gethp()>=0){
-      System.out.println("What weapon do you want to use?");
-      System.out.print("> "); 
-      String itemName = in.nextLine();
-      if(!backpack.checkItem(itemName)){
-        System.out.println("You do not have that weapon to use!");
-      }else{
-        Item item = itemMap.get(itemName);
-        Weapon weapon = (Weapon) item;
-        if(weapon == null){
-          System.out.println("You cannot use " + itemName);
-        }else{
-          enemy.sethp(enemy.gethp() - weapon.getDamage());
-          System.out.println("Your attack caused " + enemy.getName() + " to lose " + weapon.getDamage() + " HP.");
-          System.out.println(enemy.getName() + " attacks you back. Ouch! You've lost 5HP.");
-          playerHP -= 5;
-        }
-      }
-      }
-      
-      if(enemy.gethp()<=0){
-        System.out.println("You have defeated " + enemy.getName());
-      }else if(playerHP<=0){
-        System.out.println("You have been defeated by " + enemy.getName() +"!");
-      }
-
-      }
   }
 
   private void read(Command command) {
