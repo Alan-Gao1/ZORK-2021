@@ -1,25 +1,29 @@
 {
     "items": [
       {
-        "id": "Mr.DesLauriers",
+        "id": "MrDesLauriers",
         "name": "Mr. DesLauriers",
-        "hp": "500",
+        "hp": "250",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": "75"}],
         "room": "Room106"
     },
     {
-        "id": "Mr.Federico",
+        "id": "MrFederico",
         "name": "Mr.Federico",
-        "hp": "250",
+        "hp": "150",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": "15"}],
         "startingRoom": "FedericoOffice"
     },
     { 
+<<<<<<< HEAD
+    "id": "MrCardone",
+=======
         "id": "Mr.Cardone",
+>>>>>>> 01109a5e8412424f7c6f7ac507e6b2d875cd4f89
         "name": "Mr. Cardone",
-        "hp": "100",
+        "hp": "75",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": "10"}],
         "room": "Gym"
