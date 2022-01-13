@@ -15,7 +15,6 @@ public class characters {
     this.id = "";
     this.room = "DEFAULT_ROOM";
   }
-  
   public characters(int hp, String name, boolean isFightable, String id, String description, String room) {
     this.hp = hp;
     this.name = name;

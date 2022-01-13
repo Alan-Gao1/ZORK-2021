@@ -214,6 +214,8 @@ public class Game {
     }
 
     String commandWord = command.getCommandWord();
+    int hp = 1;
+    int p1hp = 100;
     if (commandWord.equals("help"))
       printHelp();
     else if (commandWord.equals("go"))
@@ -235,8 +237,8 @@ public class Game {
       listen(command);
     else if (commandWord.equals("wear"))
       wear(command);
-    else if (commandWord.equals("Fight"))
-      Fight(command);
+    else if (commandWord.equals("fight"))
+      fight(command, hp, p1hp);
     else if (commandWord.equals("play"))
       playVideo(command);
     else if(commandWord.equals("info"))
@@ -289,6 +291,95 @@ public class Game {
       System.out.println("Invalid request.");
     }
   }
+  private void fight(Command command, int hp, int p1hp) {
+    String item = command.getSecondWord();
+    item = item.toLowerCase();
+    if(item.equals("sword")){
+      System.out.println("You use the sword.");
+      if(currentRoom.getRoomName().equals("Gym")){
+        hp = 100;
+        System.out.println("Attack successful, Enemy -50 health");
+        System.out.println("Enemy Attacks, player -10 health");
+        p1hp -= 10;
+    }
+    if(currentRoom.getRoomName().equals("FedericoOffice")){
+      hp = 250;
+      System.out.println("Attack successful, Enemy -50 health");
+      System.out.println("Enemy Attacks, player -15 health");
+      p1hp -= 15;
+  }
+  if(currentRoom.getRoomName().equals("Room106")){
+    hp = 500;
+    System.out.println("Attack successful, Enemy -50 health");
+    System.out.println("Enemy Attacks, player -75 health");
+    p1hp -= 75;
+}
+    hp -= 50;
+  }
+    if(item.equals("slingshot")){
+      System.out.println("You use the slingshot.");
+      if(currentRoom.getRoomName().equals("Gym")){
+        hp = 100;
+        System.out.println("Attack successful, Enemy -10 health");
+    }
+    if(currentRoom.getRoomName().equals("FedericoOffice")){
+      hp = 250;
+      System.out.println("Attack successful, Enemy -50 health");
+  }
+  if(currentRoom.getRoomName().equals("Room106")){
+    hp = 500;
+    System.out.println("Attack successful, Enemy -50 health");
+}
+    hp -= 10;
+  }
+    if(item.equals("mace")){
+      System.out.println("You use the mace.");
+      if(currentRoom.getRoomName().equals("Gym")){
+        hp = 100;
+        System.out.println("Attack successful, Enemy -25 health");
+        System.out.println("Enemy Attacks, player -10 health");
+      p1hp -= 10;
+    }
+    if(currentRoom.getRoomName().equals("FedericoOffice")){
+      hp = 250;
+      System.out.println("Attack successful, Enemy -50 health");
+      System.out.println("Enemy Attacks, player -15 health");
+      p1hp -= 15;
+  }
+  if(currentRoom.getRoomName().equals("Room106")){
+    hp = 500;
+    System.out.println("Attack successful, Enemy -50 health");
+    System.out.println("Enemy Attacks, player -75 health");
+    p1hp -= 75;
+}
+    hp -= 25;
+  }
+  if(item.equals("dagger")){
+    System.out.println("You use the dagger.");
+    if(currentRoom.getRoomName().equals("Gym")){
+      hp = 100;
+      System.out.println("Attack successful, Enemy -20 health");
+      System.out.println("Enemy Attacks, player -10 health");
+      p1hp -= 10;
+  }
+  if(currentRoom.getRoomName().equals("FedericoOffice")){
+    hp = 250;
+    System.out.println("Attack successful, Enemy -50 health");
+    System.out.println("Enemy Attacks, player -15 health");
+    p1hp -= 15;
+}
+if(currentRoom.getRoomName().equals("Room106")){
+  hp = 500;
+  System.out.println("Attack successful, Enemy -50 health");
+  System.out.println("Enemy Attacks, player -75 health");
+  p1hp -= 75;
+}
+  hp -= 20;
+  } 
+  if(hp <= 0){
+    System.out.println("enemy defeated");
+  }
+  }
 
   private void wear(Command command) {
     //put on the costume
@@ -322,11 +413,6 @@ public class Game {
     }else{
       System.out.println("What do you want to listen to? the floor?");
     }
-  }
-
-  private void Fight(Command command) {
-    if(command.getSecondWord().equals("sword")){
-      
   }
 
   private void read(Command command) {

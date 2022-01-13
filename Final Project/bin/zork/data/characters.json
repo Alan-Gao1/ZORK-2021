@@ -1,7 +1,7 @@
 {
     "items": [
       {
-        "id": "Mr.DesLauriers",
+        "id": "MrDesLauriers",
         "name": "Mr. DesLauriers",
         "hp": "500",
         "isFightable": true,
@@ -9,7 +9,7 @@
         "room": "Room???"
     },
     {
-        "id": "Mr.Federico",
+        "id": "MrFederico",
         "name": "Mr.Federico",
         "hp": "250",
         "isFightable": true,
@@ -17,7 +17,7 @@
         "startingRoom": "Office?"
     },
     { 
-    "id": "Mr.Cardone",
+    "id": "MrCardone",
         "name": "Mr. Cardone",
         "hp": "100",
         "isFightable": true,
