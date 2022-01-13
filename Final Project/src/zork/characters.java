@@ -6,6 +6,7 @@ public class characters {
   private String id;
   private boolean isFightable;
   private String room;
+  private int damage;
 
 
   public characters(){
@@ -15,7 +16,12 @@ public class characters {
     this.id = "";
     this.room = "DEFAULT_ROOM";
   }
+<<<<<<< HEAD
   public characters(int hp, String name, boolean isFightable, String id, String description, String room) {
+=======
+  
+  public characters(int hp, String name, boolean isFightable, String id, String room) {
+>>>>>>> 01109a5e8412424f7c6f7ac507e6b2d875cd4f89
     this.hp = hp;
     this.name = name;
     this.isFightable = isFightable;
@@ -29,7 +35,7 @@ public class characters {
     this.isFightable = isFightable;
   }
 
-public void fight() {
+  public void fight() {
     if (!isFightable)
       System.out.println("The " + name + " cannot be damaged.");
   }
@@ -66,15 +72,20 @@ public void fight() {
     this.id = id;
   }
 
-  public void setDescription(String description){
-  }
-
   public void setroom(String room){
     this.room = room;
   }
 
   public String getroom(){
     return room;
+  }
+
+  public void setDamage(int dmg){
+    this.damage = dmg;
+  }
+
+  public int getDamage(){
+    return damage;
   }
   
 }

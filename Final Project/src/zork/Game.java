@@ -10,6 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.util.Scanner;
+
+import javax.sound.sampled.BooleanControl;
   
 
 public class Game {
@@ -18,6 +20,8 @@ public class Game {
   public static HashMap<String, Room> roomMap = new HashMap<String, Room>();
   public static ArrayList<Item> itemList = new ArrayList<>();
   public static HashMap<String, Item> itemMap = new HashMap<String, Item>();
+  public static ArrayList<characters> characterList = new ArrayList<>();
+  public static HashMap<String, characters> characterMap = new HashMap<String, characters>();
 
   private Parser parser;
   private Room currentRoom;
@@ -37,11 +41,38 @@ public class Game {
       initRooms("src\\zork\\data\\rooms.json");
       currentRoom = roomMap.get("Lobby");
       initItems("src\\zork\\data\\items.json");
+      initCharacters("src\\zork\\data\\characters.json");
       System.out.println(itemList);
     } catch (Exception e) {
       e.printStackTrace();
     }
     parser = new Parser();
+  }
+
+  private void initCharacters(String fileName) throws Exception{
+    Path path = Path.of(fileName);
+    String jsonString = Files.readString(path);
+    JSONParser parser = new JSONParser();
+    JSONObject json = (JSONObject) parser.parse(jsonString);
+    JSONArray jsonCharacters = (JSONArray) json.get("items");
+    for(Object itemObj : jsonCharacters){
+      String characterId = (String) ((JSONObject) itemObj).get("id");
+      String characterName = (String) ((JSONObject) itemObj).get("name");
+      String characterHPS = (String) ((JSONObject) itemObj).get("hp");
+      int characterHP = Integer.parseInt(characterHPS);
+      Boolean characterIsFightable = (Boolean) ((JSONObject) itemObj).get("isFightable");
+      String characterStartingRoom = (String) ((JSONObject) itemObj).get("room");
+      JSONArray jsonUse = (JSONArray) ((JSONObject) itemObj).get("use");
+      int damage = 0;
+      for (Object itemUse : jsonUse) {
+        String sdamage = (String) ((JSONObject) itemUse).get("damage");
+        damage = Integer.parseInt(sdamage);
+      }
+      characters character = new characters(characterHP, characterName, characterIsFightable, characterId, characterStartingRoom);
+      character.setDamage(damage);
+      characterList.add(character);
+      characterMap.put(characterId, character);
+    }
   }
 
   private void displayInfo(){
@@ -432,7 +463,6 @@ if(currentRoom.getRoomName().equals("Room106")){
 
   private boolean openItem(Command command) {
     String item = command.getSecondWord();
-    //Item newItem = itemMap.get(item);
     OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("chestOne")){
@@ -472,6 +502,9 @@ if(currentRoom.getRoomName().equals("Room106")){
           newItem2.setOpen(true);
           System.out.println("You opened the locker.");
           read(command);
+        }else{
+          newItem2.setOpen(false);
+          System.out.println("This locker is locked");
         }
       }
     }else{
@@ -676,6 +709,12 @@ if(currentRoom.getRoomName().equals("Room106")){
 
     // Try to leave current room.
     Room nextRoom = currentRoom.nextRoom(direction);
+    int ind = -1;
+    for(int i = 0; i<currentRoom.getExits().size(); i++){
+      if(direction.equals(currentRoom.getExits().get(i).getDirection().toLowerCase())){
+        ind = i;
+      }
+    }
 
     if(nextRoom.getRoomName().equals("Room 203")){
       Exit exit = null;
@@ -694,8 +733,18 @@ if(currentRoom.getRoomName().equals("Room106")){
     if (nextRoom == null)
       System.out.println("There is no door!");
     else {
-      currentRoom = nextRoom;
-      System.out.println(currentRoom.longDescription());
+      if(currentRoom.getExits().get(ind).getLocked()){
+        if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(!backpack.checkItem("Upper Costume piece")||!backpack.checkItem("Lower Costume piece"))){
+          System.out.println("You do not have a full costume, the theatre is only for members of the play");
+        }else if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(backpack.checkItem("Upper Costume piece")&&backpack.checkItem("Lower Costume piece"))){
+          System.out.println("Welcome member of the play!");
+          currentRoom = nextRoom;
+          System.out.println(currentRoom.longDescription());
+        }
+      }else{
+        currentRoom = nextRoom;
+        System.out.println(currentRoom.longDescription());
+      }
     }
   }
 }
