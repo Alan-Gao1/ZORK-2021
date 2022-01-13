@@ -30,6 +30,8 @@ public class Game {
   private boolean winCondition = false;
   private Inventory backpack = new Inventory(15);
   private double wallet;
+  private characters enemy;
+  private int playerHP = 100;
 
   private ArrayList<Exit> exits;
 
@@ -130,9 +132,9 @@ public class Game {
         itemMap.put(itemId, chest);
         putIteminRoom(itemStartingRoom, itemId);
       }else{
-        Item item = new Item(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom);
+        Item item = new Item(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, itemIsWeapon);
         if(itemIsWeapon){
-          item = new Weapon(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, 0, 0);
+          item = new Weapon(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, 0, 0, itemIsWeapon);
           item.setDamage(itemId);
           if(itemId.equals("slingshot")){
             item.setAmmo(5);
@@ -264,8 +266,8 @@ public class Game {
       listen(command);
     else if (commandWord.equals("wear"))
       wear(command);
-    else if (commandWord.equals("Fight"))
-      Fight(command);
+    else if (commandWord.equals("fight"))
+      fight(command);
     else if (commandWord.equals("play"))
       playVideo(command);
     else if(commandWord.equals("info"))
@@ -295,9 +297,15 @@ public class Game {
   }
 
   private boolean useItem(Command command) {
-    if(currentRoom.getRoomName().equals("Cafeteria") && command.getSecondWord().equals("microwave") /*&& microwave.isLocked()*/){
-        System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
-        return true;
+    if(!command.hasSecondWord()){
+      System.out.println("Use what?");
+      return false;
+    }
+    String itemName = command.getSecondWord();
+    Item item = itemMap.get(itemName);
+    if(currentRoom.getRoomName().equals("Cafeteria") && item.getName().equals("microwave") /*&& microwave.isLocked()*/){
+      System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
+      return true;
     }
     //use key
     return false;
@@ -318,6 +326,64 @@ public class Game {
       System.out.println("Invalid request.");
     }
   }
+
+  private void fight(Command command) {
+    String enemyName = command.getSecondWord();
+    enemy = characterMap.get(enemyName);
+    if(enemy == null){
+      System.out.println("You cannot fight " + enemyName);
+    }else if(!(enemy.getRoom().equals(currentRoom.getRoomName()))){
+      System.out.println(enemyName + " is nowhere in sight.");
+    }else if(!backpack.checkWeapons()){
+      System.out.println("You do not have any weapons in your inventory! Go find weapons before fighting.");
+    }else{
+      while(playerHP>=0 && enemy.gethp()>=0){
+        System.out.println("What weapon do you want to use? (If you want to see your weapons, type \"check backpack\"");
+        System.out.print("> "); 
+        String inputLine = in.nextLine();
+        String itemName = inputLine.substring(inputLine.indexOf(" ")+1);
+        if(inputLine.equals("check backpack")){
+          backpack.checkBackpack();
+        }else if(!backpack.checkItem(itemName)){
+          System.out.println("You do not have that weapon to use!");
+        }else{
+          Item item = itemMap.get(itemName);
+          Weapon weapon = (Weapon) item;
+          if(weapon == null){
+            System.out.println("You cannot use " + itemName);
+          }else{
+            System.out.println("You use the " + weapon.getName() + ".");
+            enemy.sethp(enemy.gethp() - weapon.getDamage());
+            System.out.println("Attack successful, Enemy -" + weapon.getDamage() + " health.");
+            if(currentRoom.getRoomName().equals("Gym")){
+                System.out.println("Enemy Attacks, player -10 health");
+                playerHP -= 10;
+            }else if(currentRoom.getRoomName().equals("FedericoOffice")){
+                System.out.println("Enemy Attacks, player -15 health");
+                playerHP -= 15;
+            }else if(currentRoom.getRoomName().equals("Room106")){
+                System.out.println("Enemy Attacks, player -25 health");
+                playerHP -= 25;
+            }
+            if(enemy.gethp()>=0)
+              System.out.println("Enemy health remaining: " + enemy.gethp());
+            else
+              System.out.println("Enemy health remaining: 0");
+            if(playerHP>=0)
+              System.out.println("Player health remaining: " + playerHP);
+            else
+              System.out.println("Player health remaining: 0");
+            System.out.println();
+          }
+        }
+      }
+      if(enemy.gethp() <= 0){
+        System.out.println("Enemy defeated");
+      }else if(playerHP<=0){
+        System.out.println("You have been defeated by " + enemy.getName() + "!");
+      }
+  }   
+}
 
   private void wear(Command command) {
     //put on the costume
