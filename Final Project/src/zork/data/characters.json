@@ -17,11 +17,7 @@
         "startingRoom": "FedericoOffice"
     },
     { 
-<<<<<<< HEAD
     "id": "MrCardone",
-=======
-        "id": "Mr.Cardone",
->>>>>>> 01109a5e8412424f7c6f7ac507e6b2d875cd4f89
         "name": "Mr. Cardone",
         "hp": "75",
         "isFightable": true,

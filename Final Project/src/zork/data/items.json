@@ -33,7 +33,7 @@
     {
         "id": "slingshot",
         "name": "slingshot",
-        "description": "This is a slingshot. It does 10 damage per pellet. You cannot be attacked while using the slingshot",
+        "description": "This is a slingshot. It does 20 damage per pellet. You cannot be attacked while using the slingshot",
         "weight": "2",
         "isOpenable": false,
         "use": [{"canUse": true, "damage": 20, "maxAmmo": 5}],
