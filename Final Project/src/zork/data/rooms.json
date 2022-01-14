@@ -198,7 +198,7 @@
     {
       "id": "BVGshop",
       "name": "BVG shop",
-      "description": "You are in the BVG shop where you can buy items. The items avialible for purchase are the 'dagger' for $10, the 'pellet' (slingshot ammo) for $25, the 'slingshot' for $25, and the 'healthJar' for $50. \n \nThe slingshot will use one pellet per attack and deal 10  damage per hit. Most fightable characters cannot attack you while you use the slingshot. \n The dagger does 20 damage. \nThe healthJar will add 75 hitpoints automatically.",
+      "description": "You are in the BVG shop where you can buy items. The items avialible for purchase are the 'dagger' for $10, the 'pellet' (slingshot ammo) for $25, the 'slingshot' for $25, the 'healthJar' for $50, and the 'lower-costume' for $10. \n \nThe slingshot will use one pellet per attack and deal 10 damage per hit. Most fightable characters cannot attack you while you use the slingshot. \nThe dagger does 20 damage. \nThe healthJar will add 75 hitpoints automatically.",
       "exits": [
         {
           "isLocked": false,
@@ -499,7 +499,7 @@
     {
       "id": "Gym",
       "name": "Gym",
-      "description": "You are in the Gym, rescue trevor from Mr.Cardone",
+      "description": "You are in the Gym, rescue trevor from Mr.Cardone. (ID: MrCardone)",
       "exits": [
         {
           "isLocked": false,
@@ -545,7 +545,7 @@
     {
       "id": "Hallway5",
       "name": "Hallway5",
-      "description": "You are now in hallway5 on the 3rd floor",
+      "description": "You are now in Hallway 5 on the 3rd floor",
       "exits": [
         {
           "isLocked": false,

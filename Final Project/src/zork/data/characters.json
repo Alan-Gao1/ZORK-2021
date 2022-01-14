@@ -5,6 +5,7 @@
         "name": "Mr. DesLauriers",
         "hp": "300",
         "isFightable": true,
+        "isDefeated": false,
         "use": [{"canDamage": true, "damage": "75"}],
         "room": "Room 106"
     },
@@ -13,6 +14,7 @@
         "name": "Mr.Federico",
         "hp": "200",
         "isFightable": true,
+        "isDefeated": false,
         "use": [{"canDamage": true, "damage": "15"}],
         "room": "Mr.Federico's Office"
     },
@@ -21,6 +23,7 @@
         "name": "Mr. Cardone",
         "hp": "105",
         "isFightable": true,
+        "isDefeated": false,
         "use": [{"canDamage": true, "damage": "10"}],
         "room": "Gym"
 }

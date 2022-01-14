@@ -5,6 +5,7 @@ public class characters {
   private String name;
   private String id;
   private boolean isFightable;
+  private boolean isDefeated;
   private String room;
   private int damage;
 
@@ -17,10 +18,11 @@ public class characters {
     this.room = "DEFAULT_ROOM";
   }
   
-  public characters(int hp, String name, boolean isFightable, String id, String room) {
+  public characters(int hp, String name, boolean isFightable, boolean isDefeated, String id, String room) {
     this.hp = hp;
     this.name = name;
     this.isFightable = isFightable;
+    this.isDefeated = isDefeated;
     this.id = id;
     this.room = room;
   }
@@ -34,6 +36,18 @@ public class characters {
   public void fight() {
     if (!isFightable)
       System.out.println("The " + name + " cannot be damaged.");
+  }
+
+  public boolean isDefeated(){
+    return isDefeated;
+  }
+
+  public void setDefeated(int gethp){
+    if(gethp()<0){
+      isDefeated = true;
+    }else{
+      isDefeated = false;
+    }
   }
 
   public int gethp() {
