@@ -198,7 +198,7 @@
     {
       "id": "BVGshop",
       "name": "BVG shop",
-      "description": "You are in the BVG shop where you can buy items.",
+      "description": "You are in the BVG shop where you can buy items. The items avialible for purchase are the 'dagger' for $10, the 'pellet' (slingshot ammo) for $25, the 'slingshot' for $25, and the 'healthJar' for $50. \n \nThe slingshot will use one pellet per attack and deal 10  damage per hit. Most fightable characters cannot attack you while you use the slingshot. \n The dagger does 20 damage. \nThe healthJar will add 75 hitpoints automatically.",
       "exits": [
         {
           "isLocked": false,

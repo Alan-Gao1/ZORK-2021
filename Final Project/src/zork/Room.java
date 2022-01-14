@@ -128,4 +128,7 @@ public class Room {
     return isLocked;
   }
 
+  public Inventory getInv(){
+    return items;
+  }
 }

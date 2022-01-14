@@ -87,4 +87,8 @@ public class Inventory {
     return there;
   }
 
+  public ArrayList<Item> getInventory(){
+    return items;
+  }
+
 }
