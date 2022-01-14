@@ -9,9 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.util.Scanner;
-
-import javax.sound.sampled.BooleanControl;
+import java.util.Scanner;  
   
 
 public class Game {
@@ -32,6 +30,7 @@ public class Game {
   private double wallet;
   private characters enemy;
   private int playerHP = 100;
+  private int slingshotAmmo = 0;
 
   private ArrayList<Exit> exits;
 
@@ -159,7 +158,6 @@ public class Game {
   }
 
   private static void putIteminRoom(String insideName, String itemId){
-    int ind = 0;
     if(!insideName.equals("item")){
       roomMap.get(insideName).addItem(itemMap.get(itemId));
     }
@@ -211,6 +209,7 @@ public class Game {
       try {
         command = parser.getCommand();
         finished = processCommand(command);
+        wallet = round(wallet);
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -221,6 +220,14 @@ public class Game {
     }else{
       System.out.println("Game over.");
     }
+  }
+
+  private double round(double wallet) {
+    wallet*=100;
+    wallet = (int) wallet;
+    wallet = (double) wallet;
+    wallet/=100;
+    return wallet;
   }
 
   /**
@@ -268,6 +275,13 @@ public class Game {
       wear(command);
     else if (commandWord.equals("fight"))
       fight(command);
+    else if (commandWord.equals("buy")){
+      if(currentRoom.getRoomName().equals("BVG shop")){
+        buy(command);
+      }else{
+        System.out.println("You can't buy stuff in places that arent the shop. Go to the shop to buy stuff.");
+      }
+    }
     else if (commandWord.equals("play"))
       playVideo(command);
     else if(commandWord.equals("info"))
@@ -294,6 +308,54 @@ public class Game {
       System.out.println("Do you really think you should be eating at a time like this?");
     }
     return false;
+  }
+
+  private void buy(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("What do you even wanna buy? actually specify something to buy");
+      return;
+    }
+
+    boolean validObject = false;
+    String objectId = command.getSecondWord();
+    for (Item item : currentRoom.getInv().getInventory()) {
+      if(objectId.equals(item.getId())){
+        validObject = true;
+      }
+    }
+
+    if(validObject){
+      int price = 0;
+      switch (objectId) {
+        case "dagger":
+          price = 10;
+          break;
+        case "slingshot":
+          price = 25;
+          break;
+        case "pellet":
+          price = 25;
+          break;
+        case "healthJar":
+          price = 50;
+          break;
+        default:
+          break;
+      }
+      backpack.addItem(currentRoom.removeItem(itemMap.get(objectId).getName()));
+      wallet -= price;
+      if(objectId.equals("healthJar")){
+        playerHP += 75;
+        System.out.println("You now have " + playerHP+"HP");
+      }else if(objectId.equals("pellet")){
+        slingshotAmmo += 5;
+        System.out.println("You now have " + slingshotAmmo + " pellets to use for your slingshot");
+      }else{
+        System.out.println("You bought the "+itemMap.get(objectId).getName());
+      }
+    }else{
+      System.out.println("Not a valid object ID!");
+    }
   }
 
   private boolean useItem(Command command) {
@@ -416,12 +478,6 @@ public class Game {
         System.out.println("\"Thanks for your help, I'm Trevor. I believe my last friend is in Mr. Federico's office, please help him!\"");
     }else{
       System.out.println("What do you want to listen to? the floor?");
-    }
-  }
-
-  private void Fight(Command command) {
-    if(command.getSecondWord().equals("sword")){
-
     }
   }
 
@@ -709,9 +765,13 @@ public class Game {
       }
       if(exit==null){
         return;
-      }else if(exit.isLocked()){
+      }else if(exit.isLocked()&&!backpack.checkItem(itemMap.get("203key").getName())){
         System.out.println("Room 203 is locked! There is a slip of paper that reads \"Someone has been abducting children. The key to this door can be found in locker #121, in the third hallway.\"");
         return;
+      }else if(exit.isLocked()&&backpack.checkItem(itemMap.get("203key").getName())){
+        System.out.println("You have unlocked Room 203!");
+        currentRoom = nextRoom;
+        System.out.println(currentRoom.longDescription());
       }
     }
 

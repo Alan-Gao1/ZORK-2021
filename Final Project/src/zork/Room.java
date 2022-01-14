@@ -127,4 +127,8 @@ public class Room {
   public boolean getLocked(){
     return isLocked;
   }
+
+  public Inventory getInv(){
+    return items;
+  }
 }
