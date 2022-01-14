@@ -60,7 +60,7 @@
     {
       "id": "Theatre",
       "name": "Theatre",
-      "description": "You are now in the theatre, it is crowded. Look for the kid.",
+      "description": "You are now in the theatre, it is crowded. Look for shohei.",
       "exits": [
         {
           "isLocked": false,
@@ -243,7 +243,7 @@
     {
       "id": "Room203",
       "name": "Room 203",
-      "description": "You are in Room 203, take the kid.",
+      "description": "You are in Room 203, elly is looking out the window.",
       "exits": [
         {
           "isLocked": true,
@@ -328,7 +328,7 @@
     {
       "id": "Room104",
       "name": "Room 104",
-      "description": "You are in Room 104, check for items.",
+      "description": "You are in Room 104.",
       "exits": [
         {
           "isLocked": false,
@@ -431,7 +431,7 @@
     {
       "id": "Room109",
       "name": "Room 109",
-      "description": "You are in Room 109, surrounded by robotics.",
+      "description": "You are in Room 109, surrounded by robotics. A video is loading on the projector screen, you can play it.",
       "exits": [
         {
           "isLocked": false,
@@ -499,7 +499,7 @@
     {
       "id": "Gym",
       "name": "Gym",
-      "description": "You are in the Gym, rescue the kid from Mr.Cardone",
+      "description": "You are in the Gym, rescue trevor from Mr.Cardone",
       "exits": [
         {
           "isLocked": false,
@@ -640,7 +640,7 @@
     {
       "id": "UpperTheatre",
       "name": "Upper Theatre",
-      "description": "You are in the Projector room in the theatre",
+      "description": "You are in the Projector room in the theatre. shohei is flicking the light.",
       "exits": [
         {
           "isLocked": false,
