@@ -3,10 +3,10 @@
       {
         "id": "MrDesLauriers",
         "name": "Mr. DesLauriers",
-        "hp": "500",
+        "hp": "300",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": "75"}],
-        "room": "Room106"
+        "room": "Room 106"
     },
     {
         "id": "MrFederico",
@@ -14,7 +14,7 @@
         "hp": "200",
         "isFightable": true,
         "use": [{"canDamage": true, "damage": "15"}],
-        "startingRoom": "FedericoOffice"
+        "room": "Mr.Federico's Office"
     },
     { 
     "id": "MrCardone",

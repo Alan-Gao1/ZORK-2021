@@ -342,7 +342,7 @@ public class Game {
     }else if(!backpack.checkWeapons()){
       System.out.println("You do not have any weapons in your inventory! Go find weapons before fighting.");
     }else{
-      while(playerHP>=0 && enemy.gethp()>=0){
+      while(playerHP>0 && enemy.gethp()>0){
         System.out.println("What weapon do you want to use? (If you want to see your weapons, type \"check backpack\"");
         System.out.print("> "); 
         String inputLine = in.nextLine();
@@ -363,18 +363,18 @@ public class Game {
             if(currentRoom.getRoomName().equals("Gym")){
                 System.out.println("Enemy Attacks, player -10 health");
                 playerHP -= 10;
-            }else if(currentRoom.getRoomName().equals("FedericoOffice")){
+            }else if(currentRoom.getRoomName().equals("Mr.Federico's Office")){
                 System.out.println("Enemy Attacks, player -15 health");
-                playerHP -= 15;
-            }else if(currentRoom.getRoomName().equals("Room106")){
+                playerHP -= 20;
+            }else if(currentRoom.getRoomName().equals("Room 106")){
                 System.out.println("Enemy Attacks, player -25 health");
                 playerHP -= 25;
             }
-            if(enemy.gethp()>=0)
+            if(enemy.gethp()>0)
               System.out.println("Enemy health remaining: " + enemy.gethp());
             else
               System.out.println("Enemy health remaining: 0");
-            if(playerHP>=0)
+            if(playerHP>0)
               System.out.println("Player health remaining: " + playerHP);
             else
               System.out.println("Player health remaining: 0");
