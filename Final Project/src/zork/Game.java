@@ -61,6 +61,7 @@ public class Game {
       String characterHPS = (String) ((JSONObject) itemObj).get("hp");
       int characterHP = Integer.parseInt(characterHPS);
       Boolean characterIsFightable = (Boolean) ((JSONObject) itemObj).get("isFightable");
+      Boolean characterIsDefeated = (Boolean) ((JSONObject) itemObj).get("isDefeated");
       String characterStartingRoom = (String) ((JSONObject) itemObj).get("room");
       JSONArray jsonUse = (JSONArray) ((JSONObject) itemObj).get("use");
       int damage = 0;
@@ -68,7 +69,7 @@ public class Game {
         String sdamage = (String) ((JSONObject) itemUse).get("damage");
         damage = Integer.parseInt(sdamage);
       }
-      characters character = new characters(characterHP, characterName, characterIsFightable, characterId, characterStartingRoom);
+      characters character = new characters(characterHP, characterName, characterIsFightable, characterIsDefeated, characterId, characterStartingRoom);
       character.setDamage(damage);
       characterList.add(character);
       characterMap.put(characterId, character);
@@ -317,6 +318,9 @@ public class Game {
 
     boolean validObject = false;
     String objectId = command.getSecondWord();
+    if(objectId.equals("lower-costume")){
+      objectId = "costumeTwo";
+    }
     for (Item item : currentRoom.getInv().getInventory()) {
       if(objectId.equals(item.getId())){
         validObject = true;
@@ -338,22 +342,29 @@ public class Game {
         case "healthJar":
           price = 50;
           break;
+        case "costumeTwo":
+          price = 10;
+          break;
         default:
           break;
       }
       backpack.addItem(currentRoom.removeItem(itemMap.get(objectId).getName()));
       wallet -= price;
-      if(objectId.equals("healthJar")){
+      if(wallet<0){
+        System.out.println("You do not have enough money to buy " + itemMap.get(objectId).getName() + ". You can get money by pickpocketing or finding cash.");
+        wallet += price;
+        currentRoom.addItem(backpack.removeItem(itemMap.get(objectId).getName()));
+      }else if(objectId.equals("healthJar")){
         playerHP += 75;
         System.out.println("You now have " + playerHP+"HP");
       }else if(objectId.equals("pellet")){
         slingshotAmmo += 5;
         System.out.println("You now have " + slingshotAmmo + " pellets to use for your slingshot");
       }else{
-        System.out.println("You bought the "+itemMap.get(objectId).getName());
+        System.out.println("You bought the "+ objectId);
       }
     }else{
-      System.out.println("Not a valid object ID!");
+      System.out.println("Not a valid object ID! You can only buy a dagger, slingshot, pellet, healthJar.");
     }
   }
 
@@ -403,7 +414,7 @@ public class Game {
     }else if(!backpack.checkWeapons()){
       System.out.println("You do not have any weapons in your inventory! Go find weapons before fighting.");
     }else{
-      while(playerHP>=0 && enemy.gethp()>=0){
+      while(playerHP>0 && enemy.gethp()>0){
         System.out.println("What weapon do you want to use? (If you want to see your weapons, type \"check backpack\"");
         System.out.print("> "); 
         String inputLine = in.nextLine();
@@ -424,18 +435,18 @@ public class Game {
             if(currentRoom.getRoomName().equals("Gym")){
                 System.out.println("Enemy Attacks, player -10 health");
                 playerHP -= 10;
-            }else if(currentRoom.getRoomName().equals("FedericoOffice")){
+            }else if(currentRoom.getRoomName().equals("Mr.Federico's Office")){
                 System.out.println("Enemy Attacks, player -15 health");
-                playerHP -= 15;
-            }else if(currentRoom.getRoomName().equals("Room106")){
+                playerHP -= 20;
+            }else if(currentRoom.getRoomName().equals("Room 106")){
                 System.out.println("Enemy Attacks, player -25 health");
                 playerHP -= 25;
             }
-            if(enemy.gethp()>=0)
+            if(enemy.gethp()>0)
               System.out.println("Enemy health remaining: " + enemy.gethp());
             else
               System.out.println("Enemy health remaining: 0");
-            if(playerHP>=0)
+            if(playerHP>0)
               System.out.println("Player health remaining: " + playerHP);
             else
               System.out.println("Player health remaining: 0");
@@ -444,7 +455,8 @@ public class Game {
         }
       }
       if(enemy.gethp() <= 0){
-        System.out.println("Enemy defeated");
+        System.out.println("Enemy defeated!");
+        enemy.setDefeated(enemy.gethp());
       }else if(playerHP<=0){
         System.out.println("You have been defeated by " + enemy.getName() + "!");
       }
@@ -477,9 +489,12 @@ public class Game {
     }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
         System.out.println();
         System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
-    }else if(x.equals("trevor")/**&& mr.cardon has been defeated, kid#4 has been freed*/){
-        System.out.println();
-        System.out.println("\"Thanks for your help, I'm Trevor. I believe my last friend is in Mr. Federico's office, please help him!\"");
+    }else if(x.equals("trevor")){/**&& mr.cardone has been defeated, kid#4 has been freed*/
+        if(characterMap.get("MrCardone").isDefeated()){
+          System.out.println();
+          System.out.println("\"Thanks for your help, I'm Trevor. I believe my last friend is in Mr. Federico's office, please help him!\"");
+        }else
+          System.out.println("You must fight and defeat Mr. Cardone in order to listen to Trevor!");
     }else{
       System.out.println("What do you want to listen to? the floor?");
     }
@@ -504,7 +519,7 @@ public class Game {
         currentRoom.addItem(itemMap.get("sword"));
         newItem2.setOpen(true);
       }else if(item.equals("chestTwo")){
-        System.out.println("You opened Chest 2. There is the upper part of the costume ('upper-costume'). The costume has a tag that reads \"from BVG shop\".");
+        System.out.println("You opened Chest 2. There is the upper part of the costume (ID: upper-costume). The costume has a tag that reads \"from BVG shop\".");
         currentRoom.addItem(itemMap.get("costumeOne"));
         newItem2.setOpen(true);
       }else if(item.equals("chestThree")){
@@ -594,7 +609,7 @@ public class Game {
       }else{
         backpack.currentWeight -= newItem.getWeight();
         currentRoom.addItem(newItem);
-        System.out.println("You dropped the " + command.getSecondWord());
+        System.out.println("You dropped the " + command.getSecondWord() + ".");
       }
   }
   }
@@ -683,10 +698,16 @@ public class Game {
         System.out.println("You cannot move the " + command.getSecondWord() + "!");
       else if(newItem == null)
         System.out.println("There is no " + item);
-      else if(backpack.addItem(newItem)){
+      else if(item.equals("Lower Costume piece")){
+        System.out.println("You must buy the lower-costume from the shops.");
+        currentRoom.addItem(newItem);
+      }else if(item.equals("Kid #4") && !characterMap.get("MrCardone").isDefeated()){
+        System.out.println("Mr. Cardone is not defeated. You cannot take Trevor!");
+        currentRoom.addItem(newItem);
+      }else if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
         backpack.currentWeight += newItem.getWeight();
-       }else{
+      }else{
          currentRoom.addItem(newItem);
         System.out.println("You cannot take " + command.getSecondWord());
       }
@@ -782,7 +803,7 @@ public class Game {
     else {
       if(currentRoom.getExits().get(ind).getLocked()){
         if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(!backpack.checkItem("Upper Costume piece")||!backpack.checkItem("Lower Costume piece"))){
-          System.out.println("You do not have a full costume, the theatre is only for members of the play");
+          System.out.println("You do not have a full costume, the theatre is only for members of the play. Find the room with chests.");
         }else if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(backpack.checkItem("Upper Costume piece")&&backpack.checkItem("Lower Costume piece"))){
           System.out.println("Welcome member of the play!");
           currentRoom = nextRoom;
