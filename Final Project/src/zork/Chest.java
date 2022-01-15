@@ -1,7 +1,5 @@
 package zork;
 
-import java.util.ArrayList;
-
 public class Chest extends OpenableObject{
 
     // private ArrayList<Item> contents = new ArrayList<>();

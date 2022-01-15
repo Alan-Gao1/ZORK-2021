@@ -43,7 +43,6 @@ public class Game {
       currentRoom = roomMap.get("Lobby");
       initItems("src\\zork\\data\\items.json");
       initCharacters("src\\zork\\data\\characters.json");
-      System.out.println(itemList);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -501,11 +500,11 @@ public class Game {
     OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("chestOne")){
-        System.out.println("You opened Chest 1. There is a sword in the chest. ");
+        System.out.println("You opened Chest 1. There is a 'sword' in the chest. ");
         currentRoom.addItem(itemMap.get("sword"));
         newItem2.setOpen(true);
       }else if(item.equals("chestTwo")){
-        System.out.println("You opened Chest 2. There is the upper part of the costume. The costume has a tag that reads \"from BVG shop\".");
+        System.out.println("You opened Chest 2. There is the upper part of the costume ('upper-costume'). The costume has a tag that reads \"from BVG shop\".");
         currentRoom.addItem(itemMap.get("costumeOne"));
         newItem2.setOpen(true);
       }else if(item.equals("chestThree")){
