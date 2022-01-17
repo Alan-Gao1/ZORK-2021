@@ -152,8 +152,8 @@
   "isWeapon": false
 },
 {
-  "id": "kidOne",
-  "name": "Kid #1",
+  "id": "alan",
+  "name": "Alan",
   "description": "This is a child",
   "isChild": true,
   "weight": "1",
@@ -163,8 +163,8 @@
   "isWeapon": false
 },
 {
-    "id": "kidTwo",
-    "name": "Kid #2",
+    "id": "elly",
+    "name": "Elly",
     "description": "This is a child",
     "isChild": true,
     "weight": "1",
@@ -174,8 +174,8 @@
     "isWeapon": false
 },
 {
-    "id": "kidThree",
-    "name": "Kid #3",
+    "id": "shohei",
+    "name": "Shohei",
     "description": "This is a child",
     "isChild": true,
     "weight": "1",
@@ -185,8 +185,8 @@
     "isWeapon": false
 },
 {
-    "id": "kidFour",
-    "name": "Kid #4",
+    "id": "trevor",
+    "name": "Trevor",
     "description": "This is a child",
     "isChild": true,
     "weight": "1",
@@ -196,8 +196,8 @@
     "isWeapon": false
 },
 {
-    "id": "kidFive",
-    "name": "Kid #5",
+    "id": "lucas",
+    "name": "Lucas",
     "description": "This is a child",
     "isChild": true,
     "weight": "1",

@@ -96,7 +96,6 @@ public class Room {
       System.out.println(direction + " is not a valid direction.");
       return null;
     }
-
     System.out.println(direction + " is not a valid direction.");
     return null;
   }
@@ -130,5 +129,18 @@ public class Room {
 
   public Inventory getInv(){
     return items;
+  }
+
+  public void printExitInfo(){
+    for (Exit exit : exits) {
+      System.out.println("Exit in direction "+exit.getDirection() + " will lead to "+exit.getAdjacentRoom());
+    }
+  }
+
+  public void printRoomContents(){
+    System.out.println("This Room contains:");
+    for (Item item : items.getInventory()) {
+      System.out.println("'"+item.getName()+"' with ID: '"+item.getId()+"' is present in this room");
+    }
   }
 }
