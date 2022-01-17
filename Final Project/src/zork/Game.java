@@ -100,7 +100,7 @@ public class Game {
       int chestNum = 0 ;
       String object = "";
       String contentDesc = "";
-      if(itemId.equals("chestOne")||itemId.equals("chestTwo")||itemId.equals("chestThree")||itemId.equals("chestFour")||itemId.equals("chestFive")){
+      if(itemId.equals("chestOne")||itemId.equals("chestTwo")||itemId.equals("chestThree")||itemId.equals("chestFour")||itemId.equals("chestFive")||itemId.equals("microwave")){
         isChest = (Boolean) ((JSONObject) itemObj).get("isChest");
         String chestNum1 = Long.toString((long) ((JSONObject) itemObj).get("chestNum"));
         chestNum = Integer.parseInt(chestNum1);
@@ -239,7 +239,7 @@ public class Game {
     System.out.println();
     System.out.println("Welcome to Zork!");
     System.out.println("Zork is a new, incredibly boring adventure game.");
-    System.out.println("Type 'help' if you need help.");
+    System.out.println("Type \"help\" if you need help.");
     System.out.println();
     System.out.println(currentRoom.longDescription());
   }
@@ -537,7 +537,7 @@ public class Game {
     OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
     if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("chestOne")){
-        System.out.println("You opened Chest 1. There is a 'sword' in the chest. ");
+        System.out.println("You opened Chest 1. There is a \"sword\" in the chest. ");
         currentRoom.addItem(itemMap.get("sword"));
         newItem2.setOpen(true);
       }else if(item.equals("chestTwo")){
@@ -561,20 +561,19 @@ public class Game {
     }else if(currentRoom.getRoomName().equals("Cafeteria")){
       if(item.equals("microwave")){
         System.out.println("You opened the microwave. Alan hops out of the microwave and looks at you.");
-        currentRoom.addItem(itemMap.get("kidOne"));
+        currentRoom.addItem(itemMap.get("alan"));
         newItem2.setOpen(true);
-          //if(itemMap.get("microwave").isOpenable()) //index 20
-            //itemMap.get("microwave").isOpenable();//open the microwave (set it to an opened state)
       }
-    //write this open thing for locker
     }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("locker")){
         if(newItem2.isOpen){
           newItem2.setOpen(true);
-          System.out.println("You opened the locker. There is a key inside. ID: 'key'");
+          System.out.println("You opened the locker. There is a key inside. ID: \"lock\"");
         }else{
           newItem2.setOpen(false);
           System.out.println("This locker is locked");
         }
+    }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("lock")){
+      System.out.println("Use \"solve lock\" to open a lock");
     }else{
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
     }
@@ -771,6 +770,8 @@ public class Game {
           System.out.println("Your health has been increased by 25 due to wearing arm armour");
         }
         playerHP += healthAdd;
+      }else if(x.equals("alan")&&!((OpenableObject)(itemMap.get("microwave"))).isOpen()){
+        System.out.println("You cannot take Alan because the microave is not open yet.");
       }else if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
         backpack.currentWeight += newItem.getWeight();
@@ -818,8 +819,6 @@ public class Game {
    * and a list of the command words.
    */
   private void printHelp() {
-    System.out.println("You are lost. You are alone. You wander");
-    System.out.println("around at Monash Uni, Peninsula Campus.");
     System.out.println();
     System.out.println("Your command words are:");
     parser.showCommands();
@@ -846,24 +845,6 @@ public class Game {
         ind = i;
       }
     }
-
-    /**if(nextRoom.getRoomName().equals("Room 203")){
-      Exit exit = null;
-      for(Exit exit1:currentRoom.getExits()){
-        if(exit1.getAdjacentRoom().equals("Room203"))
-          exit = exit1;
-      }
-      if(exit==null){
-        return;
-      }else if(exit.isLocked()&&!backpack.checkItem(itemMap.get("203key").getName())){
-        System.out.println("Room 203 is locked! There is a slip of paper that reads \"Someone has been abducting children. The key to this door can be found in locker #121, in the third hallway.\"");
-        return;
-      }else if(exit.isLocked()&&backpack.checkItem(itemMap.get("203key").getName())){
-        System.out.println("You have unlocked Room 203!");
-        currentRoom = nextRoom;
-        System.out.println(currentRoom.longDescription());
-      }
-    }*/
 
     if (nextRoom == null)
       System.out.println("There is no door!");

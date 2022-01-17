@@ -33,6 +33,7 @@ public class CommandWords {
       System.out.print(c + "  ");
     }
     System.out.println();
-    System.out.println("Type 'listen kid' to listen to the hints and clues the kids have.");
+    System.out.println("Type \"listen 'kidname'\" to listen to the hints and clues the kids have.");
+    System.out.println("Use \"pickpocket\" to try and get money. If you get caught, the game ends. The more times you succesfully pickpocket, the more likely it is you will be caught");
   }
 }

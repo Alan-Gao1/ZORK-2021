@@ -159,7 +159,7 @@
   "weight": "1",
   "isOpenable": false,
   "use":[{"canUse": true}],
-  "startingRoom": "Cafeteria",
+  "startingRoom": "item",
   "isWeapon": false
 },
 {
@@ -213,7 +213,7 @@
   "weight": "0",
   "isOpenable": true, "isLocked": false,
   "use": [{"canUse": true}],
-  "startingRoom": "Cafeteria",
+  "startingRoom": "Cafeteria", "isChest": true, "chestNum": 0, "contents": "", "object": "alan",
   "isWeapon": false
 },
 {
