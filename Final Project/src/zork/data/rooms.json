@@ -164,7 +164,7 @@
     {
       "id": "Room212",
       "name": "Room 212",
-      "description": "You are in classroom number 212. There are 5 chests, be careful if you chose to open them. ID: 'chestOne', 'chestTwo', 'chestThree', 'chestFour', 'chestFive'",
+      "description": "You are in classroom number 212. There are 5 chests, be careful if you chose to open them.",
       "exits": [
         {
           "isLocked": false,
@@ -176,7 +176,7 @@
     {
       "id": "Gr.11CommonArea",
       "name": "Gr.11 Common Area",
-      "description": "You are in the Grade 11 Common Area.",
+      "description": "You are in the Grade 11 Common Area. There is feet armour in the corner ID: 'feet'",
       "exits": [
         {
           "isLocked": false,
@@ -299,7 +299,7 @@
         {
           "isLocked": false,
           "direction": "South",
-          "adjacentRoom": "minihallway"
+          "adjacentRoom": "MiniHallway"
         }
       ]
     },
@@ -419,7 +419,7 @@
     {
       "id": "Room106",
       "name": "Room 106",
-      "description": "You are in Room 106, Mr.DesLauriers is waiting for you.",
+      "description": "You are in Room 106, Mr.DesLauriers is waiting for you. To fight, use ID: 'MrDesLauriers'",
       "exits": [
         {
           "isLocked": false,
@@ -736,7 +736,7 @@
     {
       "id": "Gr.10CommonArea",
       "name": "Gr.10 Common Area",
-      "description": "You are in the Grade 10 CommonArea",
+      "description": "You are in the Grade 10 CommonArea.",
       "exits": [
         {
           "isLocked": false,

@@ -77,9 +77,13 @@ public class Game {
   }
 
   private void displayInfo(){
+    System.out.println("HP: "+playerHP+"HP");
     System.out.println("Money: $"+wallet);
     System.out.println();
     backpack.printContents();
+    System.out.println();
+    System.out.println("Room Info: ");
+    currentRoom.printExitInfo();
   }
 
   private void initItems(String fileName) throws Exception{
@@ -193,9 +197,7 @@ public class Game {
       room.setExits(exits);
       roomMap.put(roomId, room);
     }
-  }
-
-  
+  } 
 
   /**
    * Main play routine. Loops until end of play.
@@ -274,7 +276,7 @@ public class Game {
     else if (commandWord.equals("wear"))
       wear(command);
     else if (commandWord.equals("fight"))
-      fight(command);
+      return fight(command);
     else if (commandWord.equals("buy")){
       if(currentRoom.getRoomName().equals("BVG shop")){
         buy(command);
@@ -404,15 +406,18 @@ public class Game {
     }
   }
 
-  private void fight(Command command) {
-    String enemyName = command.getSecondWord();
-    enemy = characterMap.get(enemyName);
+  private boolean fight(Command command) {
+    String enemyId = command.getSecondWord();
+    enemy = characterMap.get(enemyId);
     if(enemy == null){
-      System.out.println("You cannot fight " + enemyName);
+      System.out.println("You cannot fight " + enemy.getName());
+      return false;
     }else if(!(enemy.getRoom().equals(currentRoom.getRoomName()))){
-      System.out.println(enemyName + " is nowhere in sight.");
+      System.out.println(enemy.getName() + " is nowhere in sight.");
+      return false;
     }else if(!backpack.checkWeapons()){
       System.out.println("You do not have any weapons in your inventory! Go find weapons before fighting.");
+      return false;
     }else{
       while(playerHP>0 && enemy.gethp()>0){
         System.out.println("What weapon do you want to use? (If you want to see your weapons, type \"check backpack\"");
@@ -432,15 +437,29 @@ public class Game {
             System.out.println("You use the " + weapon.getName() + ".");
             enemy.sethp(enemy.gethp() - weapon.getDamage());
             System.out.println("Attack successful, Enemy -" + weapon.getDamage() + " health.");
-            if(currentRoom.getRoomName().equals("Gym")){
-                System.out.println("Enemy Attacks, player -10 health");
-                playerHP -= 10;
-            }else if(currentRoom.getRoomName().equals("Mr.Federico's Office")){
-                System.out.println("Enemy Attacks, player -15 health");
-                playerHP -= 20;
-            }else if(currentRoom.getRoomName().equals("Room 106")){
-                System.out.println("Enemy Attacks, player -25 health");
-                playerHP -= 25;
+            if(!weapon.getName().equals("slingshot")){
+              if(currentRoom.getRoomName().equals("Gym")){
+                  System.out.println("Enemy Attacks, player -10 health");
+                  playerHP -= 10;
+              }else if(currentRoom.getRoomName().equals("Mr.Federico's Office")){
+                  System.out.println("Enemy Attacks, player -15 health");
+                  playerHP -= 20;
+              }else if(currentRoom.getRoomName().equals("Room 106")){
+                  System.out.println("Enemy Attacks, player -25 health");
+                  playerHP -= 25;
+              }
+            }else{
+              if(currentRoom.getRoomName().equals("Room 106")&&slingshotAmmo>0){
+                System.out.println("You were not able to avoid the ranged attacks of Mr. DesLauriers' robot lasers. However, you were able to avoid some of the damage.");
+                System.out.println("Enemy Attacks, player -5 health");
+                playerHP -= 5;
+                slingshotAmmo--;
+              }else if(slingshotAmmo>0){
+                System.out.println("Because you were using the slingshot, you have avoided all attacks!");
+                slingshotAmmo--;
+              }else{
+                System.out.println("You have no more slingshot ammo left!");
+              }
             }
             if(enemy.gethp()>0)
               System.out.println("Enemy health remaining: " + enemy.gethp());
@@ -457,10 +476,13 @@ public class Game {
       if(enemy.gethp() <= 0){
         System.out.println("Enemy defeated!");
         enemy.setDefeated(enemy.gethp());
+        return false;
       }else if(playerHP<=0){
         System.out.println("You have been defeated by " + enemy.getName() + "!");
+        return true;
       }
-  }   
+  }
+  return false;   
 }
 
   private void wear(Command command) {
@@ -561,7 +583,6 @@ public class Game {
     //check if you can open the item
   }
 
-  // implementations of user commands:
   private void drop(Command command) {
     if(!command.hasSecondWord()){
       System.out.println("Drop what?");
@@ -573,25 +594,37 @@ public class Game {
     x = x.toLowerCase();
     switch(x){
       case "alan": 
-        item = "Kid #1";
+        item = "Alan";
         break;
       case "elly":
-        item = "Kid #2";
+        item = "Elly";
         break;
       case "shohei":
-        item = "Kid #3";
+        item = "Shohei";
         break;
       case "trevor":
-        item = "Kid #4";
+        item = "Trevor";
         break;
       case "lucas":
-        item = "Kid #5";
+        item = "Lucas";
         break;
-      case "upper-costume":
+      case "costumeone":
         item = "Upper Costume piece";
         break;
-      case "lower-costume":
+      case "costumetwo":
         item = "Lower Costume piece";
+        break;
+      case "arm":
+        item = "arm armour";
+        break;
+      case "chestplate":
+        item = "chestplate armour";
+        break;
+      case "feet":
+        item = "feet armour";
+        break;
+      case "helmet":
+        item = "helmet armour";
         break;
       default:
         item = command.getSecondWord();
@@ -602,10 +635,27 @@ public class Game {
       System.out.println("Drop what?");
     else{
       Item newItem = backpack.removeItem(item);
-      if(backpack.getCurrentWeight()<=0){
+      if(backpack.getCurrentWeight()<=0&&newItem.getWeight()!=0){
         System.out.println("You have nothing to drop!");
       }else if(newItem == null){
         System.out.println("Drop what?");
+      }else if(x.equals("helmet")||x.equals("arm")||x.equals("feet")||x.equals("chestplate")){
+        backpack.currentWeight -= newItem.getWeight();
+        int healthAdd = 0;
+        if(x.equals("helmet")){
+          healthAdd = 50;
+          System.out.println("Your health has been decreased by 50 due to dropping the helmet!");
+        }else if(x.equals("chestplate")){
+          healthAdd = 50;
+          System.out.println("Your health has been decreased by 50 due to dropping the chestplate!");
+        }else if(x.equals("feet")){
+          healthAdd = 25;
+          System.out.println("Your health has been decreased by 25 due to dropping feet armour");
+        }else if(x.equals("arm")){
+          healthAdd = 25;
+          System.out.println("Your health has been decreased by 25 due to dropping arm armour");
+        }
+        playerHP -= healthAdd;
       }else{
         backpack.currentWeight -= newItem.getWeight();
         currentRoom.addItem(newItem);
@@ -649,19 +699,19 @@ public class Game {
     x = x.toLowerCase();
     switch(x){
       case "alan": 
-        item = "Kid #1";
+        item = "Alan";
         break;
       case "elly":
-        item = "Kid #2";
+        item = "Elly";
         break;
       case "shohei":
-        item = "Kid #3";
+        item = "Shohei";
         break;
       case "trevor":
-        item = "Kid #4";
+        item = "Trevor";
         break;
       case "lucas":
-        item = "Kid #5";
+        item = "Lucas";
         break;
       case "upper-costume":
         item = "Upper Costume piece";
@@ -672,23 +722,22 @@ public class Game {
       case "lower-costume":
         item = "Lower Costume piece";
         break;
+      case "arm":
+        item = "arm armour";
+        break;
+      case "chestplate":
+        item = "chestplate armour";
+        break;
+      case "feet":
+        item = "feet armour";
+        break;
+      case "helmet":
+        item = "helmet armour";
+        break;
       default:
         item = command.getSecondWord();
         break;
     }
-    // if(x.equals("kid#1")){
-    //     item = "kidOne";
-    // }else if(x.equals("kid#2")){
-    //     item = "kidTwo";
-    // }else if(x.equals("kid#3")){
-    //     item = "kidThree";
-    // }else if(x.equals("kid#4")){
-    //     item = "kidFour";
-    // }else if(x.equals("kid#5")){
-    //     item = "kidFive";
-    // }else{
-    //   item = command.getSecondWord();
-    // }
 
     if(item==null){
       System.out.println("Take what?");
@@ -701,9 +750,27 @@ public class Game {
       else if(item.equals("Lower Costume piece")){
         System.out.println("You must buy the lower-costume from the shops.");
         currentRoom.addItem(newItem);
-      }else if(item.equals("Kid #4") && !characterMap.get("MrCardone").isDefeated()){
+      }else if(item.equals("trevor") && !characterMap.get("MrCardone").isDefeated()){
         System.out.println("Mr. Cardone is not defeated. You cannot take Trevor!");
         currentRoom.addItem(newItem);
+      }else if(x.equals("helmet")||x.equals("arm")||x.equals("feet")||x.equals("chestplate")){
+        backpack.addItem(newItem);
+        backpack.currentWeight += newItem.getWeight();
+        int healthAdd = 0;
+        if(x.equals("helmet")){
+          healthAdd = 50;
+          System.out.println("Your health has been increased by 50 due to wearing the helmet!");
+        }else if(x.equals("chestplate")){
+          healthAdd = 50;
+          System.out.println("Your health has been increased by 50 due to wearing the chestplate!");
+        }else if(x.equals("feet")){
+          healthAdd = 25;
+          System.out.println("Your health has been increased by 25 due to wearing feet armour");
+        }else if(x.equals("arm")){
+          healthAdd = 25;
+          System.out.println("Your health has been increased by 25 due to wearing arm armour");
+        }
+        playerHP += healthAdd;
       }else if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
         backpack.currentWeight += newItem.getWeight();
@@ -814,13 +881,16 @@ public class Game {
           System.out.println("Room 203 is unlocked!");
           currentRoom = nextRoom;
           System.out.println(currentRoom.longDescription());
+          currentRoom.printRoomContents();
         }else{
           currentRoom = nextRoom;
           System.out.println(currentRoom.longDescription());
+          currentRoom.printRoomContents();
         }
       }else{
         currentRoom = nextRoom;
         System.out.println(currentRoom.longDescription());
+        currentRoom.printRoomContents();
       }
     }
   }
