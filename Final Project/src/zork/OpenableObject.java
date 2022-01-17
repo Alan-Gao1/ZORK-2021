@@ -69,4 +69,8 @@ public boolean isLocked() {
   public void setOpen(boolean isOpen) {
     this.isOpen = isOpen;
   }
+
+  public boolean getOpen(){
+    return isOpen;
+  }
 }
