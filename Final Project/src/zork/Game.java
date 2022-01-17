@@ -279,7 +279,7 @@ public class Game {
       if(currentRoom.getRoomName().equals("BVG shop")){
         buy(command);
       }else{
-        System.out.println("You can't buy stuff in places that arent the shop. Go to the shop to buy stuff.");
+        System.out.println("You can't buy stuff in places that aren't the shop. Go to the shop to buy stuff.");
       }
     }
     else if (commandWord.equals("play"))
