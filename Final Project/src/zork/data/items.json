@@ -247,16 +247,6 @@
   "isWeapon": false
 },
 {
-  "id": "chestFive",
-  "name": "Chest 5",
-  "description": "This is Chest 5. You may open it.",
-  "weight": "0",
-  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 5, "contents": "You have been killed by a bomb placed in this chest.", "object": "bomb",
-  "use":[{"canUse": true}],
-  "startingRoom": "Room212",
-  "isWeapon": false
-},
-{
   "id": "chestFour",
   "name": "Chest 4",
   "description": "This is Chest 4. You may open it.",
@@ -265,6 +255,17 @@
   "use":[{"canUse": true}],
   "startingRoom": "Room212",
   "isWeapon": false
+},
+{
+  "id": "chestFive",
+  "name": "Chest 5",
+  "description": "This is Chest 5. You may open it.",
+  "weight": "0",
+  "isOpenable": true, "isLocked": false, "isChest": true, "chestNum": 5, "contents": "You have been killed by a bomb placed in this chest.", "object": "bomb",
+  "use":[{"canUse": true}],
+  "startingRoom": "Room212",
+  "isWeapon": false
 }
+
 ]
 }
