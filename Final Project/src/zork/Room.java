@@ -139,6 +139,9 @@ public class Room {
 
   public void printRoomContents(){
     System.out.println("This Room contains:");
+    if(roomName.equals("BVG shop")){
+      return;
+    }
     for (Item item : items.getInventory()) {
       System.out.println("'"+item.getName()+"' with ID: '"+item.getId()+"' is present in this room");
     }

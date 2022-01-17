@@ -138,7 +138,7 @@
   "weight": "0",
   "isOpenable": false,
   "use":[{"canUse": true}],
-  "startingRoom": "Room212",
+  "startingRoom": "item",
   "isWeapon": false
 },
 {

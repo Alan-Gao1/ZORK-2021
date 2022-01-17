@@ -281,7 +281,7 @@ public class Game {
       if(currentRoom.getRoomName().equals("BVG shop")){
         buy(command);
       }else{
-        System.out.println("You can't buy stuff in places that arent the shop. Go to the shop to buy stuff.");
+        System.out.println("You can't buy stuff in places that aren't the shop. Go to the shop to buy stuff.");
       }
     }
     else if (commandWord.equals("play"))
@@ -501,13 +501,12 @@ public class Game {
     
     //listen to what one of the kids has to say
     //print the dialogue/information from kids
-      
     if(x.equals("alan")&& microwave.isOpen()){
         System.out.println();
         System.out.println("\"Hi friend. Thanks for saving me, I am Alan. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
     }else if(x.equals("elly")/**&& Room203 is unlocked */){
         System.out.println();
-        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2. Hopefully you'll find shohei.\"");
+        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2. Hopefully you'll find Shohei.\"");
     }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
         System.out.println();
         System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
@@ -533,9 +532,19 @@ public class Game {
   }
 
   private boolean openItem(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Open what?");
+      return false;
+    }
     String item = command.getSecondWord();
-    OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
-    if(currentRoom.getRoomName().equals("Room 212")){
+    if(itemMap.get(item) == null || !itemMap.get(item).isOpenable()){
+      System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
+      return false;
+    }else{
+      OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
+    if(newItem2.getOpen()){
+      System.out.println(item + " is already open! You cannot open it again.");
+    }else if(currentRoom.getRoomName().equals("Room 212")){
       if(item.equals("chestOne")){
         System.out.println("You opened Chest 1. There is a \"sword\" in the chest. ");
         currentRoom.addItem(itemMap.get("sword"));
@@ -565,7 +574,7 @@ public class Game {
         newItem2.setOpen(true);
       }
     }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("locker")){
-        if(newItem2.isOpen){
+        if(!newItem2.isLocked()){
           newItem2.setOpen(true);
           System.out.println("You opened the locker. There is a key inside. ID: \"lock\"");
         }else{
@@ -578,6 +587,8 @@ public class Game {
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
     }
     return false;
+
+  }
     //opens a different items (chest, locker, microwave, curtains, door, backpack)
     //check if you can open the item
   }
@@ -634,10 +645,10 @@ public class Game {
       System.out.println("Drop what?");
     else{
       Item newItem = backpack.removeItem(item);
-      if(backpack.getCurrentWeight()<=0&&newItem.getWeight()!=0){
+      if(newItem == null){
+        System.out.println("You cannot drop " + item);
+      }else if(backpack.getCurrentWeight()<=0&&newItem.getWeight()!=0){
         System.out.println("You have nothing to drop!");
-      }else if(newItem == null){
-        System.out.println("Drop what?");
       }else if(x.equals("helmet")||x.equals("arm")||x.equals("feet")||x.equals("chestplate")){
         backpack.currentWeight -= newItem.getWeight();
         int healthAdd = 0;
@@ -749,7 +760,13 @@ public class Game {
       else if(item.equals("Lower Costume piece")){
         System.out.println("You must buy the lower-costume from the shops.");
         currentRoom.addItem(newItem);
-      }else if(item.equals("trevor") && !characterMap.get("MrCardone").isDefeated()){
+      }else if(item.equals("Alan") && !((OpenableObject) itemMap.get("microwave")).isOpen()){
+        System.out.println("Alan is in the microwave, you must open the microwave first!");
+        currentRoom.addItem(newItem);
+      }else if(item.equals("key") && ((OpenableObject) itemMap.get("locker")).isLocked()){
+        System.out.println("The key is inside the locked locker!");
+        currentRoom.addItem(newItem);
+      }else if(item.equals("Trevor") && !characterMap.get("MrCardone").isDefeated()){
         System.out.println("Mr. Cardone is not defeated. You cannot take Trevor!");
         currentRoom.addItem(newItem);
       }else if(x.equals("helmet")||x.equals("arm")||x.equals("feet")||x.equals("chestplate")){
@@ -792,6 +809,7 @@ public class Game {
     if(!command.getSecondWord().equals("lock")){
       System.out.println("You can not solve " + command.getSecondWord() + "! You can only solve locks.");
     }else{
+      System.out.println();
       System.out.println("The passcode has 3 numbers from 0-99. Do not enter in 0s before single digit numbers");
       System.out.println("Passcode Hint: ");
       System.out.println("The first number is neither positive nor negative");
@@ -805,10 +823,10 @@ public class Game {
         if(inputLine.equals("0-13-20")){
           System.out.println("Passcode is correct! Open the locker see what's inside!");
           solved = true;
-          openableObject.setOpen(true);
+          openableObject.setLocked(false);
         }else{
           System.out.println("Incorrect passcode!");
-          openableObject.setOpen(false);
+          openableObject.setLocked(true);
         }
       }
     }
@@ -823,18 +841,12 @@ public class Game {
     System.out.println("Your command words are:");
     parser.showCommands();
   }
-
-  /**
-   * Try to go to one direction. If there is an exit, enter the new room,
-   * otherwise print an error message.
-   */
   private void goRoom(Command command) {
     if (!command.hasSecondWord()) {
       // if there is no second word, we don't know where to go...
       System.out.println("Go where?");
       return;
     }
-
     String direction = command.getSecondWord();
 
     // Try to leave current room.
