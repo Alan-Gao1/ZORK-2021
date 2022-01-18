@@ -2,7 +2,6 @@ package zork;
 
 public class Weapon extends Item{
     private int damage;
-    private int ammo;
     private boolean isWeapon;
 
     public void setDamage (String id){
@@ -18,18 +17,14 @@ public class Weapon extends Item{
           this.damage = 20;
         }
       }
-    public void setAmmo (int ammo){
-        this.ammo = ammo;
-    }
 
     public int getDamage(){
         return damage;
     }
 
-    public Weapon(int weight, String name, boolean isOpenable, String id, String description, String startingRoom, int damage, int ammo, boolean isWeapon){
+    public Weapon(int weight, String name, boolean isOpenable, String id, String description, String startingRoom, int damage, boolean isWeapon){
         super(weight, name, isOpenable, id, description, startingRoom, isWeapon);
         this.damage = damage;
-        this.ammo = ammo;
         this.isWeapon = isWeapon;
     }
 

@@ -198,7 +198,7 @@
     {
       "id": "BVGshop",
       "name": "BVG shop",
-      "description": "You are in the BVG shop where you can buy items. The items avialible for purchase are the 'dagger' for $10, the 'pellet' (slingshot ammo) for $25, the 'slingshot' for $25, the 'healthJar' for $50, and the 'lower-costume' for $10. \n \nThe slingshot will use one pellet per attack and deal 10 damage per hit. Most fightable characters cannot attack you while you use the slingshot. \nThe dagger does 20 damage. \nThe healthJar will add 75 hitpoints automatically.",
+      "description": "You are in the BVG shop where you can buy items. The items availible for purchase are the 'dagger' for $10, the 'pellet' (slingshot ammo, there are 5 pellets) for $25, the 'slingshot' for $25, the 'healthJar' for $50, and the 'lower-costume' for $10. \n \nThe slingshot will use one pellet per attack and deal 10 damage per hit. Most fightable characters cannot attack you while you use the slingshot. \nThe dagger does 20 damage. \nThe healthJar will add 100 hitpoints automatically.",
       "exits": [
         {
           "isLocked": false,
@@ -640,11 +640,7 @@
     {
       "id": "UpperTheatre",
       "name": "Upper Theatre",
-<<<<<<< HEAD
       "description": "You are in the Projector room in the theatre. Shohei is tied up.",
-=======
-      "description": "You are in the Projector room in the theatre.",
->>>>>>> acdecd34e145bf1f0a0dc693aaaf5059c3155931
       "exits": [
         {
           "isLocked": false,

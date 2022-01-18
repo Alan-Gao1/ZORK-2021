@@ -85,9 +85,9 @@ public class Game {
   private void displayInfo(){
     System.out.println("HP: "+playerHP+"HP");
     System.out.println("Money: $"+wallet);
+    System.out.println(backpack.getCurrentWeight()+"/"+backpack.getMaxWeight()+" weight used");
     System.out.println();
     backpack.printContents();
-    System.out.println();
     System.out.println("Room Info: ");
     currentRoom.printExitInfo();
   }
@@ -103,13 +103,10 @@ public class Game {
       String itemName = (String) ((JSONObject) itemObj).get("name");
       String itemId = (String) ((JSONObject) itemObj).get("id");
       boolean isChest = false;
-      int chestNum = 0 ;
       String object = "";
       String contentDesc = "";
       if(itemId.equals("chestOne")||itemId.equals("chestTwo")||itemId.equals("chestThree")||itemId.equals("chestFour")||itemId.equals("chestFive")||itemId.equals("microwave")){
         isChest = (Boolean) ((JSONObject) itemObj).get("isChest");
-        String chestNum1 = Long.toString((long) ((JSONObject) itemObj).get("chestNum"));
-        chestNum = Integer.parseInt(chestNum1);
         object = (String) ((JSONObject) itemObj).get("object");
         contentDesc = (String) ((JSONObject) itemObj).get("contents");
       }
@@ -133,7 +130,7 @@ public class Game {
         itemMap.put(itemId, openableObject);
         putIteminRoom(itemStartingRoom, itemId);
       }else if(isChest){
-        Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, chestNum, contentDesc);
+        Chest chest = new Chest(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, isLocked, "0", false, contentDesc);
         if(!object.equals("money")){
           chest.addItem(findContents(object));
         }
@@ -143,11 +140,8 @@ public class Game {
       }else{
         Item item = new Item(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, itemIsWeapon);
         if(itemIsWeapon){
-          item = new Weapon(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, 0, 0, itemIsWeapon);
+          item = new Weapon(iWeight, itemName, itemIsOpenable, itemId, itemDescription, itemStartingRoom, 0, itemIsWeapon);
           item.setDamage(itemId);
-          if(itemId.equals("slingshot")){
-            item.setAmmo(5);
-          }
         }
         itemList.add(item);
         itemMap.put(itemId, item);
@@ -378,13 +372,13 @@ public class Game {
       }else if(backpack.currentWeight + itemMap.get(objectId).getWeight() >= backpack.getMaxWeight()){
         currentRoom.addItem(backpack.removeItem(itemMap.get(objectId).getName()));
       }else if(objectId.equals("healthJar")){
-        playerHP += 75;
+        playerHP += 100;
         System.out.println("You now have " + playerHP+"HP");
       }else if(objectId.equals("pellet")){
         slingshotAmmo += 5;
         System.out.println("You now have " + slingshotAmmo + " pellets to use for your slingshot");
       }else{
-        System.out.println("You bought the "+ objectId);
+        System.out.println("You bought the "+ itemMap.get(objectId).getName());
       }
     }else{
       System.out.println("Not a valid object ID! You can only buy a dagger, slingshot, pellet, healthJar, or lower-costume once.");
@@ -500,6 +494,10 @@ public class Game {
             System.out.println();
           }
         }
+        if(backpack.isOnlySlingshot()){
+          System.out.println("You have no more slingshotAmmo left!");
+          playerHP = 0;
+        }
       }
       if(enemy.gethp() <= 0){
         System.out.println("Enemy defeated!");
@@ -542,25 +540,18 @@ public class Game {
     //listen to what one of the kids has to say
     //print the dialogue/information from kids
 
-    Boolean validObject = false;
-    for (Item item : currentRoom.getInv().getInventory()) {
-      if(x.equals(item.getId())){
-        validObject = true;
-      }
-    }
-
     if(kid == null){
       System.out.println("What do you want to listen to? the floor?");
-    }else if(validObject||backpack.checkItem(kid.getName())){
+    }else if(backpack.checkItem(kid.getName())){
       if(x.equals("alan")&& microwave.isOpen()){
         System.out.println();
-        System.out.println("\"Hi friend. Thanks for saving me, I am Alan. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
+        System.out.println("\"Hi friend. Thanks for saving me, I am Alan. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203.\" ");
       }else if(x.equals("elly")){
         System.out.println();
-        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here, but if you haven't find him, find him where we eat food. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2. Hopefully you'll find Shohei.\"");
+        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here, but if you haven't found him, he is in the cafeteria. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember: choose number 2. Hopefully you'll find Shohei.\"");
       }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
         System.out.println();
-        System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
+        System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are disappearing from our school. You will find your next friend where you find robots.\"");
       }else if(x.equals("trevor")){/**&& mr.cardone has been defeated, kid#4 has been freed*/
         if(characterMap.get("MrCardone").isDefeated()){
           System.out.println();
@@ -579,11 +570,11 @@ public class Game {
         }else if(!backpack.checkItem("trevor")){
           System.out.println("You haven't found Trevor yet. He's in the Gym.");
         }else if(!backpack.checkItem("lucas")){
-          System.out.println("Put me in your backpack to win!");
+          System.out.println("Save me to win!");
         }
       }
     }else{
-      System.out.println("Invalid second command word. Ensure that the you are listening to children who can speak and are in the same room as you");
+      System.out.println("Invalid second command word. Ensure that the you are listening to children who can speak, you have taken, and are in the same room as you");
     }
     
   }
@@ -611,62 +602,58 @@ public class Game {
       return false;
     }
     String item = command.getSecondWord();
-    if(itemMap.get(item) == null || !itemMap.get(item).isOpenable()){
-      System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
+    if(itemMap.get(item) == null || !itemMap.get(item).isOpenable()||!currentRoom.getInv().checkItem(itemMap.get(item).getName())){
+      System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks in your current room");
       return false;
     }else{
       OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
-    if(newItem2.getOpen()){
-      System.out.println(item + " is already open! You cannot open it again.");
-    }else if(currentRoom.getRoomName().equals("Room 212")){
-      if(item.equals("chestOne")){
-        System.out.println("You opened Chest 1. There is a \"sword\" in the chest. ");
-        currentRoom.addItem(itemMap.get("sword"));
-        newItem2.setOpen(true);
-      }else if(item.equals("chestTwo")){
-        System.out.println("You opened Chest 2. There is the upper part of the costume (ID: upper-costume). The costume has a tag that reads \"from BVG shop\".");
-        currentRoom.addItem(itemMap.get("costumeOne"));
-        newItem2.setOpen(true);
-      }else if(item.equals("chestThree")){
-        System.out.println("You opened Chest 3, and a bomb exploded.");
-        currentRoom.addItem(itemMap.get("bomb"));
-        newItem2.setOpen(true);
-        return true;
-      }else if(item.equals("chestFour")){
-        System.out.println("You opened Chest 4. There is $75!");
-        wallet+=75;
-        System.out.println("You now have $" + wallet + " in your wallet. ");
-        newItem2.setOpen(true);
-      }else if(item.equals("chestFive")){
-        System.out.println("You opened Chest 5, and a bomb exploded.");
-        newItem2.setOpen(true);
-        return true;
-      }
-    }else if(currentRoom.getRoomName().equals("Cafeteria")){
-      if(item.equals("microwave")){
-        System.out.println("You opened the microwave. Alan hops out of the microwave and looks at you.");
-        currentRoom.addItem(itemMap.get("alan"));
-        newItem2.setOpen(true);
-        itemMap.get("alan").setStartingRoom("Cafeteria");
-      }
-    }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("locker")){
-        if(!newItem2.isLocked()){
+      if(newItem2.getOpen()){
+        System.out.println(item + " is already open! You cannot open it again.");
+      }else if(currentRoom.getRoomName().equals("Room 212")){
+        if(item.equals("chestOne")){
+          System.out.println(((Chest)itemMap.get("chestOne")).getContentDescription());
           newItem2.setOpen(true);
-          System.out.println("You opened the locker. There is a key inside. ID: \"key\"");
-        }else{
-          newItem2.setOpen(false);
-          System.out.println("This locker is locked. Use \"solve lock\".");
+        }else if(item.equals("chestTwo")){
+          System.out.println(((Chest)itemMap.get("chestTwo")).getContentDescription());
+          currentRoom.addItem(itemMap.get("costumeOne"));
+          newItem2.setOpen(true);
+        }else if(item.equals("chestThree")){
+          System.out.println(((Chest)itemMap.get("chestThree")).getContentDescription());
+          currentRoom.addItem(itemMap.get("bomb"));
+          newItem2.setOpen(true);
+          return true;
+        }else if(item.equals("chestFour")){
+          System.out.println(((Chest)itemMap.get("chestFour")).getContentDescription());
+          wallet+=100;
+          System.out.println("You now have $" + wallet + " in your wallet. ");
+          newItem2.setOpen(true);
+        }else if(item.equals("chestFive")){
+          System.out.println(((Chest)itemMap.get("chestFive")).getContentDescription());
+          newItem2.setOpen(true);
+          return true;
         }
-    }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("lock")){
-      System.out.println("Use \"solve lock\" to open a lock");
-    }else{
-      System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
+      }else if(currentRoom.getRoomName().equals("Cafeteria")){
+        if(item.equals("microwave")){
+          System.out.println("You opened the microwave. Alan climbs out of the microwave and looks at you.");
+          currentRoom.addItem(itemMap.get("alan"));
+          newItem2.setOpen(true);
+          itemMap.get("alan").setStartingRoom("Cafeteria");
+        }
+      }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("locker")){
+          if(!newItem2.isLocked()){
+            newItem2.setOpen(true);
+            System.out.println("You opened the locker. There is a key inside. ID: \"key\"");
+          }else{
+            newItem2.setOpen(false);
+            System.out.println("This locker is locked. Use \"solve lock\".");
+          }
+      }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("lock")){
+        System.out.println("Use \"solve lock\" to open a lock");
+      }else{
+        System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks");
+      }
+      return false;
     }
-    return false;
-
-  }
-    //opens a different items (chest, locker, microwave, curtains, door, backpack)
-    //check if you can open the item
   }
 
   private void drop(Command command) {
@@ -743,30 +730,34 @@ public class Game {
         }
         playerHP -= healthAdd;
       }else if(x.equals("alan")||x.equals("shohei")||x.equals("elly")||x.equals("lucas")||x.equals("elly")){
-        switch(x){
-          case "alan": 
-            System.out.println("Alan has been rescued!");
-            oneReturned = true;
-            break;
-          case "elly":
-            System.out.println("Elly has been rescued!");
-            twoReturned = true;
-            break;
-          case "shohei":
-            System.out.println("Shohei has been rescued!");
-            threeReturned = true;
-            break;
-          case "trevor":
-            System.out.println("Trevor has been rescued!");
-            fourReturned = true;
-            break;
-          case "lucas":
-            System.out.println("Lucas has been rescued!");
-            fiveReturned = true;
-            break;
+        if(currentRoom.getRoomName().equals("Lobby")){
+          switch(x){
+            case "alan": 
+              System.out.println("Alan has been rescued!");
+              oneReturned = true;
+              break;
+            case "elly":
+              System.out.println("Elly has been rescued!");
+              twoReturned = true;
+              break;
+            case "shohei":
+              System.out.println("Shohei has been rescued!");
+              threeReturned = true;
+              break;
+            case "trevor":
+              System.out.println("Trevor has been rescued!");
+              fourReturned = true;
+              break;
+            case "lucas":
+              System.out.println("Lucas has been rescued!");
+              fiveReturned = true;
+              break;
+          }
+          backpack.currentWeight -= newItem.getWeight();
+          currentRoom.addItem(newItem);
+        }else{
+          System.out.println("You can only drop the kids in the lobby to return them.");
         }
-        backpack.currentWeight -= newItem.getWeight();
-        currentRoom.addItem(newItem);
       }else{
         backpack.currentWeight -= newItem.getWeight();
         currentRoom.addItem(newItem);
@@ -861,9 +852,6 @@ public class Game {
       else if(item.equals("Lower Costume piece")){
         System.out.println("You must buy the lower-costume from the shops.");
         currentRoom.addItem(newItem);
-      }else if(item.equals("Alan") && !((OpenableObject) itemMap.get("microwave")).isOpen()){
-        System.out.println("Alan is in the microwave, you must open the microwave first!");
-        currentRoom.addItem(newItem);
       }else if(item.equals("key")){
         if(((OpenableObject) itemMap.get("locker")).isLocked()){
           System.out.println("The key is inside the locked locker!");
@@ -893,8 +881,14 @@ public class Game {
           System.out.println("Your health has been increased by 25 due to wearing arm armour");
         }
         playerHP += healthAdd;
-      }else if(x.equals("alan")&&!((OpenableObject)(itemMap.get("microwave"))).isOpen()){
-        System.out.println("You cannot take Alan because the microwave is not open yet.");
+      }else if((x.equals("alan")||x.equals("shohei")||x.equals("trevor")||x.equals("elly")||x.equals("lucas"))&&backpack.addItem(newItem)){
+        if(x.equals("shohei")&&!shoheiUntied){
+          System.out.println("Shohei is still tied up! Untie shohei to take him.");
+        }else{
+          System.out.println("You took the " + command.getSecondWord() + ". In order to win, you must drop each child with the drop command in the lobby.");
+          System.out.println("You may also listen to the kid to gain more information!");
+          backpack.currentWeight += newItem.getWeight();
+        }
       }else if(backpack.addItem(newItem)){
         System.out.println("You took the " + command.getSecondWord() + ".");
         backpack.currentWeight += newItem.getWeight();
@@ -920,7 +914,7 @@ public class Game {
       System.out.println("Passcode Hint: ");
       System.out.println("The first number is neither positive nor negative");
       System.out.println("The second number is commonly recognized as unlucky");
-      System.out.println("The third numbers is the start of online school");
+      System.out.println("The third numbers is 5*4/2*3-10");
       System.out.println("Input the correct lock passcode (Enter '-' inbetween numbers)"); 
       boolean solved = false;
       while(!solved){
@@ -974,7 +968,8 @@ public class Game {
     else {
       if(currentRoom.getExits().get(ind).getLocked()){
         if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(!backpack.checkItem("Upper Costume piece")||!backpack.checkItem("Lower Costume piece"))){
-          System.out.println("You do not have a full costume, the theatre is only for members of the play. Find the room with chests.");
+          System.out.println("You do not have a full costume, the theatre is only for members of the play.");
+          System.out.println("Hint: costumes can be found in chests. It is rumored that Room 212 has a lot of spare equipment for the play");
         }else if((nextRoom.getRoomName().equals("Theatre")||nextRoom.getRoomName().equals("Upper Theatre"))&&(backpack.checkItem("Upper Costume piece")&&backpack.checkItem("Lower Costume piece"))){
           System.out.println("Welcome member of the play!");
           currentRoom = nextRoom;

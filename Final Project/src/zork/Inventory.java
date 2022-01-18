@@ -19,6 +19,7 @@ public class Inventory {
       System.out.println("Item ID: "+item.getId());
       System.out.println("Item Description: "+item.getDesc());
       System.out.println("Item Weight: "+item.getWeight());
+      System.out.println();
     }
   }
 
@@ -44,6 +45,19 @@ public class Inventory {
       return true;
     else
       return false;
+  }
+
+  public boolean isOnlySlingshot(){
+    int counter = 0;
+    for (Item item : items) {
+      if(item.isWeapon()){
+        counter++;
+      }
+    }
+    if(counter==1&&items.get(0).getName().equals("slingshot")){
+      return true;
+    }
+    return false;
   }
 
   public int getMaxWeight() {

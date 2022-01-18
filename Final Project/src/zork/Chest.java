@@ -4,29 +4,30 @@ public class Chest extends OpenableObject{
 
     // private ArrayList<Item> contents = new ArrayList<>();
     private Inventory chestInv;
-    private int chestNum;
     private String contentDescription;
 
-    public Chest(int weight, String name, boolean isOpenable, String id, String description, String startingRoom, Boolean isLocked, String keyId, Boolean isOpen, int chestNum, String contentDescription){
+    public Chest(int weight, String name, boolean isOpenable, String id, String description, String startingRoom, Boolean isLocked, String keyId, Boolean isOpen, String contentDescription){
         super(weight, name, isOpenable, id, description, startingRoom, isLocked, keyId, isOpen);
-        this.chestNum = chestNum;
-        this.contentDescription = contentDescription;
+        this.setContentDescription(contentDescription);
         this.chestInv = new Inventory(100);
     }
     
+    public String getContentDescription() {
+        return contentDescription;
+    }
+
+    public void setContentDescription(String contentDescription) {
+        this.contentDescription = contentDescription;
+    }
+
     public Chest(){
         super();
-        this.chestNum = 0;
-        this.contentDescription = "DEFAULT_CONTENT_DESCRIPTION";
+        this.setContentDescription("DEFAULT_CONTENT_DESCRIPTION");
         this.chestInv = new Inventory(100);
     }
 
-    public void setChestNum(int num){
-        this.chestNum = num;
-    }
-
     public void setContents(String desc){
-        this.contentDescription = desc;
+        this.setContentDescription(desc);
     }
 
     public void addItem(Item item){
