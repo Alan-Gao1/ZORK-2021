@@ -43,7 +43,7 @@ public class characters {
   }
 
   public void setDefeated(int gethp){
-    if(gethp()<0){
+    if(gethp()<=0){
       isDefeated = true;
     }else{
       isDefeated = false;

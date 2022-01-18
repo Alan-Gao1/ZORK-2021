@@ -640,7 +640,7 @@
     {
       "id": "UpperTheatre",
       "name": "Upper Theatre",
-      "description": "You are in the Projector room in the theatre. Shohei is flicking the light.",
+      "description": "You are in the Projector room in the theatre. Shohei is tied up.",
       "exits": [
         {
           "isLocked": false,
