@@ -60,7 +60,7 @@
     {
       "id": "Theatre",
       "name": "Theatre",
-      "description": "You are now in the theatre, it is crowded.",
+      "description": "You are now in the theatre, it is crowded. Look for shohei",
       "exits": [
         {
           "isLocked": false,

@@ -551,7 +551,7 @@ public class Game {
         System.out.println("\"Hi friend. Thanks for saving me, I am Alan. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203.\" ");
       }else if(x.equals("elly")){
         System.out.println();
-        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here, but if you haven't found him, he is in the cafeteria. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember: choose number 2. Hopefully you'll find Shohei.\"");
+        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here, but if you haven't found him, he is in the cafeteria. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember: choose number 2. Hopefully you'll find Shohei in the Theatre.\"");
       }else if(x.equals("shohei")){
         if(shoheiUntied){
           System.out.println();
