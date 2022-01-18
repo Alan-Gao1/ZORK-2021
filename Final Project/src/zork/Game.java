@@ -561,16 +561,16 @@ public class Game {
       }else if(x.equals("lucas")){
         System.out.println();
         System.out.println("\"Hi, I'm Lucas. Thanks for saving me and my friends! You have to put all of my friends in your backpack in order to win.\"");
-        if(!backpack.checkItem("alan")||oneReturned){
+        if(!oneReturned&&!backpack.checkItem("alan")){
           System.out.println("You haven't found Alan yet. Find him where we eat food!");
         }
-        if(!backpack.checkItem("elly")||twoReturned){
+        if(!twoReturned&&!backpack.checkItem("elly")){
           System.out.println("You haven't found Elly yet. She's in Room 203.");
         }
-        if(!backpack.checkItem("shohei")||threeReturned){
+        if(!threeReturned&&!backpack.checkItem("shohei")){
           System.out.println("You haven't found Shohei yet. He's in the Upper Theatre.");
         }
-        if(!backpack.checkItem("trevor")||fourReturned){
+        if(!fourReturned&&!backpack.checkItem("trevor")){
           System.out.println("You haven't found Trevor yet. He's in the Gym.");
         }
         if(!backpack.checkItem("lucas")){
@@ -588,7 +588,7 @@ public class Game {
     item = item.toLowerCase();
     if(item.equals("shohei")){
       if(currentRoom.getRoomName().equals("Upper Theatre")){
-        System.out.println("You untied the Shohei.");
+        System.out.println("You untied Shohei.");
         Item kid = itemMap.get("shohei");
         kid.setDescription("This is shohei. This kid has been untied.");
         shoheiUntied = true;
@@ -894,6 +894,7 @@ public class Game {
       }else if((x.equals("alan")||x.equals("shohei")||x.equals("trevor")||x.equals("elly")||x.equals("lucas"))&&backpack.addItem(newItem)){
         if(x.equals("shohei")&&!shoheiUntied){
           System.out.println("Shohei is still tied up! Untie shohei to take him.");
+          currentRoom.addItem(newItem);
         }else{
           System.out.println("You took " + command.getSecondWord() + ". In order to win, you must drop each child with the drop command in the lobby.");
           System.out.println("You may also listen to the kid to gain more information!");
