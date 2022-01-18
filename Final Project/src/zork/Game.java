@@ -368,7 +368,7 @@ public class Game {
         System.out.println("You do not have enough money to buy " + itemMap.get(objectId).getName() + ". You can get money by pickpocketing or finding cash.");
         wallet += price;
         currentRoom.addItem(backpack.removeItem(itemMap.get(objectId).getName()));
-      }else if(!backpack.addItem(currentRoom.removeItem(itemMap.get(objectId).getName()))){
+      }else if(backpack.currentWeight + itemMap.get(objectId).getWeight() >= backpack.getMaxWeight()){
         currentRoom.addItem(backpack.removeItem(itemMap.get(objectId).getName()));
       }else if(objectId.equals("healthJar")){
         playerHP += 75;
