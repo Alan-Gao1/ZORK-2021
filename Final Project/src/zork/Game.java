@@ -88,8 +88,6 @@ public class Game {
     System.out.println(backpack.getCurrentWeight()+"/"+backpack.getMaxWeight()+" weight used");
     System.out.println();
     backpack.printContents();
-    System.out.println("Room Info: ");
-    currentRoom.printExitInfo();
   }
 
   private void initItems(String fileName) throws Exception{
@@ -375,7 +373,7 @@ public class Game {
         playerHP += 100;
         System.out.println("You now have " + playerHP+"HP");
       }else if(objectId.equals("pellet")){
-        slingshotAmmo += 5;
+        slingshotAmmo += 10;
         System.out.println("You now have " + slingshotAmmo + " pellets to use for your slingshot");
       }else{
         System.out.println("You bought the "+ itemMap.get(objectId).getName());
@@ -430,7 +428,7 @@ public class Game {
     String enemyId = command.getSecondWord();
     enemy = characterMap.get(enemyId);
     if(enemy == null){
-      System.out.println("You cannot fight " + enemy.getName());
+      System.out.println("You cannot fight " + enemyId);
       return false;
     }else if(!(enemy.getRoom().equals(currentRoom.getRoomName()))){
       System.out.println(enemy.getName() + " is nowhere in sight.");
@@ -549,9 +547,13 @@ public class Game {
       }else if(x.equals("elly")){
         System.out.println();
         System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here, but if you haven't found him, he is in the cafeteria. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember: choose number 2. Hopefully you'll find Shohei.\"");
-      }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
-        System.out.println();
-        System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are disappearing from our school. You will find your next friend where you find robots.\"");
+      }else if(x.equals("shohei")){
+        if(shoheiUntied){
+          System.out.println();
+          System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are disappearing from our school. You will find your next friend where you find robots.\"");
+        }else{
+          System.out.println("You cannot listen to shohei! Untie him first.");
+        }
       }else if(x.equals("trevor")){/**&& mr.cardone has been defeated, kid#4 has been freed*/
         if(characterMap.get("MrCardone").isDefeated()){
           System.out.println();
@@ -560,20 +562,20 @@ public class Game {
           System.out.println("You must fight and defeat Mr. Cardone in order to listen to Trevor!");
       }else if(x.equals("lucas")){
         System.out.println();
-        System.out.println("\"Hi, I'm Lucas. Thanks for saving me and my friends! You have to put all of my friends in your backpack in order to win.\"");
-        if(!backpack.checkItem("alan")||oneReturned){
+        System.out.println("\"Hi, I'm Lucas. Thanks for saving me and my friends! You have to drop me and my friends in the lobby to win!\"");
+        if(!backpack.checkItem("Alan")){
           System.out.println("You haven't found Alan yet. Find him where we eat food!");
         }
-        if(!backpack.checkItem("elly")||twoReturned){
+        if(!backpack.checkItem("Elly")){
           System.out.println("You haven't found Elly yet. She's in Room 203.");
         }
-        if(!backpack.checkItem("shohei")||threeReturned){
+        if(!backpack.checkItem("Shohei")){
           System.out.println("You haven't found Shohei yet. He's in the Upper Theatre.");
         }
-        if(!backpack.checkItem("trevor")||fourReturned){
+        if(!backpack.checkItem("Trevor")){
           System.out.println("You haven't found Trevor yet. He's in the Gym.");
         }
-        if(!backpack.checkItem("lucas")){
+        if(!backpack.checkItem("Lucas")){
           System.out.println("Save me to win!");
         }
       }
@@ -588,7 +590,7 @@ public class Game {
     item = item.toLowerCase();
     if(item.equals("shohei")){
       if(currentRoom.getRoomName().equals("Upper Theatre")){
-        System.out.println("You untied the Shohei.");
+        System.out.println("You untied Shohei.");
         Item kid = itemMap.get("shohei");
         kid.setDescription("This is shohei. This kid has been untied.");
         shoheiUntied = true;
@@ -606,8 +608,11 @@ public class Game {
       return false;
     }
     String item = command.getSecondWord();
-    if(itemMap.get(item) == null || !itemMap.get(item).isOpenable()||!currentRoom.getInv().checkItem(itemMap.get(item).getName())){
+    if(itemMap.get(item) == null || !itemMap.get(item).isOpenable()){
       System.out.println("You cannot open a " + command.getSecondWord() + ". You can only open chests, microwaves, lockers, curtains, doors, and backpacks in your current room");
+      return false;
+    }else if(!currentRoom.getInv().checkItem(itemMap.get(item).getName())){
+      System.out.println("This object is not in this room!");
       return false;
     }else{
       OpenableObject newItem2 = (OpenableObject) itemMap.get(item);
@@ -639,7 +644,7 @@ public class Game {
         }
       }else if(currentRoom.getRoomName().equals("Cafeteria")){
         if(item.equals("microwave")){
-          System.out.println("You opened the microwave. Alan climbs out of the microwave and looks at you.");
+          System.out.println("You opened the microwave. Alan is inside the microwave. ID: \"alan\"");
           currentRoom.addItem(itemMap.get("alan"));
           newItem2.setOpen(true);
           itemMap.get("alan").setStartingRoom("Cafeteria");
@@ -762,6 +767,7 @@ public class Game {
           currentRoom.addItem(newItem);
         }else{
           System.out.println("You can only drop the kids in the lobby to return them.");
+          backpack.addItem(newItem);
         }
       }else{
         backpack.currentWeight -= newItem.getWeight();
@@ -893,6 +899,7 @@ public class Game {
         playerHP += healthAdd;
       }else if((x.equals("alan")||x.equals("shohei")||x.equals("trevor")||x.equals("elly")||x.equals("lucas"))&&backpack.addItem(newItem)){
         if(x.equals("shohei")&&!shoheiUntied){
+          currentRoom.addItem(newItem);
           System.out.println("Shohei is still tied up! Untie shohei to take him.");
         }else{
           System.out.println("You took " + command.getSecondWord() + ". In order to win, you must drop each child with the drop command in the lobby.");

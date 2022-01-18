@@ -62,7 +62,7 @@ public class Room {
    */
   public String longDescription() {
 
-    return "Room: " + roomName + "\n\n" + description + "\n" + exitString();
+    return "Room: " + roomName + "\n\n" + description + "\n\n" + exitString();
   }
 
   /**
@@ -70,9 +70,9 @@ public class Room {
    * ".
    */
   private String exitString() {
-    String returnString = "Exits: ";
+    String returnString = "Exits: \n";
     for (Exit exit : exits) {
-      returnString += exit.getDirection() + " ";
+      returnString += "Exiting "+exit.getDirection() + " will lead to room "+exit.getAdjacentRoom()+"\n";
     }
 
     return returnString;
@@ -131,17 +131,11 @@ public class Room {
     return items;
   }
 
-  public void printExitInfo(){
-    for (Exit exit : exits) {
-      System.out.println("Exit in direction "+exit.getDirection() + " will lead to "+exit.getAdjacentRoom());
-    }
-  }
-
   public void printRoomContents(){
-    System.out.println("This Room contains:");
     if(roomName.equals("BVG shop")){
       return;
     }
+    System.out.println("This Room contains:");
     for (Item item : items.getInventory()) {
       System.out.println("'"+item.getName()+"' with ID: '"+item.getId()+"' is present in this room");
     }
