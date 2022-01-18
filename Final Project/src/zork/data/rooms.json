@@ -60,7 +60,7 @@
     {
       "id": "Theatre",
       "name": "Theatre",
-      "description": "You are now in the theatre, it is crowded. Look for shohei.",
+      "description": "You are now in the theatre, it is crowded.",
       "exits": [
         {
           "isLocked": false,
@@ -176,7 +176,7 @@
     {
       "id": "Gr.11CommonArea",
       "name": "Gr.11 Common Area",
-      "description": "You are in the Grade 11 Common Area. There is feet armour in the corner.",
+      "description": "You are in the Grade 11 Common Area.",
       "exits": [
         {
           "isLocked": false,
