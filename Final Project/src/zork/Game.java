@@ -212,15 +212,27 @@ public class Game {
         command = parser.getCommand();
         finished = processCommand(command);
         wallet = round(wallet);
+        win();
       } catch (IOException e) {
         e.printStackTrace();
       }
 
     }
     if(winCondition){
+      System.out.println();
+      System.out.println("You have successfully found all abducted children and defeated the final boss!");
       System.out.println("Thank you for playing. Good bye.");
     }else{
       System.out.println("Game over.");
+    }
+  }
+
+  private void win(){
+    if(backpack.checkItem("alan")&&backpack.checkItem("elly")&&backpack.checkItem("shohei")&&backpack.checkItem("trevor")&&backpack.checkItem("lucas")){
+      if(characterMap.get("MrDesLauriers").isDefeated()){
+        finished = true;
+        winCondition = true;
+      }
     }
   }
 
@@ -356,6 +368,8 @@ public class Game {
         System.out.println("You do not have enough money to buy " + itemMap.get(objectId).getName() + ". You can get money by pickpocketing or finding cash.");
         wallet += price;
         currentRoom.addItem(backpack.removeItem(itemMap.get(objectId).getName()));
+      }else if(!backpack.addItem(currentRoom.removeItem(itemMap.get(objectId).getName()))){
+        currentRoom.addItem(backpack.removeItem(itemMap.get(objectId).getName()));
       }else if(objectId.equals("healthJar")){
         playerHP += 75;
         System.out.println("You now have " + playerHP+"HP");
@@ -366,7 +380,7 @@ public class Game {
         System.out.println("You bought the "+ objectId);
       }
     }else{
-      System.out.println("Not a valid object ID! You can only buy a dagger, slingshot, pellet, healthJar.");
+      System.out.println("Not a valid object ID! You can only buy a dagger, slingshot, pellet, healthJar, or lower-costume once.");
     }
   }
 
@@ -379,9 +393,14 @@ public class Game {
     Item item = itemMap.get(itemName);
     if(item == null){
       System.out.println("You cannot use that item!");
-    }else if(currentRoom.getRoomName().equals("Cafeteria") && item.getName().equals("microwave") /*&& microwave.isLocked()*/){
-      System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
-      return true;
+    }else if(currentRoom.getRoomName().equals("Cafeteria") && item.getName().equals("microwave")){
+      if(!(backpack.checkItem("Alan"))){
+        System.out.println("You turned on the microwave and all of a sudden you feel full. You ate the kid inside the microwave, which was crucial to your mission.");
+        return true;
+      }else{
+        System.out.println("You turned the microwave on. Thank goodness you took Alan out of the microwave.");
+        return false;
+      }
     }else if(currentRoom.getRoomName().equals("Hallway 3") && backpack.checkItem(itemName) && item.getName().equals("key")){
       System.out.println("Room 203 is now open!");
       return false;
@@ -433,6 +452,8 @@ public class Game {
           Weapon weapon = (Weapon) item;
           if(weapon == null){
             System.out.println("You cannot use " + itemName);
+          }else if(weapon.getName().equals("slingshot")&&slingshotAmmo==0){
+            System.out.println("You have no slingshotAmmo. You must buy some at the shop. You cannot use your slingshot without ammo.");
           }else{
             System.out.println("You use the " + weapon.getName() + ".");
             enemy.sethp(enemy.gethp() - weapon.getDamage());
@@ -476,6 +497,18 @@ public class Game {
       if(enemy.gethp() <= 0){
         System.out.println("Enemy defeated!");
         enemy.setDefeated(enemy.gethp());
+        if(playerHP>0)
+          System.out.println("Player health remaining: " + playerHP);
+        else
+          System.out.println("Player health: 0");
+        if(currentRoom.getRoomName().equals("Gym")){
+          System.out.println("You gained $20!");
+          wallet += 20.0;
+        }else if(currentRoom.getRoomName().equals("Mr.Federico's Office")){
+          System.out.println("You gained $50!");
+          wallet += 50.0;
+          System.out.println("You have defeated Mr.Federico and he tells you the following. \"I am not part of this kidnapping. The truth is, Mr.DesLauriers is the mastermind behind this whole happening. He has been kidnapping children to form an elite BVG baseball team! You'll probably find him in his office. Best of luck...\".");
+        }
         return false;
       }else if(playerHP<=0){
         System.out.println("You have been defeated by " + enemy.getName() + "!");
@@ -498,27 +531,54 @@ public class Game {
     String x = command.getSecondWord();
     x = x.toLowerCase();
     OpenableObject microwave = (OpenableObject) itemMap.get("microwave");
-    
+    Item kid = itemMap.get(x);
     //listen to what one of the kids has to say
     //print the dialogue/information from kids
-    if(x.equals("alan")&& microwave.isOpen()){
+
+    Boolean validObject = false;
+    for (Item item : currentRoom.getInv().getInventory()) {
+      if(x.equals(item.getId())){
+        validObject = true;
+      }
+    }
+
+    if(kid == null){
+      System.out.println("What do you want to listen to? the floor?");
+    }else if(validObject||backpack.checkItem(kid.getName())){
+      if(x.equals("alan")&& microwave.isOpen()){
         System.out.println();
         System.out.println("\"Hi friend. Thanks for saving me, I am Alan. There is a great conspiracy here at Bayview Glen, and I'm not sure if you want to uncover it. If you're in, take me with you to find more hints in Room 203. Oh, and beware if you like baseball, you're in danger.\" ");
-    }else if(x.equals("elly")/**&& Room203 is unlocked */){
+      }else if(x.equals("elly")){
         System.out.println();
-        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2. Hopefully you'll find Shohei.\"");
-    }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
+        System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here, but if you haven't find him, find him where we eat food. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember the number 2. Hopefully you'll find Shohei.\"");
+      }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
         System.out.println();
         System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are indeed disappearing from our school. Turn back now, or rise to the challenge, you will find my friend where people make robots.\"");
-    }else if(x.equals("trevor")){/**&& mr.cardone has been defeated, kid#4 has been freed*/
+      }else if(x.equals("trevor")){/**&& mr.cardone has been defeated, kid#4 has been freed*/
         if(characterMap.get("MrCardone").isDefeated()){
           System.out.println();
           System.out.println("\"Thanks for your help, I'm Trevor. I believe my last friend is in Mr. Federico's office, please help him!\"");
         }else
           System.out.println("You must fight and defeat Mr. Cardone in order to listen to Trevor!");
+      }else if(x.equals("lucas")){
+        System.out.println();
+        System.out.println("\"Hi, I'm Lucas. Thanks for saving me and my friends! You have to put all of my friends in your backpack in order to win.\"");
+        if(!backpack.checkItem("alan")){
+          System.out.println("You haven't found Alan yet. Find him where we eat food!");
+        }else if(!backpack.checkItem("elly")){
+          System.out.println("You haven't found Elly yet. She's in Room 203.");
+        }else if(!backpack.checkItem("shohei")){
+          System.out.println("You haven't found Shohei yet. He's in the Upper Theatre.");
+        }else if(!backpack.checkItem("trevor")){
+          System.out.println("You haven't found Trevor yet. He's in the Gym.");
+        }else if(!backpack.checkItem("lucas")){
+          System.out.println("Put me in your backpack to win!");
+        }
+      }
     }else{
-      System.out.println("What do you want to listen to? the floor?");
+      System.out.println("You cannot listen to " + x);
     }
+    
   }
 
   private void untie(Command command) {
@@ -559,8 +619,9 @@ public class Game {
         newItem2.setOpen(true);
         return true;
       }else if(item.equals("chestFour")){
-        System.out.println("You opened Chest 4. There is $100!");
-        wallet+=100;
+        System.out.println("You opened Chest 4. There is $75!");
+        wallet+=75;
+        System.out.println("You now have $" + wallet + " in your wallet. ");
         newItem2.setOpen(true);
       }else if(item.equals("chestFive")){
         System.out.println("You opened Chest 5, and a bomb exploded.");
@@ -572,11 +633,12 @@ public class Game {
         System.out.println("You opened the microwave. Alan hops out of the microwave and looks at you.");
         currentRoom.addItem(itemMap.get("alan"));
         newItem2.setOpen(true);
+        itemMap.get("alan").setStartingRoom("Cafeteria");
       }
     }else if(currentRoom.getRoomName().equals("Hallway 3")&&item.equals("locker")){
         if(!newItem2.isLocked()){
           newItem2.setOpen(true);
-          System.out.println("You opened the locker. There is a key inside. ID: \"lock\"");
+          System.out.println("You opened the locker. There is a key inside. ID: \"key\"");
         }else{
           newItem2.setOpen(false);
           System.out.println("This locker is locked");
@@ -763,7 +825,7 @@ public class Game {
       }else if(item.equals("Alan") && !((OpenableObject) itemMap.get("microwave")).isOpen()){
         System.out.println("Alan is in the microwave, you must open the microwave first!");
         currentRoom.addItem(newItem);
-      }else if(item.equals("key") && ((OpenableObject) itemMap.get("locker")).isLocked()){
+      }else if(item.equals("key") && !((OpenableObject) itemMap.get("locker")).isOpen()){
         System.out.println("The key is inside the locked locker!");
         currentRoom.addItem(newItem);
       }else if(item.equals("Trevor") && !characterMap.get("MrCardone").isDefeated()){
@@ -840,6 +902,9 @@ public class Game {
     System.out.println();
     System.out.println("Your command words are:");
     parser.showCommands();
+    System.out.println("Player health: " + playerHP);
+    System.out.println("Wallet: $" + wallet);
+    System.out.println("'info' will display all items in your backpack.");
   }
   private void goRoom(Command command) {
     if (!command.hasSecondWord()) {
@@ -872,6 +937,12 @@ public class Game {
           System.out.println("Room 203 is locked! There is a slip of paper that reads \"Someone has been abducting children. The key to this door can be found in locker #121, in the third hallway.\" You must solve the lock.");
         }else if(nextRoom.getRoomName().equals("Room 203") && backpack.checkItem("key")){
           System.out.println("Room 203 is unlocked!");
+          currentRoom = nextRoom;
+          System.out.println(currentRoom.longDescription());
+          currentRoom.printRoomContents();
+        }else if(nextRoom.getRoomName().equals("Room 106") && !characterMap.get("MrFederico").isDefeated()){
+          System.out.println("Room 106 is locked! Come back to check after.");
+        }else if(nextRoom.getRoomName().equals("Room 106") && characterMap.get("MrFederico").isDefeated()){
           currentRoom = nextRoom;
           System.out.println(currentRoom.longDescription());
           currentRoom.printRoomContents();

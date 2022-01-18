@@ -176,7 +176,7 @@
     {
       "id": "Gr.11CommonArea",
       "name": "Gr.11 Common Area",
-      "description": "You are in the Grade 11 Common Area. There is feet armour in the corner ID: 'feet'",
+      "description": "You are in the Grade 11 Common Area. There is feet armour in the corner.",
       "exits": [
         {
           "isLocked": false,
@@ -243,7 +243,7 @@
     {
       "id": "Room203",
       "name": "Room 203",
-      "description": "You are in Room 203, Elly is looking out the window.",
+      "description": "You are in Room 203.",
       "exits": [
         {
           "isLocked": true,
@@ -255,7 +255,7 @@
     {
       "id": "Room204",
       "name": "Room 204",
-      "description": "You are in Room 204, there is a mace in the corner of the room.",
+      "description": "You are in Room 204.",
       "exits": [
         {
           "isLocked": false,
@@ -640,7 +640,7 @@
     {
       "id": "UpperTheatre",
       "name": "Upper Theatre",
-      "description": "You are in the Projector room in the theatre. Shohei is flicking the light.",
+      "description": "You are in the Projector room in the theatre.",
       "exits": [
         {
           "isLocked": false,
@@ -724,7 +724,7 @@
     {
       "id": "FedericoOffice",
       "name": "Mr.Federico's Office",
-      "description": "You are in Mr.Federico's Office",
+      "description": "You are in Mr.Federico's Office. ID: MrFederico",
       "exits": [
         {
           "isLocked": false,
