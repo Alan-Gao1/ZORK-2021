@@ -342,6 +342,11 @@ public class Game {
       }
     }
 
+    String itemName = null;
+    if(itemMap.get(objectId)!=null){
+       itemName = itemMap.get(objectId).getName();
+    }
+
     if(validObject){
       int price = 0;
       switch (objectId) {
@@ -380,6 +385,8 @@ public class Game {
       }else{
         System.out.println("You bought the "+ itemMap.get(objectId).getName());
       }
+    }else if(!(itemName==null)&&(itemName.equals("slingshot")||itemName.equals("Lower Costume piece")||itemName.equals("dagger")||itemName.equals("slingshot pellet")||itemName.equals("jar of health"))){
+      System.out.println("You already bought " + itemMap.get(objectId).getName());    
     }else{
       System.out.println("Not a valid object ID! You can only buy a dagger, slingshot, pellet, healthJar, or lower-costume once.");
     }
