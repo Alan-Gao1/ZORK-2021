@@ -84,7 +84,7 @@ public class Inventory {
         ind = i;
       }
     }
-    // serach for the ite name AND DELETE A THAT INDEX AND RETURN THE ITEM
+    // serach for the item name AND DELETE AT THAT INDEX AND RETURN THE ITEM
     if(ind<0){
       return null;
     }

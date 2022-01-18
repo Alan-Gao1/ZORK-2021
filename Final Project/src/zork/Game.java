@@ -226,7 +226,7 @@ public class Game {
   }
 
   private boolean checkWin() {
-    if(characterMap.get("MrDesLauriers").isDefeated()&&characterMap.get("MrCardone").isDefeated()&&characterMap.get("MrFederico").isDefeated()&&shoheiUntied&&oneReturned&&twoReturned&&threeReturned&&fourReturned&&fiveReturned){
+    if(characterMap.get("MrDesLauriers").isDefeated()&&characterMap.get("MrCardone").isDefeated()&&characterMap.get("MrFederico").isDefeated()&&oneReturned&&twoReturned&&threeReturned&&fourReturned&&fiveReturned){
       finished = true;
       return true;
     }else{
@@ -250,7 +250,7 @@ public class Game {
     System.out.println("Welcome to Zork!");
     System.out.println("Zork is a new, incredibly boring adventure game.");
     System.out.println("Type \"help\" if you need help.");
-    System.out.println("Pro Tip: Use \"info\" frquently to see availible exits and where they lead to!");
+    System.out.println("Pro Tip: Use \"info\" frequently to see available exits and where they lead to!");
     System.out.println();
     System.out.println(currentRoom.longDescription());
   }
@@ -269,6 +269,8 @@ public class Game {
     String commandWord = command.getCommandWord();
     if (commandWord.equals("help"))
       printHelp();
+    else if (commandWord.equals("exits"))
+      displayExits();
     else if (commandWord.equals("go"))
       goRoom(command);
     else if (commandWord.equals("take"))
@@ -284,8 +286,6 @@ public class Game {
       untie(command);
     else if (commandWord.equals("listen"))
       listen(command);
-    else if (commandWord.equals("wear"))
-      wear(command);
     else if (commandWord.equals("fight"))
       return fight(command);
     else if (commandWord.equals("buy")){
@@ -311,16 +311,17 @@ public class Game {
         System.out.println("Open what?");
       else
         return openItem(command);
-      //might be true of false
     }else if (commandWord.equals("quit")) {
       if (command.hasSecondWord())
         System.out.println("Quit what?");
       else
-        return true; // signal that we want to quit
-    } else if (commandWord.equals("eat")) {
-      System.out.println("Do you really think you should be eating at a time like this?");
+        return true;
     }
     return false;
+  }
+
+  private void displayExits() {
+    System.out.println(currentRoom.exitString());
   }
 
   private void buy(Command command) {
@@ -338,6 +339,11 @@ public class Game {
       if(objectId.equals(item.getId())){
         validObject = true;
       }
+    }
+
+    String itemName = null;
+    if(itemMap.get(objectId)!=null){
+       itemName = itemMap.get(objectId).getName();
     }
 
     if(validObject){
@@ -378,6 +384,8 @@ public class Game {
       }else{
         System.out.println("You bought the "+ itemMap.get(objectId).getName());
       }
+    }else if(!(itemName==null)&&(itemName.equals("slingshot")||itemName.equals("Lower Costume piece")||itemName.equals("dagger")||itemName.equals("slingshot pellet")||itemName.equals("jar of health"))){
+      System.out.println("You already bought " + itemMap.get(objectId).getName());    
     }else{
       System.out.println("Not a valid object ID! You can only buy a dagger, slingshot, pellet, healthJar, or lower-costume once.");
     }
@@ -404,9 +412,8 @@ public class Game {
       System.out.println("Room 203 is now open!");
       return false;
     }
-    //use key
     return false;
-    //use items from json file
+
   }
 
   private void playVideo(Command command) {
@@ -425,6 +432,10 @@ public class Game {
   }
 
   private boolean fight(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Fight what?");
+      return false;
+    }
     String enemyId = command.getSecondWord();
     enemy = characterMap.get(enemyId);
     if(enemy == null){
@@ -521,11 +532,7 @@ public class Game {
   return false;   
 }
 
-  private void wear(Command command) {
-    //put on the costume
-  }
-
-  private void listen(Command command) {
+  private void listen(Command command) { //listen to the kids for hints and information
     if(!command.hasSecondWord()){
       System.out.println("Listen to what?");
       return;
@@ -535,8 +542,6 @@ public class Game {
     x = x.toLowerCase();
     OpenableObject microwave = (OpenableObject) itemMap.get("microwave");
     Item kid = itemMap.get(x);
-    //listen to what one of the kids has to say
-    //print the dialogue/information from kids
 
     if(kid == null){
       System.out.println("What do you want to listen to? the floor?");
@@ -550,7 +555,7 @@ public class Game {
       }else if(x.equals("shohei")){
         if(shoheiUntied){
           System.out.println();
-          System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are disappearing from our school. You will find your next friend where you find robots.\"");
+          System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are disappearing from our school. You will find your next clue where you find robots.\"");
         }else{
           System.out.println("You cannot listen to shohei! Untie him first.");
         }
@@ -562,17 +567,17 @@ public class Game {
           System.out.println("You must fight and defeat Mr. Cardone in order to listen to Trevor!");
       }else if(x.equals("lucas")){
         System.out.println();
-        System.out.println("\"Hi, I'm Lucas. Thanks for saving me and my friends! You have to drop me and my friends in the lobby to win!\"");
-        if(!backpack.checkItem("Alan")){
+        System.out.println("\"Hi, I'm Lucas. Thanks for saving me and my friends! You have to put all of my friends in your backpack in order to win.\"");
+        if(!oneReturned&&!backpack.checkItem("Alan")){
           System.out.println("You haven't found Alan yet. Find him where we eat food!");
         }
-        if(!backpack.checkItem("Elly")){
+        if(!twoReturned&&!backpack.checkItem("Elly")){
           System.out.println("You haven't found Elly yet. She's in Room 203.");
         }
-        if(!backpack.checkItem("Shohei")){
+        if(!threeReturned&&!backpack.checkItem("Shohei")){
           System.out.println("You haven't found Shohei yet. He's in the Upper Theatre.");
         }
-        if(!backpack.checkItem("Trevor")){
+        if(!fourReturned&&!backpack.checkItem("Trevor")){
           System.out.println("You haven't found Trevor yet. He's in the Gym.");
         }
         if(!backpack.checkItem("Lucas")){
@@ -586,6 +591,10 @@ public class Game {
   }
 
   private void untie(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Untie what?");
+      return;
+    }
     String item = command.getSecondWord();
     item = item.toLowerCase();
     if(item.equals("shohei")){
@@ -801,13 +810,11 @@ public class Game {
     return false;
   }
 
-  private void takeItem(Command command) {
+  private void takeItem(Command command) { //take items (move between player inventory and room inventory)
     if(!command.hasSecondWord()){
       System.out.println("Take what?");
       return;
     }
-
-    //if the item is inside of an openable object, you must open the object inorder to access the item inside
 
     String x = command.getSecondWord();
     String item = "";
@@ -899,8 +906,9 @@ public class Game {
         playerHP += healthAdd;
       }else if((x.equals("alan")||x.equals("shohei")||x.equals("trevor")||x.equals("elly")||x.equals("lucas"))&&backpack.addItem(newItem)){
         if(x.equals("shohei")&&!shoheiUntied){
-          currentRoom.addItem(newItem);
           System.out.println("Shohei is still tied up! Untie shohei to take him.");
+          currentRoom.addItem(newItem);
+          backpack.removeItem(newItem.getName());
         }else{
           System.out.println("You took " + command.getSecondWord() + ". In order to win, you must drop each child with the drop command in the lobby.");
           System.out.println("You may also listen to the kid to gain more information!");

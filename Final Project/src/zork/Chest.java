@@ -2,7 +2,6 @@ package zork;
 
 public class Chest extends OpenableObject{
 
-    // private ArrayList<Item> contents = new ArrayList<>();
     private Inventory chestInv;
     private String contentDescription;
 

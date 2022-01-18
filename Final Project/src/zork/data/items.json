@@ -16,7 +16,7 @@
         "description": "This is a dagger. It does 20 damage",
         "weight": "1",
         "isOpenable": false,
-        "use": [{"canUse": true, "damage": 20}],
+        "use": [{"canUse": true, "damage": 25}],
         "startingRoom": "BVGshop",
         "isWeapon": true
     },
