@@ -769,18 +769,20 @@ public class Game {
   private boolean pickpocket(Command command) {
     //check to see if there is someone to pickpocket money from
     //take a random sum of money from a randomly generated person
-    double rand = (Math.random()*11);
+    double rand = (Math.random()*26);
     rand += 5.0;
     rand*=100;
     rand = (int)rand;
     rand = (Double)rand;
     rand/=100;
     peoplePickpocketed++;
-    double chance = peoplePickpocketed*3;
-    double counter = (int)(Math.random()*101);
+    double chance = peoplePickpocketed;
+    double counter = (int)(Math.random()*151);
     if(counter>chance){
       System.out.println("You pickpocketed $"+rand+" from a random person.");
       wallet+=rand;
+      wallet = round(wallet);
+      System.out.println("You now have $"+wallet+" in your wallet");
       return false;
     }else if(counter<=chance){
       return true;
