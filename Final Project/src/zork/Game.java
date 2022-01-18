@@ -228,7 +228,7 @@ public class Game {
   }
 
   private boolean checkWin() {
-    if(characterMap.get("MrDesLauriers").isDefeated()&&characterMap.get("MrCardone").isDefeated()&&characterMap.get("MrFederico").isDefeated()&&shoheiUntied&&oneReturned&&twoReturned&&threeReturned&&fourReturned&&fiveReturned){
+    if(characterMap.get("MrDesLauriers").isDefeated()&&characterMap.get("MrCardone").isDefeated()&&characterMap.get("MrFederico").isDefeated()&&oneReturned&&twoReturned&&threeReturned&&fourReturned&&fiveReturned){
       finished = true;
       return true;
     }else{
@@ -252,7 +252,7 @@ public class Game {
     System.out.println("Welcome to Zork!");
     System.out.println("Zork is a new, incredibly boring adventure game.");
     System.out.println("Type \"help\" if you need help.");
-    System.out.println("Pro Tip: Use \"info\" frquently to see availible exits and where they lead to!");
+    System.out.println("Pro Tip: Use \"info\" frequently to see available exits and where they lead to!");
     System.out.println();
     System.out.println(currentRoom.longDescription());
   }
@@ -568,19 +568,19 @@ public class Game {
       }else if(x.equals("lucas")){
         System.out.println();
         System.out.println("\"Hi, I'm Lucas. Thanks for saving me and my friends! You have to put all of my friends in your backpack in order to win.\"");
-        if(!oneReturned&&!backpack.checkItem("alan")){
+        if(!oneReturned&&!backpack.checkItem("Alan")){
           System.out.println("You haven't found Alan yet. Find him where we eat food!");
         }
-        if(!twoReturned&&!backpack.checkItem("elly")){
+        if(!twoReturned&&!backpack.checkItem("Elly")){
           System.out.println("You haven't found Elly yet. She's in Room 203.");
         }
-        if(!threeReturned&&!backpack.checkItem("shohei")){
+        if(!threeReturned&&!backpack.checkItem("Shohei")){
           System.out.println("You haven't found Shohei yet. He's in the Upper Theatre.");
         }
-        if(!fourReturned&&!backpack.checkItem("trevor")){
+        if(!fourReturned&&!backpack.checkItem("Trevor")){
           System.out.println("You haven't found Trevor yet. He's in the Gym.");
         }
-        if(!backpack.checkItem("lucas")){
+        if(!backpack.checkItem("Lucas")){
           System.out.println("Save me to win!");
         }
       }
