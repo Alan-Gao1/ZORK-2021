@@ -286,8 +286,6 @@ public class Game {
       untie(command);
     else if (commandWord.equals("listen"))
       listen(command);
-    else if (commandWord.equals("wear"))
-      wear(command);
     else if (commandWord.equals("fight"))
       return fight(command);
     else if (commandWord.equals("buy")){
@@ -313,14 +311,11 @@ public class Game {
         System.out.println("Open what?");
       else
         return openItem(command);
-      //might be true of false
     }else if (commandWord.equals("quit")) {
       if (command.hasSecondWord())
         System.out.println("Quit what?");
       else
-        return true; // signal that we want to quit
-    } else if (commandWord.equals("eat")) {
-      System.out.println("Do you really think you should be eating at a time like this?");
+        return true;
     }
     return false;
   }
@@ -413,9 +408,8 @@ public class Game {
       System.out.println("Room 203 is now open!");
       return false;
     }
-    //use key
     return false;
-    //use items from json file
+
   }
 
   private void playVideo(Command command) {
@@ -434,6 +428,10 @@ public class Game {
   }
 
   private boolean fight(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Fight what?");
+      return false;
+    }
     String enemyId = command.getSecondWord();
     enemy = characterMap.get(enemyId);
     if(enemy == null){
@@ -530,11 +528,7 @@ public class Game {
   return false;   
 }
 
-  private void wear(Command command) {
-    //put on the costume
-  }
-
-  private void listen(Command command) {
+  private void listen(Command command) { //listen to the kids for hints and information
     if(!command.hasSecondWord()){
       System.out.println("Listen to what?");
       return;
@@ -544,8 +538,6 @@ public class Game {
     x = x.toLowerCase();
     OpenableObject microwave = (OpenableObject) itemMap.get("microwave");
     Item kid = itemMap.get(x);
-    //listen to what one of the kids has to say
-    //print the dialogue/information from kids
 
     if(kid == null){
       System.out.println("What do you want to listen to? the floor?");
@@ -556,10 +548,10 @@ public class Game {
       }else if(x.equals("elly")){
         System.out.println();
         System.out.println("\"Hi friend, I'm Elly. I'm guessing Alan sent you here, but if you haven't found him, he is in the cafeteria. The truth is, something terrible has happened at this school. Go to the theatre to learn more and remember: choose number 2. Hopefully you'll find Shohei.\"");
-      }else if(x.equals("shohei") /**&& kid#3 is untied, theatre is unlocked*/){
+      }else if(x.equals("shohei")){
         System.out.println();
         System.out.println("\"Thanks for saving me, I'm Shohei. They will call you crazy, but it is true. Kids are disappearing from our school. You will find your next friend where you find robots.\"");
-      }else if(x.equals("trevor")){/**&& mr.cardone has been defeated, kid#4 has been freed*/
+      }else if(x.equals("trevor")){
         if(characterMap.get("MrCardone").isDefeated()){
           System.out.println();
           System.out.println("\"Thanks for your help, I'm Trevor. I believe my last friend is in Mr. Federico's office, please help him!\"");
@@ -591,6 +583,10 @@ public class Game {
   }
 
   private void untie(Command command) {
+    if(!command.hasSecondWord()){
+      System.out.println("Untie what?");
+      return;
+    }
     String item = command.getSecondWord();
     item = item.toLowerCase();
     if(item.equals("shohei")){
@@ -802,13 +798,11 @@ public class Game {
     return false;
   }
 
-  private void takeItem(Command command) {
+  private void takeItem(Command command) { //take items (move between player inventory and room inventory)
     if(!command.hasSecondWord()){
       System.out.println("Take what?");
       return;
     }
-
-    //if the item is inside of an openable object, you must open the object inorder to access the item inside
 
     String x = command.getSecondWord();
     String item = "";
